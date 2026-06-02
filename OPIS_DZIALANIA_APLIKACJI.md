@@ -31,5 +31,11 @@ Twoja klinika wewnątrzkonsolowa; miejsce gdzie wchodzisz podczas porannych diag
 - Tryb zgłaszania defektów (Bug Reporting): Gdy pojawia się gorsze samopoczucie (np. zgłoszenie "Mgła Mózgowa"), aplikacja wygeneruje spersonalizowaną podpowiedź co można zrobić aby poczuć się lepiej.
 - **Logi Systemowe (Historia):** U dołu zakładki zlokalizowany jest agregator wszystkich zalogowanych skanów wraz z przypisanymi im ostrzeżeniami czy błędami. Są one sortowane od najświeższego do najstarszego wpisu z przypisaną datą i pełnym profilem telemetrycznym. 
 
+## 5. STATS (System Analytics / Raporty)
+Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanych w głównym module **CRON**. 
+- **Wydajność: Ostatnie 7 dni:** Pasek wizualizacyjny prezentujący wyniki (score) z siedmiu ostatnich dni. Wyższe słupki oznaczają lepszą powtarzalność.
+- **Raport: Ostatnie 30 dni:** Szybki rzut oka na dłuższą perspektywę – średni wynik punktowy, stopień ciągłości działania w aplikacji ("Konsekwencja"), oraz średnia ocena odczuwalnej Energii (Mocy Procesora) i jakości Snu (Downtime).
+- **Rozbicie Procesów:** Szczegółowe widoki częstotliwości wykonywania przypisanych logów – ile razy na przestrzeni 30 dni wdrożony był Poranny Izotonik, czy systematycznie odcinano kofeinę, i jaka uśredniona ilość kroków widniała w logach telemetrycznych poszczególnego użytkownika.
+
 ---
 Zastosowane pojęcia informatyczne (IT) wspierają przyjazny i zrozumiały "gamifikacyjny" układ polecany dla inżynierów i specjalistów poszukujących motywacji we własnym języku specjalistycznym.

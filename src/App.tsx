@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Terminal, CheckSquare, List, Droplet, AlertOctagon } from 'lucide-react';
+import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3 } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import { DailyCron } from './components/DailyCron';
 import { Dependencies } from './components/Dependencies';
 import { RuntimeElixirs } from './components/RuntimeElixirs';
 import { IncidentResponse } from './components/IncidentResponse';
+import { Analytics } from './components/Analytics';
 
-type Tab = 'cron' | 'deps' | 'elixirs' | 'incident';
+type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('cron');
@@ -48,19 +49,20 @@ export default function App() {
           {activeTab === 'deps' && <Dependencies key="deps" />}
           {activeTab === 'elixirs' && <RuntimeElixirs key="elixirs" />}
           {activeTab === 'incident' && <IncidentResponse key="incident" />}
+          {activeTab === 'stats' && <Analytics key="stats" />}
         </AnimatePresence>
       </main>
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 w-full md:max-w-md md:left-1/2 md:-translate-x-1/2 bg-slate-950/90 backdrop-blur-lg border-t border-cyan-900/50 pb-safe z-50">
-        <div className="flex justify-around items-center h-16 px-2">
+        <div className="flex justify-around items-center h-16 px-1">
           
           <button 
             onClick={() => setActiveTab('cron')}
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'cron' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
           >
             <CheckSquare className={`w-5 h-5 ${activeTab === 'cron' ? 'fill-cyan-900/50' : ''}`} />
-            <span className="text-[10px] uppercase tracking-wider font-bold">Cron</span>
+            <span className="text-[9px] uppercase tracking-wider font-bold">Cron</span>
           </button>
 
           <button 
@@ -68,7 +70,7 @@ export default function App() {
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'deps' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
           >
             <List className={`w-5 h-5 ${activeTab === 'deps' ? 'fill-cyan-900/50' : ''}`} />
-            <span className="text-[10px] uppercase tracking-wider font-bold">Deps</span>
+            <span className="text-[9px] uppercase tracking-wider font-bold">Deps</span>
           </button>
 
           <button 
@@ -76,7 +78,7 @@ export default function App() {
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'elixirs' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
           >
             <Droplet className={`w-5 h-5 ${activeTab === 'elixirs' ? 'fill-cyan-900/50' : ''}`} />
-            <span className="text-[10px] uppercase tracking-wider font-bold">Elixirs</span>
+            <span className="text-[9px] uppercase tracking-wider font-bold">Elixirs</span>
           </button>
 
           <button 
@@ -84,7 +86,15 @@ export default function App() {
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'incident' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
           >
             <AlertOctagon className={`w-5 h-5 ${activeTab === 'incident' ? 'fill-cyan-900/50' : ''}`} />
-            <span className="text-[10px] uppercase tracking-wider font-bold">Incident</span>
+            <span className="text-[9px] uppercase tracking-wider font-bold">Incident</span>
+          </button>
+
+          <button 
+            onClick={() => setActiveTab('stats')}
+            className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'stats' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
+          >
+            <BarChart3 className={`w-5 h-5 ${activeTab === 'stats' ? 'fill-cyan-900/50' : ''}`} />
+            <span className="text-[9px] uppercase tracking-wider font-bold">Stats</span>
           </button>
 
         </div>

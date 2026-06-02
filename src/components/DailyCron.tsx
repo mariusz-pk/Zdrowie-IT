@@ -155,20 +155,20 @@ export function DailyCron() {
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.initScript} onChange={() => handleCheck('initScript')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
-          <span className={`text-sm transition-colors ${state.initScript ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>init_script <span className="text-xs text-slate-500">(Poranny Izotonik)</span></span>
+          <span className={`text-sm transition-colors ${state.initScript ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Poranny Izotonik <span className="text-xs text-slate-500">- init_script</span></span>
         </label>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.threadSleep} onChange={() => handleCheck('threadSleep')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
-          <span className={`text-sm transition-colors ${state.threadSleep ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Thread.sleep <span className="text-xs text-slate-500">(Kawa &gt;90 min)</span></span>
+          <span className={`text-sm transition-colors ${state.threadSleep ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Kawa &gt;90 min <span className="text-xs text-slate-500">- Thread.sleep</span></span>
         </label>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <label className={`flex items-center gap-3 flex-1 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
             <input type="checkbox" checked={state.neatProcess} onChange={() => handleCheck('neatProcess')} disabled={isReadOnly}
               className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
-            <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>NEAT_Process <span className="text-xs text-slate-500">(8 000 kroków)</span></span>
+            <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>8 000 kroków <span className="text-xs text-slate-500">- NEAT_Process</span></span>
           </label>
           <input 
             type="number" placeholder="Liczba kroków..."
@@ -181,7 +181,7 @@ export function DailyCron() {
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.shutdownSequence} onChange={() => handleCheck('shutdownSequence')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
-          <span className={`text-sm transition-colors ${state.shutdownSequence ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>shutdown_sequence <span className="text-xs text-slate-500">(Wieczorny Magnez)</span></span>
+          <span className={`text-sm transition-colors ${state.shutdownSequence ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Wieczorny Magnez <span className="text-xs text-slate-500">- shutdown_sequence</span></span>
         </label>
       </div>
 
@@ -191,7 +191,7 @@ export function DailyCron() {
         
         <div className="space-y-3">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-slate-300">Moc Procesora <span className="text-xs text-slate-500">(Energia)</span></span>
+            <span className="text-slate-300">Energia <span className="text-xs text-slate-500">- Moc procesora</span></span>
             <span className="text-cyan-400 font-bold">{state.energia} / 10</span>
           </div>
           <input 
@@ -204,7 +204,7 @@ export function DailyCron() {
 
         <div className="space-y-3">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-slate-300">Downtime <span className="text-xs text-slate-500">(Jakość Snu)</span></span>
+            <span className="text-slate-300">Jakość Snu <span className="text-xs text-slate-500">- Downtime</span></span>
             <span className="text-cyan-400 font-bold">{state.sen} / 10</span>
           </div>
           <input 

@@ -127,8 +127,8 @@ export function Analytics() {
         
         <div className="flex items-end justify-between h-40 pt-4 gap-1 sm:gap-2">
           {weekData.map((day, i) => (
-            <div key={day.date} className="flex flex-col items-center flex-1 group">
-              <div className="relative w-full flex justify-center h-full items-end bg-slate-900/50 rounded-t-sm border-b border-slate-700">
+            <div key={day.date} className="flex flex-col items-center flex-1 group h-full">
+              <div className="relative w-full flex justify-center h-full items-end bg-slate-900/50 rounded-t-sm border-b border-slate-700 pb-px">
                 <div 
                   className="w-full max-w-[24px] bg-cyan-500/80 rounded-t-sm transition-all duration-500 group-hover:bg-cyan-400 relative"
                   style={{ height: `${Math.max(day.score, 4)}%` }}

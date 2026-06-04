@@ -110,11 +110,72 @@ function ElixirCard({ recipe, isOpen, toggleOpen }: { recipe: ElixirRecipe; isOp
   );
 }
 
+function HydrationLogger() {
+  const [hydration, setHydration] = useState(0);
+  const [isAdding, setIsAdding] = useState(false);
+  const goal = 2500; // 2.5L goal
+
+  const addHydration = () => {
+    setIsAdding(true);
+    setHydration((prev) => Math.min(prev + 250, goal));
+    setTimeout(() => setIsAdding(false), 500);
+  };
+
+  const percentage = Math.min((hydration / goal) * 100, 100);
+
+  return (
+    <div className="cyber-panel p-4 mb-6">
+      <div className="flex justify-between items-end mb-3">
+        <div>
+          <h3 className="text-[10px] uppercase tracking-widest text-cyan-500 font-bold font-mono">Nawodnienie (Hydration)</h3>
+          <div className="text-2xl font-light text-slate-100 font-mono tracking-tight">
+            {hydration} <span className="text-sm text-slate-500">/ {goal} ml</span>
+          </div>
+        </div>
+        <button
+          onClick={addHydration}
+          className={`px-3 py-1.5 rounded bg-cyan-600/20 text-cyan-400 text-xs font-mono border border-cyan-800/50 hover:bg-cyan-600/30 transition-all flex items-center gap-1 ${
+            isAdding ? 'scale-95 bg-cyan-500/40 text-cyan-300' : ''
+          }`}
+        >
+          <motion.div
+            animate={isAdding ? { y: [-2, 0, 0] } : {}}
+            transition={{ duration: 0.3 }}
+          >
+            +250ml
+          </motion.div>
+        </button>
+      </div>
+
+      <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+        <motion.div 
+          className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400"
+          initial={{ width: 0 }}
+          animate={{ width: `${percentage}%` }}
+          transition={{ type: "spring", stiffness: 50, damping: 15 }}
+        />
+      </div>
+      
+      {hydration >= goal && (
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          className="mt-3 text-xs text-center text-emerald-400 font-mono"
+        >
+          Cel dzienny osiągnięty. System nawodniony.
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
 export function RuntimeElixirs() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
     <div className="space-y-4 pb-8 animate-in fade-in duration-300">
+      <HydrationLogger />
+      
       <p className="text-sm text-slate-400 mb-4 px-1">Załaduj jeden ze sprawdzonych eliksirów mocy, by zoptymalizować wydajność układu.</p>
       
       <div className="space-y-3">

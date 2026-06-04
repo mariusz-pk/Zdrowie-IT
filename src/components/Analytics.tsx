@@ -125,22 +125,33 @@ export function Analytics() {
           <h3 className="text-xs uppercase tracking-widest text-slate-300 font-mono">Wydajność: Ostatnie 7 dni</h3>
         </div>
         
-        <div className="flex items-end justify-between h-40 pt-4 gap-1 sm:gap-2">
-          {weekData.map((day, i) => (
-            <div key={day.date} className="flex flex-col items-center flex-1 group h-full">
-              <div className="relative w-full flex justify-center h-full items-end bg-slate-900/50 rounded-t-sm border-b border-slate-700 pb-px">
-                <div 
-                  className="w-full max-w-[24px] bg-cyan-500/80 rounded-t-sm transition-all duration-500 group-hover:bg-cyan-400 relative"
-                  style={{ height: `${Math.max(day.score, 4)}%` }}
-                >
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-cyan-300 font-mono bg-slate-950 px-1 py-0.5 rounded border border-cyan-900/50 z-10 pointer-events-none">
-                    {day.score}%
+        <div className="flex pt-4 h-48 gap-3 sm:gap-4 px-1">
+          {/* Y-Axis */}
+          <div className="flex flex-col justify-between text-[10px] text-slate-500 font-mono text-right pb-[22px]">
+            <span>100</span>
+            <span>75</span>
+            <span>50</span>
+            <span>25</span>
+            <span>0</span>
+          </div>
+          
+          <div className="flex items-end justify-between flex-1 gap-1 sm:gap-2 h-full">
+            {weekData.map((day, i) => (
+              <div key={day.date} className="flex flex-col items-center flex-1 group h-full">
+                <div className="relative w-full flex justify-center h-full items-end bg-slate-900/50 rounded-t-sm border-b border-slate-700 pb-px">
+                  <div 
+                    className="w-full max-w-[24px] bg-cyan-500/80 rounded-t-sm transition-all duration-500 group-hover:bg-cyan-400 relative"
+                    style={{ height: `${Math.max(day.score, 4)}%` }}
+                  >
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-cyan-300 font-mono bg-slate-950 px-1 py-0.5 rounded border border-cyan-900/50 z-10 pointer-events-none">
+                      {day.score}%
+                    </div>
                   </div>
                 </div>
+                <span className="text-[9px] uppercase mt-2 text-slate-500 font-mono">{day.dayName}</span>
               </div>
-              <span className="text-[9px] uppercase mt-2 text-slate-500 font-mono">{day.dayName}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

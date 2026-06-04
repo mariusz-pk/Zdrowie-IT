@@ -1,4 +1,4 @@
-const CACHE_NAME = 'konsola-ai-v1';
+const CACHE_NAME = 'wszystkokolwiek-v1';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();

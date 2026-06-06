@@ -7,6 +7,7 @@ type DailyCronState = {
   neatProcess: boolean;
   neatSteps: string;
   shutdownSequence: boolean;
+  vitaminD3K2: boolean;
   energia: number;
   sen: number;
 };
@@ -25,6 +26,7 @@ const DEFAULT_STATE: DailyCronState = {
   neatProcess: false,
   neatSteps: '',
   shutdownSequence: false,
+  vitaminD3K2: false,
   energia: 5,
   sen: 5,
 };
@@ -54,9 +56,11 @@ export function DailyCron() {
     if (state.threadSleep) checks++;
     if (state.neatProcess) checks++;
     if (state.shutdownSequence) checks++;
+    if (state.vitaminD3K2) checks++;
     
-    const energiaPoints = (state.energia / 10) * 30;
-    const senPoints = (state.sen / 10) * 30;
+    // (5 checks * 10 points = max 50 points) + 25 + 25 = 100
+    const energiaPoints = (state.energia / 10) * 25;
+    const senPoints = (state.sen / 10) * 25;
     
     const calculatedScore = Math.round((checks * 10) + energiaPoints + senPoints);
     setScore(Math.min(100, Math.max(0, calculatedScore)));
@@ -156,6 +160,12 @@ export function DailyCron() {
           <input type="checkbox" checked={state.initScript} onChange={() => handleCheck('initScript')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
           <span className={`text-sm transition-colors ${state.initScript ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Poranny Izotonik <span className="text-xs text-slate-500">- init_script</span></span>
+        </label>
+
+        <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
+          <input type="checkbox" checked={state.vitaminD3K2} onChange={() => handleCheck('vitaminD3K2')} disabled={isReadOnly}
+            className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <span className={`text-sm transition-colors ${state.vitaminD3K2 ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Witamina D3 + K2 MK7 (z tłuszczami) <span className="text-xs text-slate-500">- load_balancer</span></span>
         </label>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>

@@ -110,15 +110,40 @@ function ElixirCard({ recipe, isOpen, toggleOpen }: { recipe: ElixirRecipe; isOp
   );
 }
 
+type LogEntry = {
+  time: string;
+  amount: number;
+};
+
 function HydrationLogger() {
   const [hydration, setHydration] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
-  const goal = 2500; // 2.5L goal
+  const [history, setHistory] = useState<LogEntry[]>([]);
+  const [goal, setGoal] = useState(2500); // 2.5L goal
+  const [isEditingGoal, setIsEditingGoal] = useState(false);
+  const [tempGoal, setTempGoal] = useState(goal.toString());
 
   const addHydration = () => {
     setIsAdding(true);
+    
+    // Add to history
+    const now = new Date();
+    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    setHistory(prev => [{ time: timeStr, amount: 250 }, ...prev].slice(0, 5));
+    
     setHydration((prev) => Math.min(prev + 250, goal));
     setTimeout(() => setIsAdding(false), 500);
+  };
+
+  const saveGoal = () => {
+    const val = parseInt(tempGoal, 10);
+    if (!isNaN(val) && val > 0) {
+      setGoal(val);
+      setHydration(prev => Math.min(prev, val));
+    } else {
+      setTempGoal(goal.toString());
+    }
+    setIsEditingGoal(false);
   };
 
   const percentage = Math.min((hydration / goal) * 100, 100);
@@ -128,8 +153,30 @@ function HydrationLogger() {
       <div className="flex justify-between items-end mb-3">
         <div>
           <h3 className="text-[10px] uppercase tracking-widest text-cyan-500 font-bold font-mono">Nawodnienie (Hydration)</h3>
-          <div className="text-2xl font-light text-slate-100 font-mono tracking-tight">
-            {hydration} <span className="text-sm text-slate-500">/ {goal} ml</span>
+          <div className="text-2xl font-light text-slate-100 font-mono tracking-tight flex items-center gap-1">
+            <span>{hydration}</span>
+            <span className="text-sm text-slate-500 flex items-center">
+              / 
+              {isEditingGoal ? (
+                <input 
+                  type="number" 
+                  value={tempGoal}
+                  onChange={(e) => setTempGoal(e.target.value)}
+                  onBlur={saveGoal}
+                  onKeyDown={(e) => e.key === 'Enter' && saveGoal()}
+                  className="w-16 bg-slate-900 border border-cyan-800 text-cyan-300 ml-1 px-1 py-0.5 rounded outline-none text-xs"
+                  autoFocus
+                />
+              ) : (
+                <span 
+                  className="ml-1 cursor-pointer hover:text-cyan-400 transition-colors border-b border-dashed border-slate-600 pb-0.5"
+                  onClick={() => setIsEditingGoal(true)}
+                  title="Kliknij, aby zmienić cel"
+                >
+                  {goal} ml
+                </span>
+              )}
+            </span>
           </div>
         </div>
         <button
@@ -147,13 +194,18 @@ function HydrationLogger() {
         </button>
       </div>
 
-      <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-        <motion.div 
-          className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400"
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ type: "spring", stiffness: 50, damping: 15 }}
-        />
+      <div className="flex items-center gap-3">
+        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800 flex-1">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400"
+            initial={{ width: 0 }}
+            animate={{ width: `${percentage}%` }}
+            transition={{ type: "spring", stiffness: 50, damping: 15 }}
+          />
+        </div>
+        <div className="text-xs font-mono text-cyan-400 min-w-[36px] text-right">
+          {percentage.toFixed(0)}%
+        </div>
       </div>
       
       {hydration >= goal && (
@@ -164,6 +216,23 @@ function HydrationLogger() {
         >
           Cel dzienny osiągnięty. System nawodniony.
         </motion.div>
+      )}
+
+      {history.length > 0 && (
+        <div className="mt-4 pt-3 border-t border-slate-800">
+          <h4 className="text-[9px] uppercase tracking-widest text-slate-500 font-mono mb-2">Ostatnie logi (Last 5)</h4>
+          <div className="space-y-1.5">
+            {history.map((log, i) => (
+              <div key={i} className="flex justify-between items-center text-xs font-mono text-slate-400">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-500/50"></div>
+                  <span>{log.time}</span>
+                </div>
+                <span className="text-cyan-400">+{log.amount} ml</span>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

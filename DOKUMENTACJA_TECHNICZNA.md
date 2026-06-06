@@ -41,6 +41,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 - Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami w `data.ts`.
 
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
+- Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, edytowalnym celem dziennym oraz tablicą zapisującą historię dodawania ostatnich 5 wpisów nawodnienia.
 - Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`.
 - Zawiera wbudowany moduł zliczania czasu (klasa `BrewTimer`) wywołująca pętlę asynchroniczną przypisaną do instancji lokalnego okna (timer `setInterval(..., 1000)`). Po osiągnięciu 0:00 wywołuje natywne wibracje urządzenia (dzięki API `navigator.vibrate()`).
 

@@ -20,7 +20,7 @@ Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
 Katalog autorskich receptur napojów wspierających odporność i witalność przez całą dobę. 
 - **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia oraz szybkie logowanie spożytych płynów (w porcjach po 250 ml). Wskazuje procentowy progres oraz wyświetla historię 5 ostatnich operacji.
-- **Katalog Napojów:** Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow).
+- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow).
 - **Automatyzacja przygotowania:** Napoje, które muszą się parzyć określony czas, wyposażone są we wbudowany stoper odliczający dedykowany czas. Po upływie tego czasu na urządzeniach mobilnych dochodzi do krótkiej potrójnej wibracji sygnalizującej skończone parzenie.
 
 ## 4. INCIDENT (Raportowanie Zdarzeń Zdrowotnych / Telemetria)

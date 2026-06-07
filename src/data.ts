@@ -57,85 +57,83 @@ export const WEEKLY_PATCHES_DEPENDENCIES = [
 export interface ElixirRecipe {
   id: string;
   name: string;
-  timeMin: number;
+  timeMin?: number;
   ingredients: string[];
   instructions: string;
+  category: "PORANEK (Aktywacja i Rozruch)" | "W TRAKCIE DNIA (Wydajność i Skupienie)" | "WIECZÓR (Wyciszenie i Sen)" | "DOWOLNA PORA (Wsparcie Całodobowe)";
 }
 
 export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
   {
     id: "e1",
-    name: "Poranny Izotonik (Komórkowe Nawodnienie)",
+    name: "Poranny Izotonik",
     timeMin: 2,
     ingredients: [
       "200 ml ciepłej wody",
       "1 łyżka octu jabłkowego",
-      "1 łyżka kreatyny",
       "Szczypta soli kłodawskiej",
-      "Pół łyżeczki miodu",
-      "Wzmacniacz: 1 tabletka kurkuminy z piperyną (opcjonalnie)"
+      "Pół łyżeczki miodu"
     ],
-    instructions: "Wlej do naczynia 200 ml ciepłej wody. Dodaj ocet jabłkowy, kreatynę, sól kłodawska oraz miód. Całość dokładnie wymieszaj do rozpuszczenia się składników. Pobudza wydzielanie soków żołądkowych."
+    instructions: "Wlej do naczynia 200 ml ciepłej wody. Dodaj ocet jabłkowy, sól kłodawska oraz miód. Całość dokładnie wymieszaj do rozpuszczenia się składników. Pobudza wydzielanie soków żołądkowych i nawadnia komórki.",
+    category: "PORANEK (Aktywacja i Rozruch)"
   },
   {
     id: "e2",
-    name: "Poranny Napój Mocy",
-    timeMin: 2,
-    ingredients: [
-      "Ciepła woda",
-      "Ocet jabłkowy",
-      "Sól kłodawska",
-      "Kreatyna"
-    ],
-    instructions: "Połączenie octu i soli kłodawskiej idealnie nawadnia komórki od środka, przywracając równowagę elektrolitową po nocy. Kreatyna służy jako paliwo dla mózgu. Wymieszaj i wypij na czczo."
-  },
-  {
-    id: "e3",
-    name: "Eliksir z Pyłkiem Pszczelim (Multiwitamina)",
-    timeMin: 1, // Excludes night soaking
-    ingredients: [
-      "1 łyżeczka pyłku pszczelego (namoczony na noc)",
-      "200 ml letniej wody",
-      "Świeży sok z cytryny"
-    ],
-    instructions: "Wieczorem wsyp 1 łyżeczkę pyłku pszczelego do szklanki i zalej go 200 ml letniej wody. Zostaw w wodzie na całą noc, by rozbić otoczkę (zwiększa przyswajalność o 60-80%). Rano dodaj sok z cytryny i dokładnie wymieszaj."
-  },
-  {
-    id: "e4",
-    name: "Kawa (Złote Zasady / Kuloodporna)",
-    timeMin: 5,
-    ingredients: [
-      "Kawa przelewowa / czarna",
-      "Kardamon (do smaku i na kwasowość)",
-      "Opcjonalnie: masło klarowane i olej kokosowy"
-    ],
-    instructions: "Pij kawę zawsze minimum 90-120 minut po przebudzeniu, po posiłku. Aby zapobiec spadkom energii i złagodzić kwasowość dodaj kardamon, lub przygotuj wersję kuloodporną (blendując z masłem i olejem MTC/kokosowym)."
-  },
-  {
-    id: "e5",
-    name: "Złoty napój odpornościowy (Złote Przebudzenie)",
-    timeMin: 5,
-    ingredients: [
-      "200 ml ciepłej wody",
-      "Sok z 1 świeżej cytryny",
-      "1 łyżeczka miodu",
-      "Szczypta kurkumy",
-      "1-2 plasterki świeżego imbiru",
-      "Opcjonalnie: Szczypta czarnego pieprzu"
-    ],
-    instructions: "Do szklanki wciśnij świeży sok z cytryny, dodaj szczyptę kurkumy oraz plasterki imbiru. Zalej ciepłą wodą. Po przestygnięciu dodaj miodu, by zachował zdrowotne właściwości. Dokładnie wymieszaj i pij jako pancerz ochronny."
-  },
-  {
-    id: "e6",
     name: "Zielona Matcha Latte",
-    timeMin: 4,
+    timeMin: 2,
     ingredients: [
       "1 łyżeczka Matchy",
       "50 ml wody (temperatura ok. 80°C)",
-      "150 ml napoju roślinnego",
-      "Miód (opcjonalnie)"
+      "150 ml napoju roślinnego"
     ],
-    instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml sfermentowanej/wody term. 80°C. Dokładnie wymieszaj Matchę z wodą (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny, następnie dolej do bazy."
+    instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml wody term. 80°C. Dokładnie wymieszaj (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny, następnie dolej do bazy.",
+    category: "PORANEK (Aktywacja i Rozruch)"
+  },
+  {
+    id: "e3",
+    name: "Złoty Eliksir Imbirowy",
+    timeMin: 5,
+    ingredients: [
+      "200 ml ciepłej wody",
+      "Świeży imbir i kurkuma",
+      "Sok z cytryny",
+      "Miód"
+    ],
+    instructions: "Zalej starty imbir i kurkumę gorącą wodą. Po przestygnięciu dodaj sok z cytryny i rozpuść miód. Działa silnie przeciwzapalnie.",
+    category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
+  },
+  {
+    id: "e4",
+    name: "Szot z Zakwasu Buraka",
+    ingredients: [
+      "100 ml zakwasu z buraka"
+    ],
+    instructions: "Wypij jednorazowo szot z zakwasu. Dostarcza bakterii probiotycznych, odbudowuje mikrobiom i silnie dotlenia krew po długim siedzeniu.",
+    category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
+  },
+  {
+    id: "e5",
+    name: "Matcha-Mate Turbo",
+    timeMin: 3,
+    ingredients: [
+      "Matcha",
+      "Yerba Mate",
+      "Ciepła woda (ok. 75-80°C)"
+    ],
+    instructions: "Zaparz wspólnie matchę i yerba mate wodą o temp 75-80°C. Niezwykle mocne pobudzenie przeznaczone na największe kryzysy i spadki energii podczas pracy.",
+    category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
+  },
+  {
+    id: "e6",
+    name: "Kakao Adaptogenne",
+    timeMin: 3,
+    ingredients: [
+      "Surowe kakao",
+      "Adaptogeny (np. Ashwagandha, Soplówka jeżowata)",
+      "Napój roślinny"
+    ],
+    instructions: "Podgrzej napój roślinny. Rozmieszaj dokładnie kakao i adaptogeny. Pij w momentach silnego stresu psychologicznego, aby wyciszyć układ nerwowy bez utraty ostrości umysłu.",
+    category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
   },
   {
     id: "e7",
@@ -143,43 +141,46 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     timeMin: 5,
     ingredients: [
       "Mleko roślinne (1 kubek)",
-      "Kurkuma (szczypta/pół łyżeczki)",
+      "Kurkuma",
       "Cynamon i Kardamon",
       "5g oleju kokosowego",
       "Miód"
     ],
-    instructions: "Podgrzej mleko roślinne tak, aby było ciepłe (nie wrzące). Dodaj kurkumę, cynamon, kardamon oraz olej kokosowy i wymieszaj. Miód dodaj na samym końcu do ostudzonego napoju. Idealny rytuał wyciszający na wieczór."
+    instructions: "Podgrzej mleko roślinne tak, aby było ciepłe (nie wrzące). Dodaj kurkumę, cynamon, kardamon oraz olej kokosowy i wymieszaj. Miód dodaj na samym końcu do ostudzonego napoju. Idealny rytuał wyciszający na wieczór.",
+    category: "WIECZÓR (Wyciszenie i Sen)"
   },
   {
     id: "e8",
-    name: "Napar z szałwii i krwawnika",
-    timeMin: 10,
+    name: "Lemoniada Magnezowa",
     ingredients: [
-      "1-2 łyżki suszu szałwii lekarskiej",
-      "Susz krwawnika pospolitego (1 łyżka)",
-      "1 szklanka wrzątku"
+      "Woda",
+      "Sok z cytryny",
+      "Glicynian magnezu"
     ],
-    instructions: "Zalej przygotowany susz z szałwii i krwawnika szklanką wrzątku. Zaparzaj napar pod przykryciem, a po 10 minutach przed wypiciem dokładnie przecedź. Wspiera naczynia krwionośne i redukuje stany zapalne."
+    instructions: "Rozpuść magnez w letniej wodzie z odrobiną soku z cytryny. Potężnie stymuluje wyciszenie układu nerwowego, zapobiega skurczom i przygotowuje mózg na fazę snu głębokiego.",
+    category: "WIECZÓR (Wyciszenie i Sen)"
   },
   {
     id: "e9",
-    name: "Koktajl \"Czerwona Energia\"",
+    name: "Eliksir z Pyłku Pszczelego",
     timeMin: 5,
     ingredients: [
-      "Surowy sok z buraka (lub 1 mały burak)",
-      "Sok z cytryny",
-      "Świeży imbir (kawałek)"
+      "Pyłek pszczeli",
+      "Woda",
+      "Miód"
     ],
-    instructions: "Zmiksuj surowy sok z buraka z sokiem z cytryny i świeżym imbirem w blenderze do pożądanej konsystencji. To napój o potężnym doładowaniu tlenkiem azotu (poprawa wydolności) i witaminą C."
+    instructions: "Rozpuść zmielony lub namoczony dzień wcześniej pyłek pszczeli z odrobiną miodu w letniej wodzie. Potężny koktajl aminokwasów i minerałów. Naturalny zastrzyk witalności.",
+    category: "DOWOLNA PORA (Wsparcie Całodobowe)"
   },
   {
     id: "e10",
-    name: "Herbatki Funkcyjne (Lipa / Hibiskus / Melisa)",
-    timeMin: 10,
+    name: "Woda Chia Fresca",
     ingredients: [
-      "Wybrany susz: Lipa, Hibiskus lub Melisa",
-      "Wrzątek"
+      "Nasiona chia",
+      "Woda",
+      "Sok z cytryny"
     ],
-    instructions: "Zalej ulubiony susz gorącą wodą. Zaparzaj 10 minut. Wybierz lipę na przeziębienie i wypocenie, hibiskus na naturalne obniżenie ciśnienia krwi, a melisę na łagodzenie lekkiego stresu i spokojny sen wieczorem."
+    instructions: "Zalej nasiona chia wodą z sokiem z cytryny i odczekaj kilkanaście minut. Pij regularnie. Zapewnia długotrwałe, stabilne nawodnienie komórkowe.",
+    category: "DOWOLNA PORA (Wsparcie Całodobowe)"
   }
 ];

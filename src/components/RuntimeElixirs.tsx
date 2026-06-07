@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Timer as TimerIcon, Play, Square } from 'lucide-react';
+import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock } from 'lucide-react';
 import { RUNTIME_ELIXIRS, ElixirRecipe } from '../data';
 
 // Internal Timer Component
@@ -63,10 +63,12 @@ function ElixirCard({ recipe, isOpen, toggleOpen }: { recipe: ElixirRecipe; isOp
       >
         <div>
           <h3 className="font-medium text-cyan-50 pr-4">{recipe.name}</h3>
-          <div className="flex items-center gap-2 mt-1 text-slate-500 text-xs">
-            <TimerIcon className="w-3 h-3" />
-            <span>{recipe.timeMin} min</span>
-          </div>
+          {recipe.timeMin && (
+            <div className="flex items-center gap-2 mt-1 text-slate-500 text-xs">
+              <TimerIcon className="w-3 h-3" />
+              <span>{recipe.timeMin} min</span>
+            </div>
+          )}
         </div>
         <div className={`p-2 rounded-full border border-slate-700 bg-slate-900 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-cyan-900/30 border-cyan-800' : ''}`}>
           <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-cyan-400' : 'text-slate-400'}`} />
@@ -101,7 +103,7 @@ function ElixirCard({ recipe, isOpen, toggleOpen }: { recipe: ElixirRecipe; isOp
                 </p>
               </div>
 
-              {recipe.timeMin > 1 && <BrewTimer minutes={recipe.timeMin} />}
+              {recipe.timeMin && recipe.timeMin > 0 && <BrewTimer minutes={recipe.timeMin} />}
             </div>
           </motion.div>
         )}
@@ -241,21 +243,47 @@ function HydrationLogger() {
 export function RuntimeElixirs() {
   const [openId, setOpenId] = useState<string | null>(null);
 
+  const categories = [
+    { name: "PORANEK (Aktywacja i Rozruch)", icon: Sunrise, color: "text-amber-400", border: "border-amber-400/30" },
+    { name: "W TRAKCIE DNIA (Wydajność i Skupienie)", icon: Sun, color: "text-emerald-400", border: "border-emerald-400/30" },
+    { name: "WIECZÓR (Wyciszenie i Sen)", icon: Sunset, color: "text-rose-400", border: "border-rose-400/30" },
+    { name: "DOWOLNA PORA (Wsparcie Całodobowe)", icon: Clock, color: "text-cyan-400", border: "border-cyan-400/30" }
+  ];
+
   return (
-    <div className="space-y-4 pb-8 animate-in fade-in duration-300">
+    <div className="space-y-6 pb-8 animate-in fade-in duration-300">
       <HydrationLogger />
       
-      <p className="text-sm text-slate-400 mb-4 px-1">Załaduj jeden ze sprawdzonych eliksirów mocy, by zoptymalizować wydajność układu.</p>
-      
-      <div className="space-y-3">
-        {RUNTIME_ELIXIRS.map(recipe => (
-          <ElixirCard 
-            key={recipe.id} 
-            recipe={recipe} 
-            isOpen={openId === recipe.id} 
-            toggleOpen={() => setOpenId(openId === recipe.id ? null : recipe.id)} 
-          />
-        ))}
+      <div className="space-y-6 mt-6">
+        {categories.map((cat, idx) => {
+          const categoryElixirs = RUNTIME_ELIXIRS.filter(r => r.category === cat.name);
+          
+          if (categoryElixirs.length === 0) return null;
+          
+          const Icon = cat.icon;
+          
+          return (
+            <div key={idx} className="space-y-3">
+              <div className={`flex items-center gap-2 pb-2 border-b ${cat.border}`}>
+                <Icon className={`w-4 h-4 ${cat.color}`} />
+                <h2 className="text-[10px] uppercase tracking-widest font-bold text-slate-300">
+                  {cat.name}
+                </h2>
+              </div>
+              
+              <div className="space-y-3">
+                {categoryElixirs.map(recipe => (
+                  <ElixirCard 
+                    key={recipe.id} 
+                    recipe={recipe} 
+                    isOpen={openId === recipe.id} 
+                    toggleOpen={() => setOpenId(openId === recipe.id ? null : recipe.id)} 
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

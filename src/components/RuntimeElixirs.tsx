@@ -1,7 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock } from 'lucide-react';
+import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock, Droplets, Leaf, Coffee, TestTube, Zap, Brain, Moon, Battery, Hexagon, GlassWater } from 'lucide-react';
 import { RUNTIME_ELIXIRS, ElixirRecipe } from '../data';
+
+const iconMap: Record<string, React.ElementType> = {
+  "Poranny Izotonik": Droplets,
+  "Zielona Matcha Latte": Leaf,
+  "Złoty Eliksir Imbirowy": Coffee,
+  "Szot z Zakwasu Buraka": TestTube,
+  "Matcha-Mate Turbo": Zap,
+  "Kakao Adaptogenne": Brain,
+  "Złote Mleko Kardamonowe": Moon,
+  "Lemoniada Magnezowa": Battery,
+  "Eliksir z Pyłku Pszczelego": Hexagon,
+  "Woda Chia Fresca": GlassWater,
+};
 
 // Internal Timer Component
 function BrewTimer({ minutes }: { minutes: number }) {
@@ -54,21 +67,28 @@ function BrewTimer({ minutes }: { minutes: number }) {
   );
 }
 
-function ElixirCard({ recipe, isOpen, toggleOpen }: { recipe: ElixirRecipe; isOpen: boolean; toggleOpen: () => void }) {
+const ElixirCard: React.FC<{ recipe: ElixirRecipe; isOpen: boolean; toggleOpen: () => void }> = ({ recipe, isOpen, toggleOpen }) => {
+  const Icon = iconMap[recipe.name] || Coffee;
+
   return (
     <div className="cyber-panel overflow-hidden transition-all duration-300">
       <button 
         onClick={toggleOpen}
         className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition-colors"
       >
-        <div>
-          <h3 className="font-medium text-cyan-50 pr-4">{recipe.name}</h3>
-          {recipe.timeMin && (
-            <div className="flex items-center gap-2 mt-1 text-slate-500 text-xs">
-              <TimerIcon className="w-3 h-3" />
-              <span>{recipe.timeMin} min</span>
-            </div>
-          )}
+        <div className="flex items-center gap-4">
+          <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/50">
+            <Icon className="w-5 h-5 text-cyan-400" />
+          </div>
+          <div>
+            <h3 className="font-medium text-cyan-50 pr-4">{recipe.name}</h3>
+            {recipe.timeMin && (
+              <div className="flex items-center gap-2 mt-1 text-slate-500 text-xs">
+                <TimerIcon className="w-3 h-3" />
+                <span>{recipe.timeMin} min</span>
+              </div>
+            )}
+          </div>
         </div>
         <div className={`p-2 rounded-full border border-slate-700 bg-slate-900 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-cyan-900/30 border-cyan-800' : ''}`}>
           <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-cyan-400' : 'text-slate-400'}`} />

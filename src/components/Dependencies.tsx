@@ -1,7 +1,27 @@
 import { useState } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { ExternalLink, Check } from 'lucide-react';
+import { ExternalLink, Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube } from 'lucide-react';
 import { MONTHLY_CORE_DEPENDENCIES, WEEKLY_PATCHES_DEPENDENCIES } from '../data';
+
+const getDepIcon = (name: string) => {
+  const n = name.toLowerCase();
+  if (n.includes("kasza") || n.includes("gryczana") || n.includes("komosa")) return Sprout;
+  if (n.includes("siemię") || n.includes("chia") || n.includes("pestki") || n.includes("słonecznik")) return Activity;
+  if (n.includes("orzech") || n.includes("migdały")) return Circle;
+  if (n.includes("olej") || n.includes("oliwa")) return Droplet;
+  if (n.includes("pyłek") || n.includes("kakao") || n.includes("miód")) return Hexagon;
+  if (n.includes("szałwia") || n.includes("melisa") || n.includes("chmielu") || n.includes("krwawnik")) return Leaf;
+  if (n.includes("cynamon") || n.includes("kardamon") || n.includes("pieprz")) return Flame;
+  if (n.includes("sól") || n.includes("magnez") || n.includes("witamina") || n.includes("omega") || n.includes("kreatyna") || n.includes("adaptogeny") || n.includes("kurkumina") || n.includes("ocet")) return Pill;
+  if (n.includes("kawa") || n.includes("matcha")) return Coffee;
+  if (n.includes("brokuły") || n.includes("kalafior") || n.includes("kapusta") || n.includes("szpinak") || n.includes("jarmuż") || n.includes("rukola")) return Leaf;
+  if (n.includes("buraki") || n.includes("marchew") || n.includes("pietruszka") || n.includes("seler")) return Leaf;
+  if (n.includes("kiszonki")) return Package;
+  if (n.includes("borówka")) return Circle;
+  if (n.includes("cytryny") || n.includes("awokado")) return Circle;
+  if (n.includes("czosnek") || n.includes("cebula") || n.includes("imbir")) return Flame;
+  return Package;
+};
 
 export function Dependencies() {
   const [activeSubTab, setActiveSubTab] = useState<'monthly' | 'weekly'>('monthly');
@@ -45,6 +65,7 @@ export function Dependencies() {
       <div className="cyber-panel divide-y divide-cyan-900/30">
         {currentList.map(item => {
           const isAcquired = acquired.includes(item);
+          const Icon = getDepIcon(item);
           return (
             <div 
               key={item} 
@@ -55,9 +76,12 @@ export function Dependencies() {
                 <div className={`w-5 h-5 shrink-0 rounded flex items-center justify-center border transition-all duration-200 ${isAcquired ? 'bg-cyan-600 border-cyan-500 text-slate-950' : 'border-slate-600 bg-slate-900'}`}>
                   {isAcquired && <Check strokeWidth={3} className="w-3.5 h-3.5" />}
                 </div>
-                <span className={`text-sm md:text-base transition-all duration-200 ${isAcquired ? 'line-through text-slate-500' : 'text-slate-200'}`}>
-                  {item}
-                </span>
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-4 h-4 ${isAcquired ? 'text-slate-500' : 'text-cyan-400'}`} />
+                  <span className={`text-sm md:text-base transition-all duration-200 ${isAcquired ? 'line-through text-slate-500' : 'text-slate-200'}`}>
+                    {item}
+                  </span>
+                </div>
               </div>
               <button 
                 onClick={(e) => { e.stopPropagation(); /* external link logic */ }}

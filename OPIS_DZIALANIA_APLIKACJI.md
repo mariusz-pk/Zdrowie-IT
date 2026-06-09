@@ -1,6 +1,6 @@
-# OPIS DZIAŁANIA APLIKACJI: Mobile Health Console (v2.0)
+# OPIS DZIAŁANIA APLIKACJI: IT Health Console (v2.0)
 
-Aplikacja **Mobile Health Console (v2.0)** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
+Aplikacja **IT Health Console (v2.0)** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
 
 Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki).
 

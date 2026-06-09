@@ -30,7 +30,7 @@ export default function App() {
         </div>
         <div className="flex-1">
           <h1 className="text-sm font-bold tracking-widest text-slate-200 uppercase font-mono truncate">
-            Mobile Health <span className="text-cyan-500">v2.0</span>
+            IT Health <span className="text-cyan-500">v2.0</span>
           </h1>
           <div className="text-[10px] text-cyan-600 font-mono flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>

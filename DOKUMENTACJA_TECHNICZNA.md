@@ -1,4 +1,4 @@
-# DOKUMENTACJA TECHNICZNA: Mobile Health Console (v2.0)
+# DOKUMENTACJA TECHNICZNA: IT Health Console (v2.0)
 
 ## 1. Stos Technologiczny
 Aplikacja została zbudowana w oparciu o nowoczesny, frontendowy stos technologiczny:

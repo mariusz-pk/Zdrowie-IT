@@ -1,25 +1,58 @@
 import { useState } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { ExternalLink, Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube } from 'lucide-react';
+import { ExternalLink, Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube, Wheat, Nut, Dna, LeafyGreen, Carrot, Container, Grape, Citrus, Egg, Bean, Hop, Beaker, Diamond, Zap } from 'lucide-react';
 import { MONTHLY_CORE_DEPENDENCIES, WEEKLY_PATCHES_DEPENDENCIES } from '../data';
+
+const BlueberryIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="12" cy="7" r="4.5" />
+    <path d="M12 6.5v1" />
+    <path d="M11 7l2 0" />
+    <circle cx="7" cy="15" r="4.5" />
+    <path d="M7 14.5v1" />
+    <path d="M6 15l2 0" />
+    <circle cx="17" cy="15" r="4.5" />
+    <path d="M17 14.5v1" />
+    <path d="M16 15l2 0" />
+  </svg>
+);
 
 const getDepIcon = (name: string) => {
   const n = name.toLowerCase();
-  if (n.includes("kasza") || n.includes("gryczana") || n.includes("komosa")) return Sprout;
-  if (n.includes("siemię") || n.includes("chia") || n.includes("pestki") || n.includes("słonecznik")) return Activity;
-  if (n.includes("orzech") || n.includes("migdały")) return Circle;
+  
+  if (n.includes("kasza") || n.includes("gryczana") || n.includes("komosa")) return Wheat;
+  if (n.includes("siemię") || n.includes("chia") || n.includes("pestki") || n.includes("słonecznik")) return Sprout;
+  if (n.includes("orzech") || n.includes("migdały")) return Nut;
   if (n.includes("olej") || n.includes("oliwa")) return Droplet;
-  if (n.includes("pyłek") || n.includes("kakao") || n.includes("miód")) return Hexagon;
-  if (n.includes("szałwia") || n.includes("melisa") || n.includes("chmielu") || n.includes("krwawnik")) return Leaf;
+  if (n.includes("pyłek") || n.includes("miód")) return Hexagon;
+  if (n.includes("kakao")) return Bean;
+  if (n.includes("szałwia") || n.includes("melisa") || n.includes("krwawnik")) return Leaf;
+  if (n.includes("chmiel")) return Hop;
   if (n.includes("cynamon") || n.includes("kardamon") || n.includes("pieprz")) return Flame;
-  if (n.includes("sól") || n.includes("magnez") || n.includes("witamina") || n.includes("omega") || n.includes("kreatyna") || n.includes("adaptogeny") || n.includes("kurkumina") || n.includes("ocet")) return Pill;
+  if (n.includes("sól")) return Diamond;
+  if (n.includes("ocet")) return Beaker;
+  if (n.includes("magnez") || n.includes("witamina") || n.includes("omega") || n.includes("kreatyna") || n.includes("adaptogeny") || n.includes("kurkumina")) return Pill;
   if (n.includes("kawa") || n.includes("matcha")) return Coffee;
-  if (n.includes("brokuły") || n.includes("kalafior") || n.includes("kapusta") || n.includes("szpinak") || n.includes("jarmuż") || n.includes("rukola")) return Leaf;
-  if (n.includes("buraki") || n.includes("marchew") || n.includes("pietruszka") || n.includes("seler")) return Leaf;
-  if (n.includes("kiszonki")) return Package;
-  if (n.includes("borówka")) return Circle;
-  if (n.includes("cytryny") || n.includes("awokado")) return Circle;
-  if (n.includes("czosnek") || n.includes("cebula") || n.includes("imbir")) return Flame;
+  if (n.includes("brokuły") || n.includes("kalafior") || n.includes("kapusta") && !n.includes("kiszonki") || n.includes("szpinak") || n.includes("jarmuż") || n.includes("rukola")) return LeafyGreen;
+  if (n.includes("buraki") || n.includes("marchew") || n.includes("pietruszka") || n.includes("seler")) return Carrot;
+  if (n.includes("kiszonki") || n.includes("zakwas")) return Container;
+  if (n.includes("borówka")) return BlueberryIcon;
+  if (n.includes("cytryn")) return Citrus;
+  if (n.includes("awokado")) return Egg;
+  if (n.includes("czosnek") || n.includes("cebula")) return Circle;
+  if (n.includes("imbir") || n.includes("kurkuma")) return Zap;
+  
   return Package;
 };
 

@@ -51,7 +51,8 @@ export const WEEKLY_PATCHES_DEPENDENCIES = [
   "Awokado",
   "Czosnek",
   "Cebula",
-  "Świeży imbir / Świeża kurkuma"
+  "Świeży imbir",
+  "Świeża kurkuma"
 ];
 
 export interface ElixirRecipe {

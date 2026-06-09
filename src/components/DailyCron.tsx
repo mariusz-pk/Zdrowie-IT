@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon } from 'lucide-react';
 
 type DailyCronState = {
   initScript: boolean;
@@ -159,18 +160,21 @@ export function DailyCron() {
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.initScript} onChange={() => handleCheck('initScript')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <Droplets className={`w-4 h-4 shrink-0 transition-colors ${state.initScript ? 'text-cyan-400' : 'text-slate-500'}`} />
           <span className={`text-sm transition-colors ${state.initScript ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Poranny Izotonik <span className="text-xs text-slate-500">- init_script</span></span>
         </label>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.vitaminD3K2} onChange={() => handleCheck('vitaminD3K2')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <Pill className={`w-4 h-4 shrink-0 transition-colors ${state.vitaminD3K2 ? 'text-cyan-400' : 'text-slate-500'}`} />
           <span className={`text-sm transition-colors ${state.vitaminD3K2 ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Witamina D3 + K2 MK7 (z tłuszczami) <span className="text-xs text-slate-500">- load_balancer</span></span>
         </label>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.threadSleep} onChange={() => handleCheck('threadSleep')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <Coffee className={`w-4 h-4 shrink-0 transition-colors ${state.threadSleep ? 'text-cyan-400' : 'text-slate-500'}`} />
           <span className={`text-sm transition-colors ${state.threadSleep ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Kawa &gt;90 min <span className="text-xs text-slate-500">- Thread.sleep</span></span>
         </label>
 
@@ -178,6 +182,7 @@ export function DailyCron() {
           <label className={`flex items-center gap-3 flex-1 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
             <input type="checkbox" checked={state.neatProcess} onChange={() => handleCheck('neatProcess')} disabled={isReadOnly}
               className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+            <Activity className={`w-4 h-4 shrink-0 transition-colors ${state.neatProcess ? 'text-cyan-400' : 'text-slate-500'}`} />
             <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>8 000 kroków <span className="text-xs text-slate-500">- NEAT_Process</span></span>
           </label>
           <input 
@@ -191,6 +196,7 @@ export function DailyCron() {
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
           <input type="checkbox" checked={state.shutdownSequence} onChange={() => handleCheck('shutdownSequence')} disabled={isReadOnly}
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <Battery className={`w-4 h-4 shrink-0 transition-colors ${state.shutdownSequence ? 'text-cyan-400' : 'text-slate-500'}`} />
           <span className={`text-sm transition-colors ${state.shutdownSequence ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Wieczorny Magnez <span className="text-xs text-slate-500">- shutdown_sequence</span></span>
         </label>
       </div>
@@ -201,7 +207,7 @@ export function DailyCron() {
         
         <div className="space-y-3">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-slate-300">Energia <span className="text-xs text-slate-500">- Moc procesora</span></span>
+            <span className="text-slate-300 flex items-center gap-2"><Zap className="w-4 h-4 text-cyan-400" /> Energia <span className="text-xs text-slate-500">- Moc procesora</span></span>
             <span className="text-cyan-400 font-bold">{state.energia} / 10</span>
           </div>
           <input 
@@ -214,7 +220,7 @@ export function DailyCron() {
 
         <div className="space-y-3">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-slate-300">Jakość Snu <span className="text-xs text-slate-500">- Downtime</span></span>
+            <span className="text-slate-300 flex items-center gap-2"><Moon className="w-4 h-4 text-cyan-400" /> Jakość Snu <span className="text-xs text-slate-500">- Downtime</span></span>
             <span className="text-cyan-400 font-bold">{state.sen} / 10</span>
           </div>
           <input 

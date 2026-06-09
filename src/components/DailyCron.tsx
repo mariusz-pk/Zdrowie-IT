@@ -227,7 +227,7 @@ export function DailyCron() {
       </div>
 
       <div className="flex justify-center pt-6">
-        <img src="/WszystkokolwiekWFormie__Ciemne_Social.png" alt="WszystkokolwiekWFormie Logo" className="w-24 sm:w-28 object-contain rounded-xl drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]" />
+        <img src="/WszystkokolwiekWFormie__Ciemne_Social.png" alt="WszystkokolwiekWFormie Logo" className="w-16 sm:w-20 object-contain rounded-xl drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]" />
       </div>
 
     </div>

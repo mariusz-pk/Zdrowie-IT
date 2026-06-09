@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, type SVGProps } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { ExternalLink, Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube, Wheat, Nut, Dna, LeafyGreen, Carrot, Container, Grape, Citrus, Egg, Bean, Hop, Beaker, Diamond, Zap } from 'lucide-react';
 import { MONTHLY_CORE_DEPENDENCIES, WEEKLY_PATCHES_DEPENDENCIES } from '../data';
 
-const BlueberryIcon = (props: React.SVGProps<SVGSVGElement>) => (
+const BlueberryIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

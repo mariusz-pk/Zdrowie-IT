@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { BarChart3, TrendingUp, CalendarDays, Zap, Moon, Activity } from 'lucide-react';
 
@@ -41,21 +41,38 @@ const getLastNDays = (n: number) => {
 export function Analytics() {
   const [history] = useLocalStorage<Record<string, DailyCronState>>('v2_dailyCronHistory_v2', {});
 
-  const weekDates = useMemo(() => getLastNDays(7), []);
+  const chartDates = useMemo(() => {
+    const activeDates = Object.keys(history).sort();
+    const todayStr = getLastNDays(1)[0];
+    
+    if (activeDates.length === 0) {
+      return [todayStr];
+    }
+    
+    const firstDate = new Date(activeDates[0]);
+    const todayDate = new Date(todayStr); // Normalize to local midnight strings
+    
+    const diffTime = todayDate.getTime() - firstDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    
+    return getLastNDays(Math.max(1, diffDays));
+  }, [history]);
+
   const monthDates = useMemo(() => getLastNDays(30), []);
 
-  const weekData = useMemo(() => {
-    return weekDates.map(date => {
+  const chartData = useMemo(() => {
+    return chartDates.map(date => {
       const state = history[date];
       return {
         date,
         dayName: new Date(date).toLocaleDateString('pl-PL', { weekday: 'short' }),
+        dayStr: date.slice(8, 10) + '.' + date.slice(5, 7),
         score: calculateScore(state),
         energia: state?.energia || 0,
         sen: state?.sen || 0,
       };
     });
-  }, [history, weekDates]);
+  }, [history, chartDates]);
 
   const monthStats = useMemo(() => {
     const daysWithData = monthDates.filter(d => history[d]);
@@ -105,6 +122,14 @@ export function Analytics() {
     };
   }, [history, monthDates]);
 
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chartContainerRef.current) {
+      chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
+    }
+  }, [chartData]);
+
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-300">
       
@@ -118,16 +143,16 @@ export function Analytics() {
         </div>
       </div>
 
-      {/* Weekly Chart */}
+      {/* Performance Chart */}
       <div className="cyber-panel p-5 space-y-5">
         <div className="flex items-center gap-2 border-b border-cyan-900/50 pb-2">
           <CalendarDays className="w-4 h-4 text-cyan-500" />
-          <h3 className="text-xs uppercase tracking-widest text-slate-300 font-mono">Wydajność: Ostatnie 7 dni</h3>
+          <h3 className="text-xs uppercase tracking-widest text-slate-300 font-mono">Historia Wydajności</h3>
         </div>
         
-        <div className="flex pt-4 h-48 gap-3 sm:gap-4 px-1">
+        <div ref={chartContainerRef} className="flex pt-6 h-48 gap-2 sm:gap-4 px-1 overflow-x-auto">
           {/* Y-Axis */}
-          <div className="flex flex-col justify-between text-[10px] text-slate-500 font-mono text-right pb-[22px]">
+          <div className="sticky left-0 bg-[#0B101E]/90 backdrop-blur-sm z-10 pr-2 pl-1 flex flex-col justify-between text-[10px] text-slate-500 font-mono text-right pb-[22px] min-w-[28px]">
             <span>100</span>
             <span>75</span>
             <span>50</span>
@@ -135,20 +160,23 @@ export function Analytics() {
             <span>0</span>
           </div>
           
-          <div className="flex items-end justify-between flex-1 gap-1 sm:gap-2 h-full">
-            {weekData.map((day, i) => (
-              <div key={day.date} className="flex flex-col items-center flex-1 group h-full">
+          <div className="flex items-end flex-1 gap-2 sm:gap-4 h-full pb-1 min-w-max pr-4">
+            {chartData.map((day, i) => (
+              <div key={day.date} className="flex flex-col items-center group h-full w-8 sm:w-10 shrink-0">
                 <div className="relative w-full flex justify-center h-full items-end bg-slate-900/50 rounded-t-sm border-b border-slate-700 pb-px">
                   <div 
                     className="w-full max-w-[24px] bg-cyan-500/80 rounded-t-sm transition-all duration-500 group-hover:bg-cyan-400 relative"
                     style={{ height: `${Math.max(day.score, 4)}%` }}
                   >
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-cyan-300 font-mono bg-slate-950 px-1 py-0.5 rounded border border-cyan-900/50 z-10 pointer-events-none">
+                    <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-[9px] sm:text-[10px] text-cyan-300 font-mono font-bold">
                       {day.score}%
                     </div>
                   </div>
                 </div>
-                <span className="text-[9px] uppercase mt-2 text-slate-500 font-mono">{day.dayName}</span>
+                <div className="flex flex-col items-center mt-2">
+                  <span className="text-[9px] uppercase text-slate-400 font-mono truncate">{day.dayName}</span>
+                  <span className="text-[8px] text-slate-600 font-mono">{day.dayStr}</span>
+                </div>
               </div>
             ))}
           </div>

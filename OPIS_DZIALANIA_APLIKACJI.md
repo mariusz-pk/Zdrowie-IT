@@ -15,6 +15,7 @@ Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zazna
 ## 2. DEPS (Spiżarnia Biohackera / Lista Zależności)
 Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich dla mózgu mikroskładników odżywczych (materiały budulcowe m.in. dla hormonów i systemu nerwowego).
 - Wyświetla towary niezbędne do kupienia i zaopatrzenia swojej domowej apteczki. Lista podzielona jest na dwie kategorie: stałe produkty ogólne (miesięczne CORE) i produkty do regularnego odświeżania na dany tydzień (Weekly Patches).
+- Asortyment zyskuje zindywidualizowane ikony ułatwiające orientację w liście zakupów, kategoryzujące pozycje na precyzyjne typy produktów (w tym m.in. kiszonki, borówki czy wydzielone kąciki przypraw).
 - Udaną "instalację" zależnosci (zakup) odklikuje się symbolem 'ptaszka', co dodaje produkt do zasobów zaliczonych. Lista podlicza zdobyte pozycje ukazując stan wyposażenia "spiżarni".
 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
@@ -34,7 +35,7 @@ Twoja klinika wewnątrzkonsolowa; miejsce gdzie wchodzisz podczas porannych diag
 
 ## 5. STATS (System Analytics / Raporty)
 Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanych w głównym module **CRON**. 
-- **Wydajność: Ostatnie 7 dni:** Pasek wizualizacyjny prezentujący wyniki (score) z siedmiu ostatnich dni. Wyższe słupki oznaczają lepszą powtarzalność.
+- **Historia Wydajności:** Poziomy, przewijany panel wizualizacyjny prezentujący codzienne wyniki (score) punktacji generowane od momentu rozpoczęcia korzystania z aplikacji. Wyższe słupki z czytelnym wskaźnikiem procentowym oznaczają wyższą powtarzalność na przestrzeni historii danych.
 - **Raport: Ostatnie 30 dni:** Szybki rzut oka na dłuższą perspektywę – średni wynik punktowy, stopień ciągłości działania w aplikacji ("Konsekwencja"), oraz średnia ocena odczuwalnej Energii (Mocy Procesora) i jakości Snu (Downtime).
 - **Rozbicie Procesów:** Szczegółowe widoki częstotliwości wykonywania przypisanych logów – ile razy na przestrzeni 30 dni wdrożony był Poranny Izotonik, czy systematycznie odcinano kofeinę, i jaka uśredniona ilość kroków widniała w logach telemetrycznych poszczególnego użytkownika.
 

@@ -39,6 +39,8 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 ### 4.2 Dependencies (`/src/components/Dependencies.tsx`)
 - Posiada zagnieżdżoną logikę SubTabów (Monthly/Weekly).
 - Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami w `data.ts`.
+- Automatycznie dopasowuje tematyczne ikony z biblioteki `lucide-react` (oraz niestandardowe ikony SVG, np. dla borówki) na podstawie zawartości tekstu z podziałem na szczegółowe grupy (np. kiszonki, owoce, awokado, kurkuma, imbir).
+- Oddzielne rozpoznanie wystąpień dla imbiru i kurkumy w celu nadania osobnych wyróżnień wizualnych.
 
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
 - Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, edytowalnym celem dziennym oraz tablicą zapisującą historię dodawania ostatnich 5 wpisów nawodnienia.
@@ -55,7 +57,8 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.5 Analytics (`/src/components/Analytics.tsx`)
 - Widok agregacyjny (System Analytics) przetwarzający postępy zadeklarowane w module `DailyCron`.
-- Renderuje wykres słupkowy na podstawie ostatnich 7 dni (`weekData`), pokazujący stopień wykonania "System Stability Score".
+- Renderuje dynamiczny wykres słupkowy na podstawie pełnej historii (od pierwszego wprowadzonego dnia). Wykres generuje widok w oparciu o stan `chartData` i posiada funkcje przesuwania poziomego (scroll) oraz stałą (sticky) oś Y.
+- Wykres wyświetla na bieżąco uzyskane wyniki procentowe nad szczytami słupków dla lepszej czytelności.
 - Prezentuje "Raport: Ostatnie 30 dni", na który składają się średni zadeklarowany wynik score, odnotowana ciągłość używania (Consistency), średnia zgłoszona moc procesora (Energia) oraz downtime (Jakość Snu).
 - Rozbija poszczególne zadania procesów zadeklarowane na przestrzeni 30 dni - wyliczając procentowe wskaźniki pomyślności wykonania operacji, na przykład Poranny Izotonik czy ilość zarejestrowanych kroków średnio na dobę.
 

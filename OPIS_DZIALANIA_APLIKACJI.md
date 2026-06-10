@@ -41,8 +41,7 @@ Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanyc
 
 ## 6. CLOUD (Synchronizacja i kopie zapasowe)
 Narzędzie do bezpieczeństwa danych oraz integracji chmurowej:
-- **Synchronizacja Firestore:** Automatycznie powiązane z Twoim kontem Google, przechowuje Twoje zaznaczenia w CRON w przestrzeni chmurowej, co pozwala mieć dostęp do punktacji na innych urządzeniach.
-- **Kopia Zapasowa z Dyskiem Google:** Dodatkowa funkcja pozwalająca ręcznie wyeksportować pakiet danych (osiągnięcia w CRON oraz zakupione w DEPS produkty) bezpośrednio do Twojego Google Drive w postaci fizycznego pliku zapasowego. W każdej chwili możesz kliknąć "Import", aby przywrócić najświeższe dane z Twojego własnego dysku internetowego na aktualne urządzenie / osobną przeglądarkę.
+- **Synchronizacja Firebase (Firestore):** Automatycznie i w czasie rzeczywistym powiązane z Twoim kontem Google, przechowuje Twoje zaznaczenia w CRON w bezpiecznej przestrzeni chmurowej (Baza Danych Firestore). Nie posiada limitów współdzielenia (jak starsze wersje z Google Drive), dzięki czemu logowanie jest proste i postępy są odporne na utratę danych bez konieczności robienia manualnych zrzutów na Dysk.
 
 ---
 Zastosowane pojęcia informatyczne (IT) wspierają przyjazny i zrozumiały "gamifikacyjny" układ polecany dla inżynierów i specjalistów poszukujących motywacji we własnym języku specjalistycznym.

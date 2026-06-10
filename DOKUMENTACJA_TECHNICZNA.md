@@ -63,9 +63,9 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 - Rozbija poszczególne zadania procesów zadeklarowane na przestrzeni 30 dni - wyliczając procentowe wskaźniki pomyślności wykonania operacji, na przykład Poranny Izotonik czy ilość zarejestrowanych kroków średnio na dobę.
 
 ## 5. Integracje z Chmurą (Cloud)
-Moduł synchronizacji oraz eksportu, zlokalizowany w `/src/components/Integrations.tsx`.
-- **Firebase / Firestore:** Asynchroniczna synchronizacja parametrów historii `v2_dailyCronHistory_v2` w tle za pośrednictwem hooka `useCloudSync`.
-- **Google Drive API:** Rozszerzenie mechaniki pozwala za jednym kliknięciem wygenerować kopię zapasową połączonych danych (CRON History oraz DEPS) w postaci pliku JSON w Google Drive, a także pozwala ją pobrać / przywrócić z Drive API z powrotem do urządzeń klienta (`localStorage`).
+Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz procesy bazodanowe dystrybuowane poprzez `/src/hooks/useCloudSync.ts`.
+- **Firebase Auth:**  Zaimplementowano bezpieczne uwierzytelnianie użytkowników opierające się na dostawcy Google OAuth (Sign in with Google), likwidujące uciążliwe limity dostępu (np. limit 99 osób w testowym Google Drive API) i prośby o restrykcyjne dostępy dla uprawnień dyskowych.
+- **Firebase / Firestore:** Asynchroniczna i w pełni automatyczna synchronizacja parametrów historii `v2_dailyCronHistory_v2` w tle za pośrednictwem hooka `useCloudSync`. Tworzy połączony most z platformą Cloud ubezpieczając lokalny `localStorage`.
 
 ## 6. Standardy PWA i Integracja
 - Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Oznacza to, że zainstalowana na urządzeniu wymusza brak "chrome'u" okna przeglądarki.

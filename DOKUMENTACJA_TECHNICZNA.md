@@ -62,7 +62,12 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 - Prezentuje "Raport: Ostatnie 30 dni", na który składają się średni zadeklarowany wynik score, odnotowana ciągłość używania (Consistency), średnia zgłoszona moc procesora (Energia) oraz downtime (Jakość Snu).
 - Rozbija poszczególne zadania procesów zadeklarowane na przestrzeni 30 dni - wyliczając procentowe wskaźniki pomyślności wykonania operacji, na przykład Poranny Izotonik czy ilość zarejestrowanych kroków średnio na dobę.
 
-## 5. Standardy PWA i Integracja
+## 5. Integracje z Chmurą (Cloud)
+Moduł synchronizacji oraz eksportu, zlokalizowany w `/src/components/Integrations.tsx`.
+- **Firebase / Firestore:** Asynchroniczna synchronizacja parametrów historii `v2_dailyCronHistory_v2` w tle za pośrednictwem hooka `useCloudSync`.
+- **Google Drive API:** Rozszerzenie mechaniki pozwala za jednym kliknięciem wygenerować kopię zapasową połączonych danych (CRON History oraz DEPS) w postaci pliku JSON w Google Drive, a także pozwala ją pobrać / przywrócić z Drive API z powrotem do urządzeń klienta (`localStorage`).
+
+## 6. Standardy PWA i Integracja
 - Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Oznacza to, że zainstalowana na urządzeniu wymusza brak "chrome'u" okna przeglądarki.
 - Podłączony jest `sw.js` (Service Worker) zapewniający prostą strategię Network-First chroniącą przed całkowitym brakiem odpowiedzi podczas chwilowych utrat połączenia sieciowego.
 - Globalny `index.html` posiada tagi przystosowane do web-aplikacji nadające kompatybilność urządzeniom obsługiwanym przez iOS (`apple-mobile-web-app-capable`).

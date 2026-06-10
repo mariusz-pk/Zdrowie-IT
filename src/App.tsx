@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3 } from 'lucide-react';
+import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3, Share2 } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import { DailyCron } from './components/DailyCron';
 import { Dependencies } from './components/Dependencies';
 import { RuntimeElixirs } from './components/RuntimeElixirs';
 import { IncidentResponse } from './components/IncidentResponse';
 import { Analytics } from './components/Analytics';
+import { Integrations } from './components/Integrations';
 
-type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats';
+type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats' | 'integrations';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('cron');
@@ -50,6 +51,7 @@ export default function App() {
           {activeTab === 'elixirs' && <RuntimeElixirs key="elixirs" />}
           {activeTab === 'incident' && <IncidentResponse key="incident" />}
           {activeTab === 'stats' && <Analytics key="stats" />}
+          {activeTab === 'integrations' && <Integrations key="integrations" />}
         </AnimatePresence>
       </main>
 
@@ -95,6 +97,14 @@ export default function App() {
           >
             <BarChart3 className={`w-5 h-5 ${activeTab === 'stats' ? 'fill-cyan-900/50' : ''}`} />
             <span className="text-[9px] uppercase tracking-wider font-bold">Stats</span>
+          </button>
+
+          <button 
+            onClick={() => setActiveTab('integrations')}
+            className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'integrations' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
+          >
+            <Share2 className={`w-5 h-5 ${activeTab === 'integrations' ? 'fill-cyan-900/50' : ''}`} />
+            <span className="text-[9px] uppercase tracking-wider font-bold">Cloud</span>
           </button>
 
         </div>

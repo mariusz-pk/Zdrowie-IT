@@ -1,17 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon } from 'lucide-react';
-
-type DailyCronState = {
-  initScript: boolean;
-  threadSleep: boolean;
-  neatProcess: boolean;
-  neatSteps: string;
-  shutdownSequence: boolean;
-  vitaminD3K2: boolean;
-  energia: number;
-  sen: number;
-};
+import { useCloudSync, DailyCronState, DEFAULT_STATE } from '../hooks/useCloudSync';
+import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, CloudOff } from 'lucide-react';
 
 const getLocalDateString = () => {
   const d = new Date();
@@ -21,19 +11,10 @@ const getLocalDateString = () => {
   return `${year}-${month}-${day}`;
 };
 
-const DEFAULT_STATE: DailyCronState = {
-  initScript: false,
-  threadSleep: false,
-  neatProcess: false,
-  neatSteps: '',
-  shutdownSequence: false,
-  vitaminD3K2: false,
-  energia: 5,
-  sen: 5,
-};
-
 export function DailyCron() {
   const [history, setHistory] = useLocalStorage<Record<string, DailyCronState>>('v2_dailyCronHistory_v2', {});
+  const { user, isSyncing, syncUpdate } = useCloudSync(history, setHistory);
+
   const today = getLocalDateString();
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
@@ -69,13 +50,18 @@ export function DailyCron() {
 
   const updateState = (updates: Partial<DailyCronState>) => {
     if (isReadOnly) return;
+    
+    const newState = {
+      ...(history[today] || DEFAULT_STATE),
+      ...updates
+    };
+    
     setHistory(prev => ({
       ...prev,
-      [today]: {
-        ...(prev[today] || DEFAULT_STATE),
-        ...updates
-      }
+      [today]: newState
     }));
+
+    syncUpdate(today, newState);
   };
 
   const handleStepChange = (val: string) => {
@@ -106,7 +92,18 @@ export function DailyCron() {
       
       {/* Date Selector */}
       <div className="flex justify-between items-center cyber-panel p-3">
-        <label className="text-xs text-slate-400 uppercase tracking-widest font-mono">Wybierz dzień sprintu:</label>
+        <label className="text-xs text-slate-400 uppercase tracking-widest font-mono flex items-center gap-2">
+          Wybierz dzień sprintu:
+          {user ? (
+            isSyncing ? (
+              <Cloud className="w-3 h-3 text-cyan-400 animate-pulse" title="Synchronizowanie..." />
+            ) : (
+              <Cloud className="w-3 h-3 text-cyan-500" title="Zsynchronizowano z chmurą" />
+            )
+          ) : (
+            <CloudOff className="w-3 h-3 text-slate-500" title="Tryb lokalny (Offline)" />
+          )}
+        </label>
         <select 
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}

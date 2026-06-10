@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidCronDay(data) {
+      return data.keys().hasOnly([
+        'initScript', 'threadSleep', 'neatProcess', 'neatSteps',
+        'shutdownSequence', 'vitaminD3K2', 'energia', 'sen', 'userId', 'updatedAt'
+      ]) &&
+      data.userId == request.auth.uid &&
+      (data.get('initScript', false) is bool) &&
+      (data.get('threadSleep', false) is bool) &&
+      (data.get('neatProcess', false) is bool) &&
+      (data.get('neatSteps', '') is string) &&
+      (data.get('neatSteps', '').size() <= 20) &&
+      (data.get('shutdownSequence', false) is bool) &&
+      (data.get('vitaminD3K2', false) is bool) &&
+      (data.get('energia', 0) is number) &&
+      (data.get('sen', 0) is number) &&
+      (data.get('updatedAt', request.time) == request.time);
+    }
+
+    match /users/{userId}/cron_history/{date} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+  }
+}

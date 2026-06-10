@@ -39,5 +39,10 @@ Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanyc
 - **Raport: Ostatnie 30 dni:** Szybki rzut oka na dłuższą perspektywę – średni wynik punktowy, stopień ciągłości działania w aplikacji ("Konsekwencja"), oraz średnia ocena odczuwalnej Energii (Mocy Procesora) i jakości Snu (Downtime).
 - **Rozbicie Procesów:** Szczegółowe widoki częstotliwości wykonywania przypisanych logów – ile razy na przestrzeni 30 dni wdrożony był Poranny Izotonik, czy systematycznie odcinano kofeinę, i jaka uśredniona ilość kroków widniała w logach telemetrycznych poszczególnego użytkownika.
 
+## 6. CLOUD (Synchronizacja i kopie zapasowe)
+Narzędzie do bezpieczeństwa danych oraz integracji chmurowej:
+- **Synchronizacja Firestore:** Automatycznie powiązane z Twoim kontem Google, przechowuje Twoje zaznaczenia w CRON w przestrzeni chmurowej, co pozwala mieć dostęp do punktacji na innych urządzeniach.
+- **Kopia Zapasowa z Dyskiem Google:** Dodatkowa funkcja pozwalająca ręcznie wyeksportować pakiet danych (osiągnięcia w CRON oraz zakupione w DEPS produkty) bezpośrednio do Twojego Google Drive w postaci fizycznego pliku zapasowego. W każdej chwili możesz kliknąć "Import", aby przywrócić najświeższe dane z Twojego własnego dysku internetowego na aktualne urządzenie / osobną przeglądarkę.
+
 ---
 Zastosowane pojęcia informatyczne (IT) wspierają przyjazny i zrozumiały "gamifikacyjny" układ polecany dla inżynierów i specjalistów poszukujących motywacji we własnym języku specjalistycznym.

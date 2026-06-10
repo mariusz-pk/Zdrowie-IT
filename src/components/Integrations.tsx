@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Share2, Cloud, CheckCircle2, DownloadCloud } from 'lucide-react';
+import { Share2, Cloud, CheckCircle2 } from 'lucide-react';
 import { User } from 'firebase/auth';
-import { googleSignIn, initAuth, logout, getAccessToken } from '../lib/auth';
+import { googleSignIn, initAuth, logout } from '../lib/auth';
 
 export function Integrations() {
   const [needsAuth, setNeedsAuth] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -36,110 +35,6 @@ export function Integrations() {
       console.error('Login failed:', err);
     } finally {
       setIsLoggingIn(false);
-    }
-  };
-
-  const backupToDrive = async () => {
-    setIsLoading(true);
-    setMessage('');
-    try {
-      const token = await getAccessToken();
-      if (!token) throw new Error('No token');
-
-      // Create a combined JSON backup object
-      const historyData = localStorage.getItem('v2_dailyCronHistory_v2') || '{}';
-      const depsData = localStorage.getItem('v2_acquiredDeps') || '[]';
-      
-      const exportData = {
-        history: JSON.parse(historyData),
-        deps: JSON.parse(depsData)
-      };
-      
-      const metadata = {
-        name: `IT_Health_Backup_${new Date().toISOString().split('T')[0]}.json`,
-        mimeType: 'application/json'
-      };
-
-      const file = new Blob([JSON.stringify(exportData)], { type: 'application/json' });
-      const form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-      form.append('file', file);
-
-      const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: form
-      });
-
-      if (!res.ok) throw new Error('Failed to upload');
-      setMessage('Pomyślnie zapisano backup w Google Drive.');
-
-    } catch (e) {
-      console.error(e);
-      setMessage('Błąd zapisu w Google Drive.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const importFromDrive = async () => {
-    setIsLoading(true);
-    setMessage('');
-    try {
-      const token = await getAccessToken();
-      if (!token) throw new Error('No token');
-
-      // Wyszukaj najnowszy backup w Google Drive
-      const query = "name contains 'IT_Health_Backup_' and mimeType = 'application/json' and trashed = false";
-      const res = await fetch(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(query)}&orderBy=createdTime desc&pageSize=1`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      if (!res.ok) throw new Error('Nie udało się wyszukać plików');
-      const data = await res.json();
-      
-      if (!data.files || data.files.length === 0) {
-        setMessage('Nie znaleziono plików kopii zapasowej (IT_Health_Backup_*.json) w Google Drive.');
-        return;
-      }
-
-      const fileId = data.files[0].id;
-      
-      const fileRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      if (!fileRes.ok) throw new Error('Nie udało się pobrać pliku');
-      const fileData = await fileRes.json();
-      
-      // Handle both new combined format and old history-only format
-      if (fileData.history) {
-        localStorage.setItem('v2_dailyCronHistory_v2', JSON.stringify(fileData.history));
-      } else {
-        localStorage.setItem('v2_dailyCronHistory_v2', JSON.stringify(fileData));
-      }
-      
-      if (fileData.deps) {
-        localStorage.setItem('v2_acquiredDeps', JSON.stringify(fileData.deps));
-      }
-      
-      setMessage('Pomyślnie zaimportowano dane. Aplikacja zostanie odświeżona...');
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-
-    } catch (e) {
-      console.error(e);
-      setMessage('Błąd pobierania kopii z Google Drive.');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -173,34 +68,16 @@ export function Integrations() {
               </button>
             </div>
 
-            <div className="space-y-4">
-              <button
-                onClick={backupToDrive}
-                disabled={isLoading}
-                className="w-full flex items-center justify-between p-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 rounded-lg transition-all disabled:opacity-50"
-              >
-                <div className="flex items-center gap-3">
-                  <Cloud className="w-5 h-5 text-cyan-400" />
-                  <div className="text-left">
-                    <p className="text-sm font-bold text-slate-200">Kopia w Google Drive</p>
-                    <p className="text-xs text-slate-500">Zapisz historię na swoim Dysku</p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onClick={importFromDrive}
-                disabled={isLoading}
-                className="w-full flex items-center justify-between p-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-emerald-500/50 rounded-lg transition-all disabled:opacity-50"
-              >
-                <div className="flex items-center gap-3">
-                  <DownloadCloud className="w-5 h-5 text-emerald-400" />
-                  <div className="text-left">
-                    <p className="text-sm font-bold text-slate-200">Import z Google Drive</p>
-                    <p className="text-xs text-slate-500">Przywróć dane z ostatniej kopii</p>
-                  </div>
-                </div>
-              </button>
+            <div className="p-4 bg-emerald-900/20 border border-emerald-800/50 rounded-lg">
+               <div className="flex gap-3">
+                 <Cloud className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
+                 <div>
+                   <p className="text-sm text-emerald-100 font-bold mb-1">Backup automatyczny</p>
+                   <p className="text-xs text-emerald-400/80 leading-relaxed">
+                     Twoje postępy są automatycznie zabezpieczane na Twoim własnym koncie w chmurze bez limitów.
+                   </p>
+                 </div>
+               </div>
             </div>
 
             {message && (

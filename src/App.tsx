@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3, Settings } from 'lucide-react';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { DailyCron } from './components/DailyCron';
 import { Dependencies } from './components/Dependencies';
 import { RuntimeElixirs } from './components/RuntimeElixirs';
@@ -13,15 +13,16 @@ type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats' | 'integrations';
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('cron');
   const [isMounted, setIsMounted] = useState(false);
+  const [monitPendingCount, setMonitPendingCount] = useState<number>(0);
 
   // Prevent hydration mismatch for extensions/server
   useEffect(() => {
     setIsMounted(true);
     
-    // Notification Checker
+    // Notification & Monit Checker
     const checkNotifications = () => {
       const isEnabled = localStorage.getItem('v2_notif_enabled') === 'true';
-      if (!isEnabled || !('Notification' in window) || Notification.permission !== 'granted') return;
+      if (!isEnabled) return;
 
       const notifTime = localStorage.getItem('v2_notif_time'); // "18:00"
       if (!notifTime) return;
@@ -31,16 +32,45 @@ export default function App() {
       const currentMinute = now.getMinutes().toString().padStart(2, '0');
       const currentTimeStr = `${currentHour}:${currentMinute}`;
       
-      const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
       const todayDateStr = now.toISOString().split('T')[0]; // "YYYY-MM-DD"
 
-      if (currentTimeStr === notifTime && lastNotifiedDate !== todayDateStr) {
-        // Trigger notification
-        new Notification('IT Health: CRON Przypomnienie', {
-          body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania przed pójściem spać.',
-          icon: '/Ciemne-Social.jpg'
-        });
-        localStorage.setItem('v2_last_notified_date', todayDateStr);
+      // Monit check (only if past the time and we haven't snoozed it today)
+      if (currentTimeStr >= notifTime) {
+        const snoozedDate = localStorage.getItem('v2_monit_snoozed_date');
+        if (snoozedDate !== todayDateStr) {
+          const historyRaw = localStorage.getItem('v2_dailyCronHistory_v2');
+          let pendingTasks = 5; // Default if nothing is set
+          if (historyRaw) {
+            try {
+               const history = JSON.parse(historyRaw);
+               const todayState = history[todayDateStr];
+               if (todayState) {
+                 let checked = 0;
+                 if (todayState.initScript) checked++;
+                 if (todayState.threadSleep) checked++;
+                 if (todayState.neatProcess) checked++;
+                 if (todayState.shutdownSequence) checked++;
+                 if (todayState.vitaminD3K2) checked++;
+                 pendingTasks = 5 - checked;
+               }
+            } catch(e) {}
+          }
+          if (pendingTasks > 0) {
+            setMonitPendingCount(pendingTasks);
+          }
+        }
+      }
+
+      // Classic push notification
+      if ('Notification' in window && Notification.permission === 'granted') {
+        const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
+        if (currentTimeStr === notifTime && lastNotifiedDate !== todayDateStr) {
+          new Notification('IT Health: CRON Przypomnienie', {
+            body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania przed pójściem spać.',
+            icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
+          });
+          localStorage.setItem('v2_last_notified_date', todayDateStr);
+        }
       }
     };
 
@@ -51,6 +81,13 @@ export default function App() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const dismissMonit = () => {
+    const todayDateStr = new Date().toISOString().split('T')[0];
+    localStorage.setItem('v2_monit_snoozed_date', todayDateStr);
+    setMonitPendingCount(0);
+    setActiveTab('cron');
+  };
 
   if (!isMounted) return null;
 
@@ -142,6 +179,39 @@ export default function App() {
 
         </div>
       </nav>
+
+      {/* Monit Modal */}
+      <AnimatePresence>
+        {monitPendingCount > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex justify-center items-center p-4 bg-slate-950/80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="cyber-panel p-6 max-w-sm w-full space-y-4"
+            >
+              <div className="flex justify-center mb-2 animate-bounce">
+                <AlertOctagon className="w-12 h-12 text-cyan-400" />
+              </div>
+              <h2 className="text-xl font-bold tracking-tight text-slate-100 text-center uppercase font-mono">Dzień się kończy!</h2>
+              <p className="text-sm text-slate-300 text-center mb-6">
+                Masz <span className="font-bold text-cyan-400">{monitPendingCount}</span> {monitPendingCount === 1 ? 'niezaznaczone zadanie' : (monitPendingCount > 4 ? 'niezaznaczonych zadań' : 'niezaznaczone zadania')}. Zróbmy to teraz!
+              </p>
+              <button
+                onClick={dismissMonit}
+                className="w-full py-3 bg-cyan-900/50 hover:bg-cyan-800/50 border border-cyan-800 text-white rounded-lg font-bold font-mono tracking-widest uppercase transition-colors"
+              >
+                Przejdź do zadań
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

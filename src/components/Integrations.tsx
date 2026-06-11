@@ -14,6 +14,7 @@ export function Integrations() {
   const [notifTime, setNotifTime] = useState('18:00');
   const [permissionState, setPermissionState] = useState<NotificationPermission>('default');
   const [notifError, setNotifError] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     // Load notification settings
@@ -93,6 +94,13 @@ export function Integrations() {
     const val = e.target.value;
     setNotifTime(val);
     localStorage.setItem('v2_notif_time', val);
+    setIsSaved(false);
+  };
+
+  const handleSaveTime = () => {
+    localStorage.setItem('v2_notif_time', notifTime);
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 2000);
   };
 
   return (
@@ -138,16 +146,25 @@ export function Integrations() {
                 <div className="mt-4 pt-4 border-t border-slate-800/50 flex flex-col gap-2">
                    <div className="flex justify-between items-center">
                      <span className="text-xs text-slate-400 font-mono">Godzina przypomnienia:</span>
-                     <input 
-                       type="time" 
-                       value={notifTime}
-                       onChange={handleTimeChange}
-                       className="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-sm text-cyan-400 focus:outline-none focus:border-cyan-500 font-mono"
-                     />
+                     <div className="flex items-center gap-2">
+                       <input 
+                         type="time" 
+                         value={notifTime}
+                         onChange={handleTimeChange}
+                         className="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-sm text-cyan-400 focus:outline-none focus:border-cyan-500 font-mono"
+                       />
+                       <button
+                         onClick={handleSaveTime}
+                         className={`px-3 py-1 text-xs font-bold rounded transition-colors ${
+                           isSaved 
+                             ? 'bg-emerald-500/20 text-emerald-400' 
+                             : 'bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20'
+                         }`}
+                       >
+                         {isSaved ? 'Zapisano!' : 'Zapisz'}
+                       </button>
+                     </div>
                    </div>
-                   <p className="text-[10px] text-cyan-700 font-mono mt-1 text-right">
-                     * Działa, gdy aplikacja jest otwarta w urządzeniu / przeglądarce.
-                   </p>
                    {permissionState === 'denied' && (
                      <p className="text-xs text-red-400 mt-2">Brak uprawnień. Zmień ustawienia w przeglądarce.</p>
                    )}

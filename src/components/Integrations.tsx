@@ -13,6 +13,7 @@ export function Integrations() {
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifTime, setNotifTime] = useState('18:00');
   const [permissionState, setPermissionState] = useState<NotificationPermission>('default');
+  const [notifError, setNotifError] = useState('');
 
   useEffect(() => {
     // Load notification settings
@@ -57,9 +58,10 @@ export function Integrations() {
 
   const handleToggleNotif = async () => {
     try {
+      setNotifError('');
       if (!notifEnabled) {
         if (!('Notification' in window)) {
-          alert('Twoja przeglądarka nie obsługuje powiadomień.');
+          setNotifError('Twoja przeglądarka nie obsługuje powiadomień.');
           return;
         }
 
@@ -71,7 +73,7 @@ export function Integrations() {
         setPermissionState(perm);
         
         if (perm !== 'granted') {
-           alert('Zablokowano uprawnienia. Aby włączyć powiadomienia, otwórz aplikację w nowej karcie (ikona w prawym górnym rogu podglądu) i zaakceptuj uprawnienia w oknie przeglądarki.');
+           setNotifError('Zablokowano uprawnienia. Otwórz aplikację w nowej karcie i zaakceptuj powiadomienia.');
            return;
         }
 
@@ -83,7 +85,7 @@ export function Integrations() {
       }
     } catch (error) {
       console.error("Notif error:", error);
-      alert('Nie można zażądać uprawnień wewnątrz podglądu. Otwórz aplikację w nowej karcie (ikona w rogu edytora) i spróbuj ponownie.');
+      setNotifError('Przeglądarka zablokowała akcję. Otwórz aplikację w nowej karcie (ikona w rogu) i spróbuj ponownie.');
     }
   };
 
@@ -124,6 +126,14 @@ export function Integrations() {
                  </button>
               </div>
               
+              {notifError && (
+                 <div className="mt-2 mb-2 p-3 bg-red-950/50 border border-red-900/50 rounded flex items-start gap-2">
+                   <div className="text-red-400 text-[11px] leading-relaxed">
+                     <span className="font-bold">Uwaga:</span> {notifError}
+                   </div>
+                 </div>
+              )}
+
               {notifEnabled && (
                 <div className="mt-4 pt-4 border-t border-slate-800/50 flex flex-col gap-2">
                    <div className="flex justify-between items-center">

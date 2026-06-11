@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { Share2, Cloud, CheckCircle2, Bell, BellOff } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { googleSignIn, initAuth, logout } from '../lib/auth';
@@ -56,28 +56,38 @@ export function Integrations() {
   };
 
   const handleToggleNotif = async () => {
-    if (!notifEnabled) {
-      if (!('Notification' in window)) {
-        alert('Twoja przeglądarka nie obsługuje powiadomień.');
-        return;
-      }
-      if (Notification.permission !== 'granted') {
-        const perm = await Notification.requestPermission();
-        setPermissionState(perm);
+    try {
+      if (!notifEnabled) {
+        if (!('Notification' in window)) {
+          alert('Twoja przeglądarka nie obsługuje powiadomień.');
+          return;
+        }
+
+        let perm = Notification.permission;
         if (perm !== 'granted') {
-           alert('Brak uprawnień do wyświetlania powiadomień.');
+          perm = await Notification.requestPermission();
+        }
+        
+        setPermissionState(perm);
+        
+        if (perm !== 'granted') {
+           alert('Zablokowano uprawnienia. Aby włączyć powiadomienia, otwórz aplikację w nowej karcie (ikona w prawym górnym rogu podglądu) i zaakceptuj uprawnienia w oknie przeglądarki.');
            return;
         }
+
+        setNotifEnabled(true);
+        localStorage.setItem('v2_notif_enabled', 'true');
+      } else {
+        setNotifEnabled(false);
+        localStorage.setItem('v2_notif_enabled', 'false');
       }
-      setNotifEnabled(true);
-      localStorage.setItem('v2_notif_enabled', 'true');
-    } else {
-      setNotifEnabled(false);
-      localStorage.setItem('v2_notif_enabled', 'false');
+    } catch (error) {
+      console.error("Notif error:", error);
+      alert('Nie można zażądać uprawnień wewnątrz podglądu. Otwórz aplikację w nowej karcie (ikona w rogu edytora) i spróbuj ponownie.');
     }
   };
 
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setNotifTime(val);
     localStorage.setItem('v2_notif_time', val);
@@ -86,8 +96,8 @@ export function Integrations() {
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-300">
       <div className="flex flex-col mb-4">
-        <h2 className="text-xl font-bold tracking-tight text-slate-200">Cloud & Opcje</h2>
-        <p className="text-sm text-slate-500 font-mono mt-1">Ustawienia, kopie zapasowe i przypomnienia</p>
+        <h2 className="text-xl font-bold tracking-tight text-slate-200">Cloud & Alerts</h2>
+        <p className="text-sm text-slate-500 font-mono mt-1">Przypomnienia i kopie zapasowe</p>
       </div>
 
       <div className="cyber-panel p-5 space-y-6">

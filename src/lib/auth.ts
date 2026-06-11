@@ -43,6 +43,10 @@ export const googleSignIn = async (): Promise<{ user: User; accessToken: string 
     cachedAccessToken = credential.accessToken;
     return { user: result.user, accessToken: cachedAccessToken };
   } catch (error: any) {
+    if (error.code === 'auth/popup-closed-by-user') {
+      console.log('Logowanie wstrzymane (okno zamknięte przez użytkownika).');
+      return null;
+    }
     console.error('Sign in error:', error);
     throw error;
   } finally {

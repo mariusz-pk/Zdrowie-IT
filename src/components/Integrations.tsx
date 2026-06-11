@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Share2, Cloud, CheckCircle2 } from 'lucide-react';
+import { Share2, Cloud, CheckCircle2, Bell, BellOff } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { googleSignIn, initAuth, logout } from '../lib/auth';
 
@@ -8,6 +8,23 @@ export function Integrations() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [message, setMessage] = useState('');
+
+  // Notifications state
+  const [notifEnabled, setNotifEnabled] = useState(false);
+  const [notifTime, setNotifTime] = useState('18:00');
+  const [permissionState, setPermissionState] = useState<NotificationPermission>('default');
+
+  useEffect(() => {
+    // Load notification settings
+    const savedEnabled = localStorage.getItem('v2_notif_enabled') === 'true';
+    const savedTime = localStorage.getItem('v2_notif_time') || '18:00';
+    setNotifEnabled(savedEnabled);
+    setNotifTime(savedTime);
+    
+    if ('Notification' in window) {
+      setPermissionState(Notification.permission);
+    }
+  }, []);
 
   useEffect(() => {
     const unsub = initAuth(
@@ -38,14 +55,89 @@ export function Integrations() {
     }
   };
 
+  const handleToggleNotif = async () => {
+    if (!notifEnabled) {
+      if (!('Notification' in window)) {
+        alert('Twoja przeglądarka nie obsługuje powiadomień.');
+        return;
+      }
+      if (Notification.permission !== 'granted') {
+        const perm = await Notification.requestPermission();
+        setPermissionState(perm);
+        if (perm !== 'granted') {
+           alert('Brak uprawnień do wyświetlania powiadomień.');
+           return;
+        }
+      }
+      setNotifEnabled(true);
+      localStorage.setItem('v2_notif_enabled', 'true');
+    } else {
+      setNotifEnabled(false);
+      localStorage.setItem('v2_notif_enabled', 'false');
+    }
+  };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setNotifTime(val);
+    localStorage.setItem('v2_notif_time', val);
+  };
+
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-300">
       <div className="flex flex-col mb-4">
-        <h2 className="text-xl font-bold tracking-tight text-slate-200">Cloud</h2>
-        <p className="text-sm text-slate-500 font-mono mt-1">Synchronizacja i kopie zapasowe</p>
+        <h2 className="text-xl font-bold tracking-tight text-slate-200">Cloud & Opcje</h2>
+        <p className="text-sm text-slate-500 font-mono mt-1">Ustawienia, kopie zapasowe i przypomnienia</p>
       </div>
 
-      <div className="cyber-panel p-5 space-y-5">
+      <div className="cyber-panel p-5 space-y-6">
+        {/* Sekcja Powiadomień */}
+        <div>
+           <h3 className="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase mb-3 border-b border-slate-800 pb-2">Przypomnienia (CRON)</h3>
+           <div className="p-4 bg-slate-900/50 border border-slate-800 rounded-lg">
+              <div className="flex items-center justify-between gap-3 mb-4">
+                 <div className="flex gap-3">
+                   {notifEnabled ? <Bell className="w-5 h-5 text-cyan-400 mt-0.5 shrink-0" /> : <BellOff className="w-5 h-5 text-slate-600 mt-0.5 shrink-0" />}
+                   <div>
+                     <p className="text-sm font-bold text-slate-200 mb-1">Powiadomienie o zadaniach</p>
+                     <p className="text-xs text-slate-500 leading-relaxed max-w-[200px]">
+                       Przypomni Ci o odznaczeniu boxów w CRON o wybranej godzinie.
+                     </p>
+                   </div>
+                 </div>
+                 
+                 <button
+                    onClick={handleToggleNotif}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${notifEnabled ? 'bg-cyan-500' : 'bg-slate-700'}`}
+                 >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notifEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                 </button>
+              </div>
+              
+              {notifEnabled && (
+                <div className="mt-4 pt-4 border-t border-slate-800/50 flex flex-col gap-2">
+                   <div className="flex justify-between items-center">
+                     <span className="text-xs text-slate-400 font-mono">Godzina przypomnienia:</span>
+                     <input 
+                       type="time" 
+                       value={notifTime}
+                       onChange={handleTimeChange}
+                       className="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-sm text-cyan-400 focus:outline-none focus:border-cyan-500 font-mono"
+                     />
+                   </div>
+                   <p className="text-[10px] text-cyan-700 font-mono mt-1 text-right">
+                     * Działa, gdy aplikacja jest otwarta w urządzeniu / przeglądarce.
+                   </p>
+                   {permissionState === 'denied' && (
+                     <p className="text-xs text-red-400 mt-2">Brak uprawnień. Zmień ustawienia w przeglądarce.</p>
+                   )}
+                </div>
+              )}
+           </div>
+        </div>
+
+        <div>
+        <h3 className="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase mb-3 border-b border-slate-800 pb-2">Synchronizacja z chmurą</h3>
         {!needsAuth && user ? (
           <div>
             <div className="flex items-center gap-3 mb-6 p-4 bg-slate-900/50 rounded-lg border border-slate-800">
@@ -111,6 +203,7 @@ export function Integrations() {
             </button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

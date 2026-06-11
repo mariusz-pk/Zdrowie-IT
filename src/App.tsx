@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3, Share2 } from 'lucide-react';
+import { Terminal, CheckSquare, List, Droplet, AlertOctagon, BarChart3, Settings } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import { DailyCron } from './components/DailyCron';
 import { Dependencies } from './components/Dependencies';
@@ -17,6 +17,39 @@ export default function App() {
   // Prevent hydration mismatch for extensions/server
   useEffect(() => {
     setIsMounted(true);
+    
+    // Notification Checker
+    const checkNotifications = () => {
+      const isEnabled = localStorage.getItem('v2_notif_enabled') === 'true';
+      if (!isEnabled || !('Notification' in window) || Notification.permission !== 'granted') return;
+
+      const notifTime = localStorage.getItem('v2_notif_time'); // "18:00"
+      if (!notifTime) return;
+
+      const now = new Date();
+      const currentHour = now.getHours().toString().padStart(2, '0');
+      const currentMinute = now.getMinutes().toString().padStart(2, '0');
+      const currentTimeStr = `${currentHour}:${currentMinute}`;
+      
+      const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
+      const todayDateStr = now.toISOString().split('T')[0]; // "YYYY-MM-DD"
+
+      if (currentTimeStr === notifTime && lastNotifiedDate !== todayDateStr) {
+        // Trigger notification
+        new Notification('IT Health: CRON Przypomnienie', {
+          body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania przed pójściem spać.',
+          icon: '/Ciemne-Social.jpg'
+        });
+        localStorage.setItem('v2_last_notified_date', todayDateStr);
+      }
+    };
+
+    // Check every minute
+    const interval = setInterval(checkNotifications, 60000);
+    // Initial check just in case we opened app exactly at the right minute
+    checkNotifications();
+
+    return () => clearInterval(interval);
   }, []);
 
   if (!isMounted) return null;
@@ -103,8 +136,8 @@ export default function App() {
             onClick={() => setActiveTab('integrations')}
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'integrations' ? 'text-cyan-400' : 'text-slate-500 hover:text-slate-400'}`}
           >
-            <Share2 className={`w-5 h-5 ${activeTab === 'integrations' ? 'fill-cyan-900/50' : ''}`} />
-            <span className="text-[9px] uppercase tracking-wider font-bold">Cloud</span>
+            <Settings className={`w-5 h-5 ${activeTab === 'integrations' ? 'fill-cyan-900/50' : ''}`} />
+            <span className="text-[9px] uppercase tracking-wider font-bold">Cloud & Alerts</span>
           </button>
 
         </div>

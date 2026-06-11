@@ -19,6 +19,14 @@ export default function App() {
   useEffect(() => {
     setIsMounted(true);
     
+    const getLocalDateString = () => {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
     // Notification & Monit Checker
     const checkNotifications = () => {
       const isEnabled = localStorage.getItem('v2_notif_enabled') === 'true';
@@ -32,7 +40,7 @@ export default function App() {
       const currentMinute = now.getMinutes().toString().padStart(2, '0');
       const currentTimeStr = `${currentHour}:${currentMinute}`;
       
-      const todayDateStr = now.toISOString().split('T')[0]; // "YYYY-MM-DD"
+      const todayDateStr = getLocalDateString();
 
       // Monit check (only if past the time and we haven't snoozed it today)
       if (currentTimeStr >= notifTime) {
@@ -64,9 +72,11 @@ export default function App() {
       // Classic push notification
       if ('Notification' in window && Notification.permission === 'granted') {
         const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
+        // Only trigger native notification EXACTLY on the minute, or if we just opened the app and it's heavily overdue (optional)? 
+        // No, let's keep it to exact minute to avoid spamming if they just open the app.
         if (currentTimeStr === notifTime && lastNotifiedDate !== todayDateStr) {
           new Notification('IT Health: CRON Przypomnienie', {
-            body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania przed pójściem spać.',
+            body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
             icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
           });
           localStorage.setItem('v2_last_notified_date', todayDateStr);
@@ -83,7 +93,12 @@ export default function App() {
   }, []);
 
   const dismissMonit = () => {
-    const todayDateStr = new Date().toISOString().split('T')[0];
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const todayDateStr = `${year}-${month}-${day}`;
+    
     localStorage.setItem('v2_monit_snoozed_date', todayDateStr);
     setMonitPendingCount(0);
     setActiveTab('cron');
@@ -198,9 +213,11 @@ export default function App() {
               <div className="flex justify-center mb-2 animate-bounce">
                 <AlertOctagon className="w-12 h-12 text-cyan-400" />
               </div>
-              <h2 className="text-xl font-bold tracking-tight text-slate-100 text-center uppercase font-mono">Dzień się kończy!</h2>
+              <h2 className="text-xl font-bold tracking-tight text-slate-100 text-center uppercase font-mono">
+                {new Date().getHours() < 18 ? 'Czas na zadania!' : 'Dzień się kończy!'}
+              </h2>
               <p className="text-sm text-slate-300 text-center mb-6">
-                Masz <span className="font-bold text-cyan-400">{monitPendingCount}</span> {monitPendingCount === 1 ? 'niezaznaczone zadanie' : (monitPendingCount > 4 ? 'niezaznaczonych zadań' : 'niezaznaczone zadania')}. Zróbmy to teraz!
+                Masz <span className="font-bold text-cyan-400">{monitPendingCount}</span> {monitPendingCount === 1 ? 'niezaznaczone zadanie' : (monitPendingCount > 4 ? 'niezaznaczonych zadań' : 'niezaznaczone zadania')}. Sprawdź swoją listę!
               </p>
               <button
                 onClick={dismissMonit}

@@ -74,11 +74,26 @@ export default function App() {
         const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
         
         if (currentTimeStr >= notifTime && lastNotifiedDate !== todayDateStr) {
-          new Notification('IT Health: CRON Przypomnienie', {
-            body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
-            icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
-          });
-          localStorage.setItem('v2_last_notified_date', todayDateStr);
+          try {
+            new Notification('IT Health: CRON Przypomnienie', {
+              body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
+              icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
+            });
+            localStorage.setItem('v2_last_notified_date', todayDateStr);
+          } catch (e) {
+            // Fallback for mobile browsers (especially Android) that require a Service Worker for notifications
+            if (navigator.serviceWorker) {
+              navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification('IT Health: CRON Przypomnienie', {
+                  body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
+                  icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
+                });
+                localStorage.setItem('v2_last_notified_date', todayDateStr);
+              }).catch(err => console.error("ServiceWorker notification failed: ", err));
+            } else {
+              console.error("Native notification failed and no ServiceWorker found: ", e);
+            }
+          }
         }
       }
     };

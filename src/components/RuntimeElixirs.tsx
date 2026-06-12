@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock, Droplets, Leaf, Coffee, TestTube, Zap, Brain, Moon, Battery, Hexagon, GlassWater } from 'lucide-react';
 import { RUNTIME_ELIXIRS, ElixirRecipe } from '../data';
@@ -137,11 +138,16 @@ type LogEntry = {
   amount: number;
 };
 
-function HydrationLogger() {
-  const [hydration, setHydration] = useState(0);
+interface HydrationLoggerProps {
+  hydration: number;
+  onHydrationChange: (val: number) => void;
+  isReadOnly?: boolean;
+}
+
+export function HydrationLogger({ hydration, onHydrationChange, isReadOnly }: HydrationLoggerProps) {
   const [isAdding, setIsAdding] = useState(false);
-  const [history, setHistory] = useState<LogEntry[]>([]);
-  const [goal, setGoal] = useState(2500); // 2.5L goal
+  const [history, setHistory] = useLocalStorage<LogEntry[]>('v2_hydration_history', []);
+  const [goal, setGoal] = useLocalStorage('v2_hydration_goal', 2500); // 2.5L goal
   const [isEditingGoal, setIsEditingGoal] = useState(false);
   const [tempGoal, setTempGoal] = useState(goal.toString());
 
@@ -153,7 +159,7 @@ function HydrationLogger() {
     const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     setHistory(prev => [{ time: timeStr, amount: 250 }, ...prev].slice(0, 5));
     
-    setHydration((prev) => Math.min(prev + 250, goal));
+    onHydrationChange(Math.min(hydration + 250, goal));
     setTimeout(() => setIsAdding(false), 500);
   };
 
@@ -161,7 +167,7 @@ function HydrationLogger() {
     const val = parseInt(tempGoal, 10);
     if (!isNaN(val) && val > 0) {
       setGoal(val);
-      setHydration(prev => Math.min(prev, val));
+      onHydrationChange(Math.min(hydration, val));
     } else {
       setTempGoal(goal.toString());
     }
@@ -203,9 +209,10 @@ function HydrationLogger() {
         </div>
         <button
           onClick={addHydration}
+          disabled={isReadOnly}
           className={`px-3 py-1.5 rounded bg-cyan-600/20 text-cyan-400 text-xs font-mono border border-cyan-800/50 hover:bg-cyan-600/30 transition-all flex items-center gap-1 ${
             isAdding ? 'scale-95 bg-cyan-500/40 text-cyan-300' : ''
-          }`}
+          } ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <motion.div
             animate={isAdding ? { y: [-2, 0, 0] } : {}}
@@ -242,9 +249,9 @@ function HydrationLogger() {
 
       {history.length > 0 && (
         <div className="mt-4 pt-3 border-t border-slate-800">
-          <h4 className="text-[9px] uppercase tracking-widest text-slate-500 font-mono mb-2">Ostatnie logi (Last 5)</h4>
+          <h4 className="text-[9px] uppercase tracking-widest text-slate-500 font-mono mb-2">Ostatni wpis</h4>
           <div className="space-y-1.5">
-            {history.map((log, i) => (
+            {history.slice(0, 1).map((log, i) => (
               <div key={i} className="flex justify-between items-center text-xs font-mono text-slate-400">
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-cyan-500/50"></div>
@@ -272,7 +279,6 @@ export function RuntimeElixirs() {
 
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-300">
-      <HydrationLogger />
       
       <div className="space-y-6 mt-6">
         {categories.map((cat, idx) => {

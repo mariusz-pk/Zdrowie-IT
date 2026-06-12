@@ -168,7 +168,7 @@ export function Integrations() {
                    {permissionState === 'denied' && (
                      <p className="text-xs text-red-400 mt-2">Brak uprawnień. Zmień ustawienia w przeglądarce.</p>
                    )}
-                </div>
+                 </div>
               )}
            </div>
         </div>

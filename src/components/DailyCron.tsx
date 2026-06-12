@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useCloudSync, DailyCronState, DEFAULT_STATE } from '../hooks/useCloudSync';
 import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, CloudOff } from 'lucide-react';
+import { HydrationLogger } from './RuntimeElixirs';
 
 const getLocalDateString = () => {
   const d = new Date();
@@ -40,11 +41,20 @@ export function DailyCron() {
     if (state.shutdownSequence) checks++;
     if (state.vitaminD3K2) checks++;
     
-    // (5 checks * 10 points = max 50 points) + 25 + 25 = 100
-    const energiaPoints = (state.energia / 10) * 25;
-    const senPoints = (state.sen / 10) * 25;
+    // (5 checks * 10 points = max 50 points) + 15 (energia) + 15 (sen) + 20 (hydration) = 100
+    const energiaPoints = (state.energia / 10) * 15;
+    const senPoints = (state.sen / 10) * 15;
     
-    const calculatedScore = Math.round((checks * 10) + energiaPoints + senPoints);
+    // Fallback to 2500 if not found, removing quotes
+    let currentGoal = 2500;
+    try {
+      const storedGoal = localStorage.getItem('v2_hydration_goal');
+      if (storedGoal) currentGoal = parseInt(storedGoal.replace(/"/g, ''), 10) || 2500;
+    } catch(e) {}
+    
+    const hydrationPoints = Math.min((state.hydration || 0) / currentGoal, 1) * 20;
+    
+    const calculatedScore = Math.round((checks * 10) + energiaPoints + senPoints + hydrationPoints);
     setScore(Math.min(100, Math.max(0, calculatedScore)));
   }, [state]);
 
@@ -197,6 +207,12 @@ export function DailyCron() {
           <span className={`text-sm transition-colors ${state.shutdownSequence ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Wieczorny Magnez <span className="text-xs text-slate-500">- shutdown_sequence</span></span>
         </label>
       </div>
+
+      <HydrationLogger 
+        hydration={state.hydration} 
+        onHydrationChange={(val) => updateState({ hydration: val })}
+        isReadOnly={isReadOnly}
+      />
 
       {/* Diagnostics */}
       <div className={`cyber-panel p-5 space-y-6 ${isReadOnly ? 'opacity-80' : ''}`}>

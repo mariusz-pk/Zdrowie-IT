@@ -1,6 +1,6 @@
 import { useMemo, useRef, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { BarChart3, TrendingUp, CalendarDays, Zap, Moon, Activity } from 'lucide-react';
+import { TrendingUp, CalendarDays, Zap, Moon, Activity } from 'lucide-react';
 
 type DailyCronState = {
   initScript: boolean;
@@ -10,6 +10,7 @@ type DailyCronState = {
   shutdownSequence: boolean;
   energia: number;
   sen: number;
+  hydration: number;
 };
 
 const calculateScore = (state: DailyCronState | undefined) => {
@@ -19,9 +20,19 @@ const calculateScore = (state: DailyCronState | undefined) => {
   if (state.threadSleep) checks++;
   if (state.neatProcess) checks++;
   if (state.shutdownSequence) checks++;
-  const energiaPoints = (state.energia / 10) * 30;
-  const senPoints = (state.sen / 10) * 30;
-  return Math.min(100, Math.max(0, Math.round((checks * 10) + energiaPoints + senPoints)));
+  
+  const energiaPoints = (state.energia / 10) * 15;
+  const senPoints = (state.sen / 10) * 15;
+  
+  let currentGoal = 2500;
+  try {
+    const storedGoal = localStorage.getItem('v2_hydration_goal');
+    if (storedGoal) currentGoal = parseInt(storedGoal.replace(/"/g, ''), 10) || 2500;
+  } catch(e) {}
+  
+  const hydrationPoints = Math.min((state.hydration || 0) / currentGoal, 1) * 20;
+
+  return Math.min(100, Math.max(0, Math.round((checks * 10) + energiaPoints + senPoints + hydrationPoints)));
 };
 
 const getLastNDays = (n: number) => {
@@ -80,12 +91,18 @@ export function Analytics() {
     
     if (totalDays === 0) return { 
       avgScore: 0, avgEnergy: 0, avgSleep: 0, consistency: 0,
-      initCount: 0, sleepCount: 0, neatCount: 0, shutdownCount: 0, avgSteps: 0 
+      initCount: 0, sleepCount: 0, neatCount: 0, shutdownCount: 0, avgSteps: 0, avgHydration: 0, hydrationCount: 0
     };
 
     let sumScore = 0, sumEnergy = 0, sumSleep = 0, activeDays = 0;
-    let initCount = 0, sleepCount = 0, neatCount = 0, shutdownCount = 0;
+    let initCount = 0, sleepCount = 0, neatCount = 0, shutdownCount = 0, hydrationCount = 0, sumHydration = 0;
     let sumSteps = 0, daysWithSteps = 0;
+    
+    let currentGoal = 2500;
+    try {
+      const storedGoal = localStorage.getItem('v2_hydration_goal');
+      if (storedGoal) currentGoal = parseInt(storedGoal.replace(/"/g, ''), 10) || 2500;
+    } catch(e) {}
     
     monthDates.forEach(date => {
       const state = history[date];
@@ -99,6 +116,8 @@ export function Analytics() {
         if (state.threadSleep) sleepCount++;
         if (state.neatProcess) neatCount++;
         if (state.shutdownSequence) shutdownCount++;
+        if ((state.hydration || 0) >= currentGoal) hydrationCount++;
+        sumHydration += (state.hydration || 0);
 
         const steps = parseInt(state.neatSteps, 10);
         if (!isNaN(steps) && steps > 0) {
@@ -112,6 +131,8 @@ export function Analytics() {
       avgScore: Math.round(sumScore / totalDays),
       avgEnergy: Number((sumEnergy / totalDays).toFixed(1)),
       avgSleep: Number((sumSleep / totalDays).toFixed(1)),
+      avgHydration: Math.round(sumHydration / totalDays),
+      hydrationCount,
       consistency: Math.round((activeDays / 30) * 100),
       initCount,
       sleepCount,
@@ -133,16 +154,6 @@ export function Analytics() {
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-300">
       
-      <div className="flex items-center gap-3 cyber-panel p-4 mb-2">
-        <div className="p-2 bg-slate-800 rounded-lg">
-          <BarChart3 className="w-5 h-5 text-cyan-400" />
-        </div>
-        <div>
-          <h2 className="text-lg font-bold text-cyan-50">System Analytics</h2>
-          <p className="text-xs text-slate-400 font-mono">Telemetry & Stability Reports</p>
-        </div>
-      </div>
-
       {/* Performance Chart */}
       <div className="cyber-panel p-5 space-y-5">
         <div className="flex items-center gap-2 border-b border-cyan-900/50 pb-2">
@@ -255,6 +266,19 @@ export function Analytics() {
             </div>
             {monthStats.avgSteps > 0 && (
               <p className="text-[10px] text-slate-500 font-mono text-right mt-0.5">Średnia: {monthStats.avgSteps} kroków</p>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <div className="flex justify-between text-[11px] uppercase tracking-wider text-slate-400">
+              <span>Nawodnienie (Hydration)</span>
+              <span className="font-mono text-cyan-400">{monthStats.hydrationCount} / 30 dni</span>
+            </div>
+            <div className="h-1.5 w-full bg-slate-800 rounded overflow-hidden">
+              <div className="h-full bg-cyan-500 transition-all" style={{ width: `${(monthStats.hydrationCount / 30) * 100}%` }}></div>
+            </div>
+            {monthStats.avgHydration > 0 && (
+              <p className="text-[10px] text-slate-500 font-mono text-right mt-0.5">Średnia: {monthStats.avgHydration} ml</p>
             )}
           </div>
 

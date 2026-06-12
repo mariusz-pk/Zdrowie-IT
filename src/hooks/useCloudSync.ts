@@ -12,6 +12,7 @@ export type DailyCronState = {
   vitaminD3K2: boolean;
   energia: number;
   sen: number;
+  hydration: number;
 };
 
 export const DEFAULT_STATE: DailyCronState = {
@@ -23,6 +24,7 @@ export const DEFAULT_STATE: DailyCronState = {
   vitaminD3K2: false,
   energia: 5,
   sen: 5,
+  hydration: 0,
 };
 
 export function useCloudSync(localHistory: Record<string, DailyCronState>, setLocalHistory: (val: any) => void) {
@@ -57,6 +59,7 @@ export function useCloudSync(localHistory: Record<string, DailyCronState>, setLo
           vitaminD3K2: data.vitaminD3K2 || false,
           energia: data.energia || 5,
           sen: data.sen || 5,
+          hydration: data.hydration || 0,
         };
       });
 

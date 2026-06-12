@@ -72,9 +72,8 @@ export default function App() {
       // Classic push notification
       if ('Notification' in window && Notification.permission === 'granted') {
         const lastNotifiedDate = localStorage.getItem('v2_last_notified_date');
-        // Only trigger native notification EXACTLY on the minute, or if we just opened the app and it's heavily overdue (optional)? 
-        // No, let's keep it to exact minute to avoid spamming if they just open the app.
-        if (currentTimeStr === notifTime && lastNotifiedDate !== todayDateStr) {
+        
+        if (currentTimeStr >= notifTime && lastNotifiedDate !== todayDateStr) {
           new Notification('IT Health: CRON Przypomnienie', {
             body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
             icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'

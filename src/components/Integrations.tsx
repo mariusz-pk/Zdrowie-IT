@@ -62,20 +62,20 @@ export function Integrations() {
       setNotifError('');
       if (!notifEnabled) {
         if (!('Notification' in window)) {
-          setNotifError('Twoja przeglądarka nie obsługuje powiadomień.');
-          return;
-        }
-
-        let perm = Notification.permission;
-        if (perm !== 'granted') {
-          perm = await Notification.requestPermission();
-        }
-        
-        setPermissionState(perm);
-        
-        if (perm !== 'granted') {
-           setNotifError('Zablokowano uprawnienia. Otwórz aplikację w nowej karcie i zaakceptuj powiadomienia.');
-           return;
+          setNotifError('Brak obsługi powiadomień systemowych. Otrzymasz przypomnienia tylko wewnątrz aplikacji.');
+        } else {
+          let perm = Notification.permission;
+          if (perm !== 'granted' && perm !== 'denied') {
+            try {
+              perm = await Notification.requestPermission();
+              setPermissionState(perm);
+            } catch (e) {
+               console.error("Notif error", e);
+            }
+          }
+          if (perm !== 'granted') {
+             setNotifError('Powiadomienia systemowe zablokowane. Otrzymasz przypomnienia tylko wewnątrz aplikacji.');
+          }
         }
 
         setNotifEnabled(true);
@@ -86,7 +86,9 @@ export function Integrations() {
       }
     } catch (error) {
       console.error("Notif error:", error);
-      setNotifError('Przeglądarka zablokowała akcję. Otwórz aplikację w nowej karcie (ikona w rogu) i spróbuj ponownie.');
+      setNotifEnabled(true);
+      localStorage.setItem('v2_notif_enabled', 'true');
+      setNotifError('Zablokowano. Otrzymasz przypomnienia wewnątrz aplikacji.');
     }
   };
 

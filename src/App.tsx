@@ -103,7 +103,17 @@ export default function App() {
     // Initial check just in case we opened app exactly at the right minute
     checkNotifications();
 
-    return () => clearInterval(interval);
+    const handleVisChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkNotifications();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisChange);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", handleVisChange);
+    };
   }, []);
 
   const dismissMonit = () => {

@@ -7,7 +7,7 @@ Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyg
 Aplikacja podzielona jest funkcjonalnie na 4 główne działy, dostępne poprzez dolne menu nawigacyjne nawiązujące formą do urządzeń mobilnych:
 
 ## 1. CRON (Interaktywny Tracker KPI - Daily Cron)
-Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zaznaczania swoich dziennych, najważniejszych nawyków prozdrowotnych (poranne nawodnienie, opóźnianie picia kawy o 90 minut, porcja witaminy D3 + K2 MK7 z tłuszczami, wieczorna dawka suplementów, limit minimalnej dziennej liczby kroków).
+Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zaznaczania swoich dziennych, najważniejszych nawyków prozdrowotnych (poranne nawodnienie, opóźnianie picia kawy o 90 minut, porcja witaminy D3 + K2 MK7 z tłuszczami, wieczorna dawka suplementów, zrządzanie ustalanym "Dziennym limitem kroków" ze swobodną edycją i systemem zapisu).
 
 - **System Stability Score:** Na górze ekranu znajduje się wskaźnik pokazujący aktualny dzienny wynik. Jest to procentowa wartość obliczana dynamicznie. Zaznaczanie każdego nawyku lub odpowiednie przesunięcie w dół/w górę suwaków z ocenami subiektywnej energii/snu zwiększa ten wskaźnik. Wynik 100% oznacza wykonanie pełnego cyklu dziennego.
 - **Archiwum Nawyków:** Aplikacja automatycznie zeruje te wartości równo o północy. Ogranicza też wgląd do dni archiwalnych – na górnym module widnieje wybór daty, pozwalający wejść w każdy dotychczasowy dzień tylko w celu sprawdzenia swojego "wyniku" (zablokowany tryb odczytu archiwalnego).
@@ -20,7 +20,7 @@ Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich 
 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
 Katalog autorskich receptur napojów wspierających odporność i witalność przez całą dobę. 
-- **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia oraz szybkie logowanie spożytych płynów (w porcjach po 250 ml). Wskazuje procentowy progres oraz wyświetla historię 5 ostatnich operacji.
+- **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia. Zawiera przycisk "Zmień cel", po którym uruchamia się w pełni edytowalne okno dialogowe - można wpisać interesującą nas wartość celową limitu w granicach [0 - 9000] ml i trwale potwierdzić dyskietką. Ponadto, logger pozwala na logowanie spożytych płynów "sztywnym" krokiem (w porcjach po 250 ml), wskazując procentowy progres oraz rejestrując historię akcji.
 - **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow).
 - **Automatyzacja przygotowania:** Napoje, które muszą się parzyć określony czas, wyposażone są we wbudowany stoper odliczający dedykowany czas. Po upływie tego czasu na urządzeniach mobilnych dochodzi do krótkiej potrójnej wibracji sygnalizującej skończone parzenie.
 
@@ -42,6 +42,11 @@ Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanyc
 ## 6. CLOUD (Synchronizacja i kopie zapasowe)
 Narzędzie do bezpieczeństwa danych oraz integracji chmurowej:
 - **Synchronizacja Firebase (Firestore):** Automatycznie i w czasie rzeczywistym powiązane z Twoim kontem Google, przechowuje Twoje zaznaczenia w CRON w bezpiecznej przestrzeni chmurowej (Baza Danych Firestore). Nie posiada limitów współdzielenia (jak starsze wersje z Google Drive), dzięki czemu logowanie jest proste i postępy są odporne na utratę danych bez konieczności robienia manualnych zrzutów na Dysk.
+
+## 7. SYSTEM POWIADOMIEŃ (Przypomnienia natywne)
+Aplikacja została wyposażona w pełne wsparcie dla powiadomień na poziomie Systemu Operacyjnego.
+- **Powiadomienia z przypomnieniami:** Po poprawnej darmowej aktywacji autoryzacji w ustawieniach ("OPCJE"), przeglądarka zapamięta zezwolenie i pozwoli wysyłać powiadomienia niezależnie.
+- **Polityka re-angażowania:** Powiadomienie pojawia się za każdym razem gdy wchodzisz na zakładkę i system połączy fakty ze spóźnieniem w wypełnianiu Twojego Daily CRON - bądź robi to skrypt sprawdzający uruchamiający się w tłe gdy masz otwartą kartę.
 
 ---
 Zastosowane pojęcia informatyczne (IT) wspierają przyjazny i zrozumiały "gamifikacyjny" układ polecany dla inżynierów i specjalistów poszukujących motywacji we własnym języku specjalistycznym.

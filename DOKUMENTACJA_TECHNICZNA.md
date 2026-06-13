@@ -34,6 +34,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.1 DailyCron (`/src/components/DailyCron.tsx`)
 - Oblicza na żywo wskaźnik "System Stability Score". Zmieniając wartości stanów Boolean (checkboxy) lub liczbowych (suwaki), na podstawie useEffect wyliczany jest docelowy Score w skali od 0 do 100%. Wykres progressu bazuje na parametrze `strokeDashoffset` natywnego SVG.
+- Posiada ulepszone pola wprowadzania danych (np. konfigurowalny "Dzienny limit kroków" wykorzystujący manualny przycisk zapisu/potwierdzenia). Wszelkie zmiany potwierdzane wizualnie komunikatem 'Zapisano' poprawiają interaktywność i UX użytkownika.
 - Posiada mechanikę odczytywania historycznych dni.
 
 ### 4.2 Dependencies (`/src/components/Dependencies.tsx`)
@@ -43,7 +44,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 - Oddzielne rozpoznanie wystąpień dla imbiru i kurkumy w celu nadania osobnych wyróżnień wizualnych.
 
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
-- Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, edytowalnym celem dziennym oraz tablicą zapisującą historię dodawania ostatnich 5 wpisów nawodnienia.
+- Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, konfigurowalnym celem dziennym (odblokowane wprowadzanie tekstowe w granicach 0 - 9000 ml dostępne po wciśnięciu 'Zmień cel' – proces zatwierdzany przyciskiem) oraz tablicą zapisującą historię dodawania ostatnich wpisów nawodnienia.
 - Grupuje listę receptur (`RUNTIME_ELIXIRS`) na 4 odrębne kategorie czasowe na podstawie pola `category`, z dedykowanymi ikonami i kolorystyką dla każdego bloku oznaczających inną porę dnia.
 - Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`.
 - Zawiera wbudowany moduł zliczania czasu (klasa `BrewTimer`) wywołująca pętlę asynchroniczną przypisaną do instancji lokalnego okna (timer `setInterval(..., 1000)`). Po osiągnięciu 0:00 wywołuje natywne wibracje urządzenia (dzięki API `navigator.vibrate()`).
@@ -67,7 +68,11 @@ Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz 
 - **Firebase Auth:**  Zaimplementowano bezpieczne uwierzytelnianie użytkowników opierające się na dostawcy Google OAuth (Sign in with Google), likwidujące uciążliwe limity dostępu (np. limit 99 osób w testowym Google Drive API) i prośby o restrykcyjne dostępy dla uprawnień dyskowych.
 - **Firebase / Firestore:** Asynchroniczna i w pełni automatyczna synchronizacja parametrów historii `v2_dailyCronHistory_v2` w tle za pośrednictwem hooka `useCloudSync`. Tworzy połączony most z platformą Cloud ubezpieczając lokalny `localStorage`.
 
-## 6. Standardy PWA i Integracja
+## 6. Powiadomienia Systemowe (Browser Notifications API)
+- W module integracji umieszczono zarządzanie stanami uprawnień dla technologii powiadomień. Przy aktywowaniu opcji, aplikacja dokonuje odpytania "requestPermission()" na obiekcie natywnym `Notification`. Zapewnia to natywny format informowania na poziomie Operating System (komputera bądź Smartfona).
+- Sprawdzacz stanu (poller umieszczony w sercu rutera aplikacji) odpytuje o nieukończone na dany dzień procesy i wysyła zaplanowane komunikaty (przypomnienia o rutynie) dbając również o stan wstrzymania dla Visibility API. Zmiana widoczności ekranu ("visibilitychange") błyskawicznie re-uruchamia serwisy powiadomień. 
+
+## 7. Standardy PWA i Integracja
 - Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Oznacza to, że zainstalowana na urządzeniu wymusza brak "chrome'u" okna przeglądarki.
 - Podłączony jest `sw.js` (Service Worker) zapewniający prostą strategię Network-First chroniącą przed całkowitym brakiem odpowiedzi podczas chwilowych utrat połączenia sieciowego.
 - Globalny `index.html` posiada tagi przystosowane do web-aplikacji nadające kompatybilność urządzeniom obsługiwanym przez iOS (`apple-mobile-web-app-capable`).

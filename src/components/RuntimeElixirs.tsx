@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock, Droplets, Leaf, Coffee, TestTube, Zap, Brain, Moon, Battery, Hexagon, GlassWater } from 'lucide-react';
+import { ChevronDown, Timer as TimerIcon, Play, Square, Sunrise, Sun, Sunset, Clock, Droplets, Leaf, Coffee, TestTube, Zap, Brain, Moon, Battery, Hexagon, GlassWater, Save, Check } from 'lucide-react';
 import { RUNTIME_ELIXIRS, ElixirRecipe } from '../data';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -150,6 +150,7 @@ export function HydrationLogger({ hydration, onHydrationChange, isReadOnly }: Hy
   const [goal, setGoal] = useLocalStorage('v2_hydration_goal', 2500); // 2.5L goal
   const [isEditingGoal, setIsEditingGoal] = useState(false);
   const [tempGoal, setTempGoal] = useState(goal.toString());
+  const [showSavedMsg, setShowSavedMsg] = useState(false);
 
   const addHydration = () => {
     setIsAdding(true);
@@ -164,10 +165,14 @@ export function HydrationLogger({ hydration, onHydrationChange, isReadOnly }: Hy
   };
 
   const saveGoal = () => {
-    const val = parseInt(tempGoal, 10);
-    if (!isNaN(val) && val > 0) {
+    let val = parseInt(tempGoal, 10);
+    if (!isNaN(val)) {
+      if (val < 0) val = 0;
+      if (val > 9000) val = 9000;
       setGoal(val);
       onHydrationChange(Math.min(hydration, val));
+      setShowSavedMsg(true);
+      setTimeout(() => setShowSavedMsg(false), 2000);
     } else {
       setTempGoal(goal.toString());
     }
@@ -186,41 +191,56 @@ export function HydrationLogger({ hydration, onHydrationChange, isReadOnly }: Hy
             <span className="text-sm text-slate-500 flex items-center">
               / 
               {isEditingGoal ? (
-                <input 
-                  type="number" 
-                  value={tempGoal}
-                  onChange={(e) => setTempGoal(e.target.value)}
-                  onBlur={saveGoal}
-                  onKeyDown={(e) => e.key === 'Enter' && saveGoal()}
-                  className="w-16 bg-slate-900 border border-cyan-800 text-cyan-300 ml-1 px-1 py-0.5 rounded outline-none text-xs"
-                  autoFocus
-                />
+                <div className="flex items-center gap-1 relative ml-1">
+                  <input 
+                    type="number" 
+                    min="0"
+                    max="9000"
+                    value={tempGoal}
+                    onChange={(e) => setTempGoal(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && saveGoal()}
+                    className="w-16 bg-slate-900 border border-cyan-800 text-cyan-300 px-1 py-0.5 rounded outline-none text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    autoFocus
+                  />
+                  <button 
+                    onClick={saveGoal}
+                    className="p-1 bg-slate-800/50 border border-cyan-900/50 rounded text-cyan-400 hover:bg-cyan-900/30 hover:text-cyan-300 transition-colors"
+                  >
+                    <Save className="w-3 h-3" />
+                  </button>
+                </div>
               ) : (
-                <span 
-                  className="ml-1 cursor-pointer hover:text-cyan-400 transition-colors border-b border-dashed border-slate-600 pb-0.5"
-                  onClick={() => setIsEditingGoal(true)}
-                  title="Kliknij, aby zmienić cel"
-                >
-                  {goal} ml
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="ml-1">{goal} ml</span>
+                  {!isReadOnly && (
+                    <button onClick={() => setIsEditingGoal(true)} className="text-[10px] uppercase bg-slate-800/50 px-1.5 py-0.5 rounded hover:bg-slate-700/50 transition-colors text-slate-400">Zmień cel</button>
+                  )}
+                </div>
               )}
             </span>
           </div>
         </div>
-        <button
-          onClick={addHydration}
-          disabled={isReadOnly}
-          className={`px-3 py-1.5 rounded bg-cyan-600/20 text-cyan-400 text-xs font-mono border border-cyan-800/50 hover:bg-cyan-600/30 transition-all flex items-center gap-1 ${
-            isAdding ? 'scale-95 bg-cyan-500/40 text-cyan-300' : ''
-          } ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
-        >
-          <motion.div
-            animate={isAdding ? { y: [-2, 0, 0] } : {}}
-            transition={{ duration: 0.3 }}
+        <div className="relative">
+          <button
+            onClick={addHydration}
+            disabled={isReadOnly}
+            className={`px-3 py-1.5 rounded bg-cyan-600/20 text-cyan-400 text-xs font-mono border border-cyan-800/50 hover:bg-cyan-600/30 transition-all flex items-center gap-1 ${
+              isAdding ? 'scale-95 bg-cyan-500/40 text-cyan-300' : ''
+            } ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            +250ml
-          </motion.div>
-        </button>
+            <motion.div
+              animate={isAdding ? { y: [-2, 0, 0] } : {}}
+              transition={{ duration: 0.3 }}
+            >
+              +250ml
+            </motion.div>
+          </button>
+          {showSavedMsg && (
+            <div className="absolute -bottom-6 right-0 flex items-center gap-1 text-xs text-emerald-400 animate-in fade-in slide-in-from-top-1 px-2 whitespace-nowrap">
+              <Check className="w-3 h-3" /> Zapisano
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-3">

@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useCloudSync, DailyCronState, DEFAULT_STATE } from '../hooks/useCloudSync';
-import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, CloudOff } from 'lucide-react';
+import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, CloudOff, Save, Check } from 'lucide-react';
 import { HydrationLogger } from './RuntimeElixirs';
 
 const getLocalDateString = () => {
@@ -23,6 +23,12 @@ export function DailyCron() {
   const isReadOnly = selectedDate !== today;
 
   const [score, setScore] = useState(0);
+  const [showSavedMsg, setShowSavedMsg] = useState(false);
+
+  const handleSaveSteps = () => {
+    setShowSavedMsg(true);
+    setTimeout(() => setShowSavedMsg(false), 2000);
+  };
 
   const availableDates = useMemo(() => {
     const dates = Object.keys(history);
@@ -185,19 +191,34 @@ export function DailyCron() {
           <span className={`text-sm transition-colors ${state.threadSleep ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Kawa &gt;90 min <span className="text-xs text-slate-500">- Thread.sleep</span></span>
         </label>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 relative">
           <label className={`flex items-center gap-3 flex-1 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
             <input type="checkbox" checked={state.neatProcess} onChange={() => handleCheck('neatProcess')} disabled={isReadOnly}
               className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
             <Activity className={`w-4 h-4 shrink-0 transition-colors ${state.neatProcess ? 'text-cyan-400' : 'text-slate-500'}`} />
-            <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>8 000 kroków <span className="text-xs text-slate-500">- NEAT_Process</span></span>
+            <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Dzienny limit kroków <span className="text-xs text-slate-500">- NEAT_Process</span></span>
           </label>
-          <input 
-            type="number" placeholder="Liczba kroków..."
-            value={state.neatSteps} onChange={(e) => handleStepChange(e.target.value)}
-            disabled={isReadOnly}
-            className="cyber-input px-3 py-1.5 text-sm w-32 shrink-0 ml-8 sm:ml-0 disabled:opacity-50"
-          />
+          <div className="flex items-center gap-2 ml-8 sm:ml-0">
+            <input 
+              type="number" placeholder="8000"
+              value={state.neatSteps} onChange={(e) => handleStepChange(e.target.value)}
+              disabled={isReadOnly}
+              className="cyber-input px-2 py-1.5 text-sm w-20 text-center shrink-0 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            <button 
+              onClick={handleSaveSteps}
+              disabled={isReadOnly}
+              className="p-1.5 bg-slate-800/50 border border-cyan-900/50 rounded text-cyan-400 hover:bg-cyan-900/30 hover:text-cyan-300 transition-colors disabled:opacity-50 relative"
+              title="Zapisz kroki"
+            >
+              <Save className="w-4 h-4" />
+            </button>
+          </div>
+          {showSavedMsg && (
+            <div className="absolute -bottom-6 right-0 flex items-center gap-1 text-xs text-emerald-400 animate-in fade-in slide-in-from-top-1 px-2">
+              <Check className="w-3 h-3" /> Zapisano
+            </div>
+          )}
         </div>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>

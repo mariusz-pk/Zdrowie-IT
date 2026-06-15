@@ -77,26 +77,26 @@ export function IncidentResponse() {
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div className="flex flex-col justify-end gap-2">
               <label className="text-sm font-medium text-slate-300 block">Poranne Tętno Spoczynkowe (RHR):</label>
               <input 
                 type="number" 
                 value={rhr}
                 onChange={(e) => { setRhr(e.target.value); setLastScanResult(null); }}
                 placeholder="bpm (np. 65)"
-                className="cyber-input w-full px-4 py-3 font-mono text-lg bg-slate-950/80"
+                className="cyber-input w-full px-4 py-3 font-mono text-lg bg-slate-950/80 mt-auto"
                 onKeyDown={(e) => e.key === 'Enter' && handleScan()}
               />
             </div>
             
-            <div className="space-y-2">
+            <div className="flex flex-col justify-end gap-2">
               <label className="text-sm font-medium text-slate-300 block">Saturacja krwi (SpO2):</label>
               <input 
                 type="number" 
                 value={spo2}
                 onChange={(e) => { setSpo2(e.target.value); setLastScanResult(null); }}
                 placeholder="% (np. 98)"
-                className="cyber-input w-full px-4 py-3 font-mono text-lg bg-slate-950/80"
+                className="cyber-input w-full px-4 py-3 font-mono text-lg bg-slate-950/80 mt-auto"
                 onKeyDown={(e) => e.key === 'Enter' && handleScan()}
               />
             </div>

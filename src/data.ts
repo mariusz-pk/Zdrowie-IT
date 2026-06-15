@@ -85,9 +85,9 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     ingredients: [
       "1 łyżeczka Matchy",
       "50 ml wody (temperatura ok. 80°C)",
-      "150 ml napoju roślinnego"
+      "150 ml napoju roślinnego (mleko A2 bio)"
     ],
-    instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml wody term. 80°C. Dokładnie wymieszaj (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny, następnie dolej do bazy.",
+    instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml wody term. 80°C. Dokładnie wymieszaj (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny (mleko A2 bio), następnie dolej do bazy.",
     category: "PORANEK (Aktywacja i Rozruch)"
   },
   {
@@ -131,9 +131,9 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     ingredients: [
       "Surowe kakao",
       "Adaptogeny (np. Ashwagandha, Soplówka jeżowata)",
-      "Napój roślinny"
+      "Napój roślinny (mleko A2 bio)"
     ],
-    instructions: "Podgrzej napój roślinny. Rozmieszaj dokładnie kakao i adaptogeny. Pij w momentach silnego stresu psychologicznego, aby wyciszyć układ nerwowy bez utraty ostrości umysłu.",
+    instructions: "Podgrzej napój roślinny (mleko A2 bio). Rozmieszaj dokładnie kakao i adaptogeny. Pij w momentach silnego stresu psychologicznego, aby wyciszyć układ nerwowy bez utraty ostrości umysłu.",
     category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
   },
   {

@@ -45,12 +45,13 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
 - Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, konfigurowalnym celem dziennym (odblokowane wprowadzanie tekstowe w granicach 0 - 9000 ml dostępne po wciśnięciu 'Zmień cel' – proces zatwierdzany przyciskiem) oraz tablicą zapisującą historię dodawania ostatnich wpisów nawodnienia.
-- Grupuje listę receptur (`RUNTIME_ELIXIRS`) na 4 odrębne kategorie czasowe na podstawie pola `category`, z dedykowanymi ikonami i kolorystyką dla każdego bloku oznaczających inną porę dnia.
+- Grupuje listę receptur (`RUNTIME_ELIXIRS`) na 4 odrębne kategorie czasowe na podstawie pola `category`, z dedykowanymi ikonami i kolorystyką dla każdego bloku oznaczających inną porę dnia. Receptury napojów roślinnych otrzymały uściślenie w postaci dopisku o rekomendowanym użyciu "(mleko A2 bio)" ze źródła bazy (`data.ts`).
 - Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`.
 - Zawiera wbudowany moduł zliczania czasu (klasa `BrewTimer`) wywołująca pętlę asynchroniczną przypisaną do instancji lokalnego okna (timer `setInterval(..., 1000)`). Po osiągnięciu 0:00 wywołuje natywne wibracje urządzenia (dzięki API `navigator.vibrate()`).
 
 ### 4.4 IncidentResponse (`/src/components/IncidentResponse.tsx`)
 - Kalkuluje na żywo (bezpośrednie mapowanie) alertów telemetrii po zapisaniu interwencji (wielostanowa flaga).
+- Posiada wyrównane kontrolki wejścia (tętno spoczynkowe ułożone na równej linii z saturacją poprzez flex z uwarunkowaniem `mt-auto`), wymuszające spójne ułożenie na wspólnym horyzoncie niezależnie od długości treści etykiet tekstowych.
 - Warunkowo formatuje alerty:
   - Zagrożeniowe: Serce > 80 BPM (`text-rose-500`).
   - Optymalne: 40-80 BPM (`text-emerald-500`).

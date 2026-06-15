@@ -21,12 +21,12 @@ Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
 Katalog autorskich receptur napojów wspierających odporność i witalność przez całą dobę. 
 - **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia. Zawiera przycisk "Zmień cel", po którym uruchamia się w pełni edytowalne okno dialogowe - można wpisać interesującą nas wartość celową limitu w granicach [0 - 9000] ml i trwale potwierdzić dyskietką. Ponadto, logger pozwala na logowanie spożytych płynów "sztywnym" krokiem (w porcjach po 250 ml), wskazując procentowy progres oraz rejestrując historię akcji.
-- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow).
+- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow). W recepturach zawierających dany składnik precyzyjnie określono pożądany napój roślinny z rekomendacją "(mleko A2 bio)".
 - **Automatyzacja przygotowania:** Napoje, które muszą się parzyć określony czas, wyposażone są we wbudowany stoper odliczający dedykowany czas. Po upływie tego czasu na urządzeniach mobilnych dochodzi do krótkiej potrójnej wibracji sygnalizującej skończone parzenie.
 
 ## 4. INCIDENT (Raportowanie Zdarzeń Zdrowotnych / Telemetria)
 Twoja klinika wewnątrzkonsolowa; miejsce gdzie wchodzisz podczas porannych diagnoz, bądź po zgłoszeniu problemów zdrowotnych (incydentów).
-- Użytkownik wklepuje codzienne logi RHR (poranne tętno spoczynkowe po wstaniu w uderzeniach/min), stopień natlenienia / saturacji (SpO2 w %).
+- Użytkownik wklepuje codzienne logi RHR (poranne tętno spoczynkowe po wstaniu w uderzeniach/min), stopień natlenienia / saturacji (SpO2 w %). Pola tekstowe w interfejsie są równe i wzajemnie wyrównane w płaszczyźnie poziomej dla lepszej spójności wizualnej.
 - Czuła diagnoza analityczna wygeneruje właściwe reakcje:
   - Powyżej 80 uderzeń RHR: system generuje Alert, prosząc o wprowadzenie ćwiczeń oddechowych (oznaka dużego stresu lub choroby w układzie).
   - Poniżej 95% Saturacji: generowane jest pomarańczowe ostrzeżenie systemu zalecające głębokie wdychanie lub wejście na świeże powietrze.

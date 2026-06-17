@@ -119,7 +119,7 @@ const ElixirCard: React.FC<{ recipe: ElixirRecipe; isOpen: boolean; toggleOpen: 
               
               <div>
                 <h4 className="text-[10px] uppercase tracking-widest text-cyan-600 mb-2 font-bold font-mono">Instrukcja (Execution Flow)</h4>
-                <p className="text-sm text-slate-400 leading-relaxed bg-slate-950/40 p-3 rounded-lg border-l-2 border-slate-800">
+                <p className="text-sm text-justify text-slate-400 leading-relaxed bg-slate-950/40 p-3 rounded-lg border-l-2 border-slate-800">
                   {recipe.instructions}
                 </p>
               </div>

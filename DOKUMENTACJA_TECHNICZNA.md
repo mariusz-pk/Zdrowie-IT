@@ -1,4 +1,4 @@
-# DOKUMENTACJA TECHNICZNA: IT Health v2.0
+# DOKUMENTACJA TECHNICZNA: IT Health V2.0 by WszystkokolwiekWFormie
 
 ## 1. Stos Technologiczny
 Aplikacja została zbudowana w oparciu o nowoczesny, frontendowy stos technologiczny:
@@ -46,7 +46,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
 - Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, konfigurowalnym celem dziennym (odblokowane wprowadzanie tekstowe w granicach 0 - 9000 ml dostępne po wciśnięciu 'Zmień cel' – proces zatwierdzany przyciskiem) oraz tablicą zapisującą historię dodawania ostatnich wpisów nawodnienia.
 - Grupuje listę receptur (`RUNTIME_ELIXIRS`) na 4 odrębne kategorie czasowe na podstawie pola `category`, z dedykowanymi ikonami i kolorystyką dla każdego bloku oznaczających inną porę dnia. Receptury napojów roślinnych otrzymały uściślenie w postaci dopisku o rekomendowanym użyciu "(mleko A2 bio)" ze źródła bazy (`data.ts`).
-- Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`.
+- Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`. Pole instrukcji zostało skonfigurowane z użyciem klasy `text-justify` (Tailwind), zapewniając równe marginesy tekstu z lewej i prawej strony.
 - Zawiera wbudowany moduł zliczania czasu (klasa `BrewTimer`) wywołująca pętlę asynchroniczną przypisaną do instancji lokalnego okna (timer `setInterval(..., 1000)`). Po osiągnięciu 0:00 wywołuje natywne wibracje urządzenia (dzięki API `navigator.vibrate()`).
 
 ### 4.4 IncidentResponse (`/src/components/IncidentResponse.tsx`)
@@ -74,6 +74,6 @@ Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz 
 - Sprawdzacz stanu (poller umieszczony w sercu rutera aplikacji) odpytuje o nieukończone na dany dzień procesy i wysyła zaplanowane komunikaty (przypomnienia o rutynie) dbając również o stan wstrzymania dla Visibility API. Zmiana widoczności ekranu ("visibilitychange") błyskawicznie re-uruchamia serwisy powiadomień. 
 
 ## 7. Standardy PWA i Integracja
-- Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Oznacza to, że zainstalowana na urządzeniu wymusza brak "chrome'u" okna przeglądarki.
+- Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Zmieniono w nim nazwę z 'IT Health v2.0' na 'IT Health V2.0 by WszystkokolwiekWFormie', co przełoży się na tytuł ikony na ekranie głównym. Oznacza to, że zainstalowana na urządzeniu wymusza brak "chrome'u" okna przeglądarki.
 - Podłączony jest `sw.js` (Service Worker) zapewniający prostą strategię Network-First chroniącą przed całkowitym brakiem odpowiedzi podczas chwilowych utrat połączenia sieciowego.
 - Globalny `index.html` posiada tagi przystosowane do web-aplikacji nadające kompatybilność urządzeniom obsługiwanym przez iOS (`apple-mobile-web-app-capable`).

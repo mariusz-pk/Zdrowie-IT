@@ -1,6 +1,6 @@
-# OPIS DZIAŁANIA APLIKACJI: IT Health v2.0
+# OPIS DZIAŁANIA APLIKACJI: IT Health V2.0 by WszystkokolwiekWFormie
 
-Aplikacja **IT Health v2.0** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
+Aplikacja **IT Health V2.0 by WszystkokolwiekWFormie** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
 
 Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki).
 
@@ -21,7 +21,7 @@ Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
 Katalog autorskich receptur napojów wspierających odporność i witalność przez całą dobę. 
 - **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia. Zawiera przycisk "Zmień cel", po którym uruchamia się w pełni edytowalne okno dialogowe - można wpisać interesującą nas wartość celową limitu w granicach [0 - 9000] ml i trwale potwierdzić dyskietką. Ponadto, logger pozwala na logowanie spożytych płynów "sztywnym" krokiem (w porcjach po 250 ml), wskazując procentowy progres oraz rejestrując historię akcji.
-- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow). W recepturach zawierających dany składnik precyzyjnie określono pożądany napój roślinny z rekomendacją "(mleko A2 bio)".
+- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow), której tekst dla estetyki i przejrzystości jest dwustronnie wyjustowany. W recepturach zawierających dany składnik precyzyjnie określono pożądany napój roślinny z rekomendacją "(mleko A2 bio)".
 - **Automatyzacja przygotowania:** Napoje, które muszą się parzyć określony czas, wyposażone są we wbudowany stoper odliczający dedykowany czas. Po upływie tego czasu na urządzeniach mobilnych dochodzi do krótkiej potrójnej wibracji sygnalizującej skończone parzenie.
 
 ## 4. INCIDENT (Raportowanie Zdarzeń Zdrowotnych / Telemetria)

@@ -31,10 +31,31 @@ export function DailyCron() {
   };
 
   const availableDates = useMemo(() => {
-    const dates = Object.keys(history);
-    if (!dates.includes(today)) {
-      dates.push(today);
+    let minDate = today;
+    const historyDates = Object.keys(history);
+    
+    historyDates.forEach(date => {
+      if (date < minDate) {
+        minDate = date;
+      }
+    });
+
+    const dates = [];
+    const [startYear, startMonth, startDay] = minDate.split('-').map(Number);
+    const [endYear, endMonth, endDay] = today.split('-').map(Number);
+    
+    const current = new Date(startYear, startMonth - 1, startDay, 12, 0, 0);
+    const end = new Date(endYear, endMonth - 1, endDay, 12, 0, 0);
+    
+    while (current <= end) {
+      const year = current.getFullYear();
+      const month = String(current.getMonth() + 1).padStart(2, '0');
+      const day = String(current.getDate()).padStart(2, '0');
+      dates.push(`${year}-${month}-${day}`);
+      
+      current.setDate(current.getDate() + 1);
     }
+
     return dates.sort((a, b) => b.localeCompare(a));
   }, [history, today]);
 

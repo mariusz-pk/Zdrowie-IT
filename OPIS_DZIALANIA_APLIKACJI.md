@@ -2,7 +2,7 @@
 
 Aplikacja **IT Health V2.0 by WszystkokolwiekWFormie** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
 
-Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki).
+Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki). W rezultacie zyskujesz piękną, spójną ikonę z jednolitym ciemnym tłem, chroniącym przed tworzeniem białych obramowań przez system operacyjny. Aplikacja posiada własny, dedykowany ekran startowy przy uruchamianiu – na dole pod animowaną ikoną widnieje podpis "IT Health v2.0 by WszystkokolwiekWFormie".
 
 Aplikacja podzielona jest funkcjonalnie na 4 główne działy, dostępne poprzez dolne menu nawigacyjne nawiązujące formą do urządzeń mobilnych:
 

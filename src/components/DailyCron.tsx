@@ -219,7 +219,7 @@ export function DailyCron() {
             <Activity className={`w-4 h-4 shrink-0 transition-colors ${state.neatProcess ? 'text-cyan-400' : 'text-slate-500'}`} />
             <span className={`text-sm transition-colors ${state.neatProcess ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Dzienny limit kroków <span className="text-xs text-slate-500">- NEAT_Process</span></span>
           </label>
-          <div className="flex items-center gap-2 ml-8 sm:ml-0">
+          <div className="flex items-center gap-2 ml-8 sm:ml-0 relative">
             <input 
               type="number" placeholder="8000"
               value={state.neatSteps} onChange={(e) => handleStepChange(e.target.value)}
@@ -234,12 +234,12 @@ export function DailyCron() {
             >
               <Save className="w-4 h-4" />
             </button>
+            {showSavedMsg && (
+              <div className="absolute -top-8 right-0 flex items-center gap-1 text-xs text-emerald-400 bg-slate-900/90 border border-emerald-900/30 px-2 py-1 rounded shadow-lg animate-in fade-in slide-in-from-bottom-1 whitespace-nowrap z-10 font-medium">
+                <Check className="w-3 h-3" /> Zapisano
+              </div>
+            )}
           </div>
-          {showSavedMsg && (
-            <div className="absolute -bottom-6 right-0 flex items-center gap-1 text-xs text-emerald-400 animate-in fade-in slide-in-from-top-1 px-2">
-              <Check className="w-3 h-3" /> Zapisano
-            </div>
-          )}
         </div>
 
         <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>

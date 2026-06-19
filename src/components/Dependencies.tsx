@@ -1,6 +1,6 @@
 import { useState, type SVGProps } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { ExternalLink, Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube, Wheat, Nut, Dna, LeafyGreen, Carrot, Container, Grape, Citrus, Egg, Bean, Hop, Beaker, Diamond, Zap } from 'lucide-react';
+import { Check, Sprout, Activity, Circle, Droplet, Hexagon, Leaf, Flame, Pill, Coffee, Package, TestTube, Wheat, Nut, Dna, LeafyGreen, Carrot, Container, Grape, Citrus, Egg, Bean, Hop, Beaker, Diamond, Zap } from 'lucide-react';
 import { MONTHLY_CORE_DEPENDENCIES, WEEKLY_PATCHES_DEPENDENCIES } from '../data';
 
 const BlueberryIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -116,13 +116,6 @@ export function Dependencies() {
                   </span>
                 </div>
               </div>
-              <button 
-                onClick={(e) => { e.stopPropagation(); /* external link logic */ }}
-                className="text-slate-600 hover:text-cyan-400 p-1 transition-colors rounded-full"
-                title="Wyszukaj produkt"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </button>
             </div>
           );
         })}

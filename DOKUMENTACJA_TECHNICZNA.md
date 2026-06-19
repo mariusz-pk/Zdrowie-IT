@@ -34,12 +34,13 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.1 DailyCron (`/src/components/DailyCron.tsx`)
 - Oblicza na żywo wskaźnik "System Stability Score". Zmieniając wartości stanów Boolean (checkboxy) lub liczbowych (suwaki), na podstawie useEffect wyliczany jest docelowy Score w skali od 0 do 100%. Wykres progressu bazuje na parametrze `strokeDashoffset` natywnego SVG.
-- Posiada ulepszone pola wprowadzania danych (np. konfigurowalny "Dzienny limit kroków" wykorzystujący manualny przycisk zapisu/potwierdzenia). Wszelkie zmiany potwierdzane wizualnie komunikatem 'Zapisano' poprawiają interaktywność i UX użytkownika.
+- Posiada ulepszone pola wprowadzania danych (np. konfigurowalny "Dzienny limit kroków" wykorzystujący manualny przycisk zapisu/potwierdzenia). Wszelkie zmiany potwierdzane wizualnie komunikatem 'Zapisano' (odpowiednio wypozycjonowanym jako tooltip nad polem edycji kroków) poprawiają interaktywność i jasno wskazują powiązane pole.
 - Posiada mechanikę odczytywania historycznych dni. Opcja wyboru dat archiwalnych (selekcja sprintu) wyznacza pełen, ciągły przedział czasowy, rozpoczynając od dnia najstarszego wprowadzonego wpisu do bazy przez użytkownika, a kończąc na dniu bieżącym. Eliminuje to braki między datami (luki w dniach bez wdrożonej rutyny).
 
 ### 4.2 Dependencies (`/src/components/Dependencies.tsx`)
 - Posiada zagnieżdżoną logikę SubTabów (Monthly/Weekly).
 - Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami w `data.ts`.
+- Lista zoptymalizowana i pozbawiona ikon zewnętrznych linków.
 - Automatycznie dopasowuje tematyczne ikony z biblioteki `lucide-react` (oraz niestandardowe ikony SVG, np. dla borówki) na podstawie zawartości tekstu z podziałem na szczegółowe grupy (np. kiszonki, owoce, awokado, kurkuma, imbir).
 - Oddzielne rozpoznanie wystąpień dla imbiru i kurkumy w celu nadania osobnych wyróżnień wizualnych.
 

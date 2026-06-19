@@ -7,13 +7,13 @@ Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyg
 Aplikacja podzielona jest funkcjonalnie na 4 główne działy, dostępne poprzez dolne menu nawigacyjne nawiązujące formą do urządzeń mobilnych:
 
 ## 1. CRON (Interaktywny Tracker KPI - Daily Cron)
-Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zaznaczania swoich dziennych, najważniejszych nawyków prozdrowotnych (poranne nawodnienie, opóźnianie picia kawy o 90 minut, porcja witaminy D3 + K2 MK7 z tłuszczami, wieczorna dawka suplementów, zrządzanie ustalanym "Dziennym limitem kroków" ze swobodną edycją i systemem zapisu).
+Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zaznaczania swoich dziennych, najważniejszych nawyków prozdrowotnych (poranne nawodnienie, opóźnianie picia kawy o 90 minut, porcja witaminy D3 + K2 MK7 z tłuszczami, wieczorna dawka suplementów, zrządzanie ustalanym "Dziennym limitem kroków" ze swobodną edycją i poprawionym wizualnie systemem zapisu z kontekstowym powiadomieniem).
 
 - **System Stability Score:** Na górze ekranu znajduje się wskaźnik pokazujący aktualny dzienny wynik. Jest to procentowa wartość obliczana dynamicznie. Zaznaczanie każdego nawyku lub odpowiednie przesunięcie w dół/w górę suwaków z ocenami subiektywnej energii/snu zwiększa ten wskaźnik. Wynik 100% oznacza wykonanie pełnego cyklu dziennego.
 - **Archiwum Nawyków:** Aplikacja automatycznie zeruje te wartości równo o północy. Ogranicza też wgląd do dni archiwalnych – na górnym module widnieje wybór daty, pozwalający wejść w każdy dotychczasowy dzień tylko w celu sprawdzenia swojego "wyniku" (zablokowany tryb odczytu archiwalnego). Wybór zablokowany jest w ścisłym przedziale — od najstarszego dnia, w którym użytkownik zanotował postępy, z uzupełnieniem ciągłości poprzez wszystkie dni (bez przerywanych luk), aż do dnia dzisiejszego jako dnia ostatecznego zakresu.
 
 ## 2. DEPS (Spiżarnia Biohackera / Lista Zależności)
-Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich dla mózgu mikroskładników odżywczych (materiały budulcowe m.in. dla hormonów i systemu nerwowego).
+Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich dla mózgu mikroskładników odżywczych (materiały budulcowe m.in. dla hormonów i systemu nerwowego). Czysta lista zredukowana została do czytelnych, prostych nazw, by skupić użytkownika wyłącznie na kompletowaniu produktów.
 - Wyświetla towary niezbędne do kupienia i zaopatrzenia swojej domowej apteczki. Lista podzielona jest na dwie kategorie: stałe produkty ogólne (miesięczne CORE) i produkty do regularnego odświeżania na dany tydzień (Weekly Patches).
 - Asortyment zyskuje zindywidualizowane ikony ułatwiające orientację w liście zakupów, kategoryzujące pozycje na precyzyjne typy produktów (w tym m.in. kiszonki, borówki czy wydzielone kąciki przypraw).
 - Udaną "instalację" zależnosci (zakup) odklikuje się symbolem 'ptaszka', co dodaje produkt do zasobów zaliczonych. Lista podlicza zdobyte pozycje ukazując stan wyposażenia "spiżarni".

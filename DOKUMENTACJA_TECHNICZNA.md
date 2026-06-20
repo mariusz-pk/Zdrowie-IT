@@ -60,7 +60,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.5 Analytics (`/src/components/Analytics.tsx`)
 - Widok agregacyjny (System Analytics) przetwarzający postępy zadeklarowane w module `DailyCron`.
-- Renderuje dynamiczny wykres słupkowy na podstawie pełnej historii (od pierwszego wprowadzonego dnia). Wykres generuje widok w oparciu o stan `chartData` i posiada funkcje przesuwania poziomego (scroll) oraz stałą (sticky) oś Y.
+- Renderuje dynamiczny wykres słupkowy na podstawie sztywnych danych z ostatnich 7 dni. Wykres generuje widok w oparciu o stan `chartData` i posiada funkcje przesuwania poziomego (scroll) oraz stałą (sticky) oś Y.
 - Wykres wyświetla na bieżąco uzyskane wyniki procentowe nad szczytami słupków dla lepszej czytelności.
 - Prezentuje "Raport: Ostatnie 30 dni", na który składają się średni zadeklarowany wynik score, odnotowana ciągłość używania (Consistency), średnia zgłoszona moc procesora (Energia) oraz downtime (Jakość Snu).
 - Rozbija poszczególne zadania procesów zadeklarowane na przestrzeni 30 dni - wyliczając procentowe wskaźniki pomyślności wykonania operacji, na przykład Poranny Izotonik czy ilość zarejestrowanych kroków średnio na dobę.
@@ -75,8 +75,8 @@ Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz 
 - Sprawdzacz stanu (poller umieszczony w sercu rutera aplikacji) odpytuje o nieukończone na dany dzień procesy i wysyła zaplanowane komunikaty (przypomnienia o rutynie) dbając również o stan wstrzymania dla Visibility API. Zmiana widoczności ekranu ("visibilitychange") błyskawicznie re-uruchamia serwisy powiadomień. 
 
 ## 7. Standardy PWA i Integracja
-- Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Zmieniono w nim nazwę aplikacji na 'IT Health v2.0 by WszystkokolwiekWFormie', przejawiającą się w tytule ikony na ekranie głównym.
+- Aplikacja posiada plik `/public/manifest.json` z określeniem parametrów mobilnych (`display: 'standalone'`, `orientation: 'portrait'`). Zmieniono w nim nazwę aplikacji docelowej na 'IT Health v2.0', przejawiającą się w tytule ikony na ekranie głównym.
 - Ikona startowa PWA posiada wbudowane, głębokie, granatowe tło (`#0f172a`), aby całkowicie zapobiec pojawianiu się białych ramek generowanych dla ikon z przezroczystym tłem przez niektóre systemy. Za pomocą wywoływanego procesora grafiki przypisano zaktualizowane ikony w rozmiarach `192x192` oraz `512x512`.
-- Przy uruchamianiu zagnieżdżonego PWA bądź przy odświeżaniu widoku, wbudowano niestandardowy ekran powitalny (startup splash screen) zawarty całkowicie w pliku `index.html`. Prezentuje on animowaną ikonę oraz podpis autora na dole ekranu, zasłaniając moment procesowania komponentów React.
+- Przy uruchamianiu zagnieżdżonego PWA bądź przy odświeżaniu widoku, wbudowano niestandardowy ekran powitalny (startup splash screen) zawarty całkowicie w pliku `index.html`. Prezentuje on tekstową nazwę aplikacji 'IT Health v2.0' na środku ekranu oraz uszczuplony podpis autora 'by WszystkokolwiekWFormie' na dole ekranu, zasłaniając moment procesowania komponentów React.
 - Podłączony jest `sw.js` (Service Worker) zapewniający prostą strategię Network-First chroniącą przed całkowitym brakiem odpowiedzi podczas chwilowych utrat połączenia sieciowego.
 - Globalny `index.html` posiada tagi przystosowane do web-aplikacji nadające kompatybilność urządzeniom obsługiwanym przez iOS (`apple-mobile-web-app-capable`).

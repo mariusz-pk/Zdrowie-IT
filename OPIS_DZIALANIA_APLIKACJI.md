@@ -2,7 +2,7 @@
 
 Aplikacja **IT Health V2.0 by WszystkokolwiekWFormie** to narzędzie wspomagające zarządzanie zdrowiem (biohacking), przeznaczone w głównej mierze dla osób mających siedzący tryb życia (m.in. pracowników branży IT). Jej zadaniem jest budowanie pozytywnych, regularnych rutyn oraz stałe monitorowanie postępów i stanu witalnego.
 
-Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki). W rezultacie zyskujesz piękną, spójną ikonę z jednolitym ciemnym tłem, chroniącym przed tworzeniem białych obramowań przez system operacyjny. Aplikacja posiada własny, dedykowany ekran startowy przy uruchamianiu – na dole pod animowaną ikoną widnieje podpis "IT Health v2.0 by WszystkokolwiekWFormie".
+Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki). W rezultacie zyskujesz piękną, spójną ikonę z jednolitym ciemnym tłem, chroniącym przed tworzeniem białych obramowań przez system operacyjny, a sama aplikacja pojawi się pod uproszczoną nazwą "IT Health v2.0". Aplikacja posiada własny, dedykowany ekran startowy przy uruchamianiu – na środku ekranu pojawia się tekst "IT Health v2.0", a na dole ekranu podpis autora "by WszystkokolwiekWFormie".
 
 Aplikacja podzielona jest funkcjonalnie na 4 główne działy, dostępne poprzez dolne menu nawigacyjne nawiązujące formą do urządzeń mobilnych:
 
@@ -35,7 +35,7 @@ Twoja klinika wewnątrzkonsolowa; miejsce gdzie wchodzisz podczas porannych diag
 
 ## 5. STATS (System Analytics / Raporty)
 Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanych w głównym module **CRON**. 
-- **Historia Wydajności:** Poziomy, przewijany panel wizualizacyjny prezentujący codzienne wyniki (score) punktacji generowane od momentu rozpoczęcia korzystania z aplikacji. Wyższe słupki z czytelnym wskaźnikiem procentowym oznaczają wyższą powtarzalność na przestrzeni historii danych.
+- **Historia Wydajności:** Poziomy, przewijany panel wizualizacyjny prezentujący codzienne wyniki (score) punktacji uwzględniające sztywny okres ostatnich 7 dni. Wyższe słupki z czytelnym wskaźnikiem procentowym oznaczają wyższą powtarzalność.
 - **Raport: Ostatnie 30 dni:** Szybki rzut oka na dłuższą perspektywę – średni wynik punktowy, stopień ciągłości działania w aplikacji ("Konsekwencja"), oraz średnia ocena odczuwalnej Energii (Mocy Procesora) i jakości Snu (Downtime).
 - **Rozbicie Procesów:** Szczegółowe widoki częstotliwości wykonywania przypisanych logów – ile razy na przestrzeni 30 dni wdrożony był Poranny Izotonik, czy systematycznie odcinano kofeinę, i jaka uśredniona ilość kroków widniała w logach telemetrycznych poszczególnego użytkownika.
 

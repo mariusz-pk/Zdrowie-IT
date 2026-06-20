@@ -53,21 +53,8 @@ export function Analytics() {
   const [history] = useLocalStorage<Record<string, DailyCronState>>('v2_dailyCronHistory_v2', {});
 
   const chartDates = useMemo(() => {
-    const activeDates = Object.keys(history).sort();
-    const todayStr = getLastNDays(1)[0];
-    
-    if (activeDates.length === 0) {
-      return [todayStr];
-    }
-    
-    const firstDate = new Date(activeDates[0]);
-    const todayDate = new Date(todayStr); // Normalize to local midnight strings
-    
-    const diffTime = todayDate.getTime() - firstDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    
-    return getLastNDays(Math.max(1, diffDays));
-  }, [history]);
+    return getLastNDays(7);
+  }, []);
 
   const monthDates = useMemo(() => getLastNDays(30), []);
 

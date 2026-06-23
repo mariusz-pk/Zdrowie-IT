@@ -12,56 +12,7 @@
     <title>IT Health v2.0</title>
   </head>
   <body class="bg-slate-950 text-slate-50 overscroll-y-none">
-    <div id="root">
-      <style>
-        #startup-splash {
-          position: fixed;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          background-color: #020617; /* bg-slate-950 */
-          color: #f8fafc; /* text-slate-50 */
-          font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-          z-index: 9999;
-        }
-        .splash-center {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        .splash-icon {
-          width: 140px;
-          height: 140px;
-          object-fit: contain;
-          border-radius: 32px;
-          box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
-        }
-        .splash-footer {
-          padding-bottom: 2.5rem;
-          font-size: 0.75rem;
-          color: #94a3b8; /* text-slate-400 */
-          font-weight: 600;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: .7; }
-        }
-      </style>
-      <div id="startup-splash">
-        <div class="splash-center">
-          <h1 style="font-size: 2rem; font-weight: bold; letter-spacing: 0.05em; color: #22d3ee; margin: 0; text-align: center;">IT Health v2.0</h1>
-        </div>
-        <div class="splash-footer">
-          by WszystkokolwiekWFormie
-        </div>
-      </div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -14,6 +14,14 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('cron');
   const [isMounted, setIsMounted] = useState(false);
   const [monitPendingCount, setMonitPendingCount] = useState<number>(0);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Prevent hydration mismatch for extensions/server
   useEffect(() => {
@@ -129,6 +137,31 @@ export default function App() {
   };
 
   if (!isMounted) return null;
+
+  if (showSplash) {
+    return (
+      <div className="fixed inset-0 z-[1000] bg-slate-900 flex flex-col items-center justify-center animate-in fade-in duration-1000">
+        <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm px-6 animate-in zoom-in-95 duration-1000 delay-150">
+          <div className="relative w-48 h-48 mb-8 rounded-[2rem] shadow-[0_0_80px_-15px_rgba(16,185,129,0.3)] bg-slate-800 p-2">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-[2rem] animate-pulse" />
+            <img 
+              src="/app-icon.png" 
+              alt="Ikona Aplikacji" 
+              className="w-full h-full object-cover rounded-[1.5rem] relative z-10"
+            />
+          </div>
+          <h1 className="text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 text-center">
+            IT Health v2.0
+          </h1>
+        </div>
+        <div className="pb-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
+          <p className="text-[10px] text-slate-600 tracking-wider uppercase mt-1">
+            by WszystkokolwiekWFormie
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[100dvh] bg-slate-950 text-slate-50 font-sans flex flex-col md:max-w-md md:mx-auto md:border-x border-cyan-900/30 md:shadow-2xl overflow-hidden relative">

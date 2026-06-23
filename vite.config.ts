@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['app-icon.png', 'icon-192-v2.png', 'icon-512-v2.png'],
+        includeAssets: ['app-icon.png'],
         manifest: {
           name: 'IT Health v2.0',
           short_name: 'IT Health v2.0',
@@ -22,25 +22,25 @@ export default defineConfig(() => {
           orientation: 'portrait',
           icons: [
             {
-              src: '/icon-192-v2.png',
+              src: '/app-icon.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/icon-192-v2.png',
+              src: '/app-icon.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'maskable'
             },
             {
-              src: '/icon-512-v2.png',
+              src: '/app-icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/icon-512-v2.png',
+              src: '/app-icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'

@@ -1,7 +1,20 @@
 const CACHE_NAME = 'wszystkokolwiek-v2';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192-v2.png',
+  '/icon-512-v2.png'
+];
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -9,18 +22,17 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Simple network-first strategy for basic PWA compliance
   event.respondWith(
     fetch(event.request).catch(async () => {
       const match = await caches.match(event.request);
       if (match) return match;
-      // return a basic fallback if offline and not in cache
+      
+      const rootMatch = await caches.match('/');
+      if (rootMatch) return rootMatch;
+
       return new Response('Zostaleś odłączony od sieci (Offline Mode).', {
-        status: 503,
-        statusText: 'Service Unavailable',
-        headers: new Headers({
-          'Content-Type': 'text/plain'
-        })
+        status: 200,
+        headers: new Headers({ 'Content-Type': 'text/plain' })
       });
     })
   );

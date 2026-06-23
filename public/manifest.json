@@ -1,9 +1,9 @@
 {
-  "id": "/",
   "name": "IT Health v2.0",
   "short_name": "IT Health v2.0",
   "description": "IT Health v2.0 by WszystkokolwiekWFormie",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
+  "id": "/?source=pwa",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#020617",

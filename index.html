@@ -9,17 +9,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <link rel="icon" type="image/png" href="/app-icon.png" />
     <link rel="apple-touch-icon" href="/app-icon.png" />
-    <link rel="manifest" href="/manifest.json?v=4" />
     <title>IT Health v2.0</title>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(err => {
-            console.log('SW registration failed:', err);
-          });
-        });
-      }
-    </script>
   </head>
   <body class="bg-slate-950 text-slate-50 overscroll-y-none">
     <div id="root">

@@ -73,7 +73,9 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
       "200 ml ciepłej wody",
       "1 łyżka octu jabłkowego",
       "Szczypta soli kłodawskiej",
-      "Pół łyżeczki miodu"
+      "Pół łyżeczki miodu",
+      "🔥 TWÓJ ADAPTOGEN:",
+      "Pół łyżeczki Różeńca Górskiego (Rhodiola) dla zwiększenia odporności na stres już od pierwszych minut poranka."
     ],
     instructions: "Wlej do naczynia 200 ml ciepłej wody. Dodaj ocet jabłkowy, sól kłodawska oraz miód. Całość dokładnie wymieszaj do rozpuszczenia się składników. Pobudza wydzielanie soków żołądkowych i nawadnia komórki.",
     category: "PORANEK (Aktywacja i Rozruch)"
@@ -85,7 +87,9 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     ingredients: [
       "1 łyżeczka Matchy",
       "50 ml wody (temperatura ok. 80°C)",
-      "150 ml napoju roślinnego (mleko A2 bio)"
+      "150 ml napoju roślinnego (mleko A2 bio)",
+      "🔥 TWÓJ ADAPTOGEN (wybierz 1 lub połącz): * Opcja A (Skupienie i usuwanie mgły mózgowej): 1 płaska łyżeczka Soplówki jeżowatej (Lion's Mane).",
+      "Opcja B (Stresujący deadline): Pół łyżeczki Różeńca Górskiego (Rhodiola)."
     ],
     instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml wody term. 80°C. Dokładnie wymieszaj (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny (mleko A2 bio), następnie dolej do bazy.",
     category: "PORANEK (Aktywacja i Rozruch)"
@@ -130,8 +134,10 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     timeMin: 3,
     ingredients: [
       "Surowe kakao",
-      "Adaptogeny (np. Ashwagandha, Soplówka jeżowata)",
-      "Napój roślinny (mleko A2 bio)"
+      "Napój roślinny (mleko A2 bio)",
+      "🔥 TWÓJ ADAPTOGEN (Synergia relaksu - połącz je):",
+      "Pół łyżeczki Macy (nadaje obłędny, lekko karmelowy smak i stabilizuje nastrój).",
+      "Pół łyżeczki grzybów Reishi (dla opanowania stresu z całego dnia pracy)."
     ],
     instructions: "Podgrzej napój roślinny (mleko A2 bio). Rozmieszaj dokładnie kakao i adaptogeny. Pij w momentach silnego stresu psychologicznego, aby wyciszyć układ nerwowy bez utraty ostrości umysłu.",
     category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
@@ -145,7 +151,8 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
       "Kurkuma",
       "Cynamon i Kardamon",
       "5g oleju kokosowego",
-      "Miód"
+      "Miód",
+      "🔥 TWÓJ ADAPTOGEN: * 1 płaska łyżeczka Ashwagandhy. To potężny reduktor kortyzolu, który w połączeniu z ciepłym mlekiem i kurkumą działa jak biologiczny wyłącznik stresu"
     ],
     instructions: "Podgrzej mleko roślinne tak, aby było ciepłe (nie wrzące). Dodaj kurkumę, cynamon, kardamon oraz olej kokosowy i wymieszaj. Miód dodaj na samym końcu do ostudzonego napoju. Idealny rytuał wyciszający na wieczór.",
     category: "WIECZÓR (Wyciszenie i Sen)"

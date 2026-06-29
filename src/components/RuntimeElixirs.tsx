@@ -107,7 +107,7 @@ const ElixirCard: React.FC<{ recipe: ElixirRecipe; isOpen: boolean; toggleOpen: 
           >
             <div className="p-4 space-y-4">
               <div>
-                <h4 className="text-[10px] uppercase tracking-widest text-cyan-600 mb-2 font-bold font-mono">Składniki (Source Code)</h4>
+                <h4 className="text-[10px] uppercase tracking-widest text-cyan-600 mb-2 font-mono">SKŁADNIKI:</h4>
                 <ul className="space-y-1">
                   {recipe.ingredients.map((ing, i) => (
                     <li key={i} className="text-sm text-slate-300 pl-3 border-l hover:border-cyan-500 border-slate-700 py-0.5 transition-colors">
@@ -116,9 +116,30 @@ const ElixirCard: React.FC<{ recipe: ElixirRecipe; isOpen: boolean; toggleOpen: 
                   ))}
                 </ul>
               </div>
+
+              {recipe.adaptogens && recipe.adaptogens.length > 0 && (
+                <div className="pt-2">
+                  <h4 className="text-sm font-bold text-amber-500 mb-2 flex items-center gap-1">
+                    <span className="text-base">🔥</span> Twój adaptogen:
+                  </h4>
+                  {recipe.adaptogens.length === 1 ? (
+                    <p className="text-sm text-slate-300 text-justify">
+                      {recipe.adaptogens[0]}
+                    </p>
+                  ) : (
+                    <ul className="space-y-2">
+                      {recipe.adaptogens.map((adapt, i) => (
+                        <li key={i} className="text-sm text-slate-300 text-justify pl-3 border-l hover:border-amber-500 border-amber-500/30 py-0.5 transition-colors">
+                          {adapt}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
               
               <div>
-                <h4 className="text-[10px] uppercase tracking-widest text-cyan-600 mb-2 font-bold font-mono">Instrukcja (Execution Flow)</h4>
+                <h4 className="text-[10px] uppercase tracking-widest text-cyan-600 mb-2 font-mono">INSTRUKCJA PRZYGOTOWANIA:</h4>
                 <p className="text-sm text-justify text-slate-400 leading-relaxed bg-slate-950/40 p-3 rounded-lg border-l-2 border-slate-800">
                   {recipe.instructions}
                 </p>

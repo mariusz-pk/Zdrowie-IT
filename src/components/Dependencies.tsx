@@ -68,8 +68,9 @@ export function Dependencies() {
 
   const getList = () => activeSubTab === 'monthly' ? MONTHLY_CORE_DEPENDENCIES : WEEKLY_PATCHES_DEPENDENCIES;
   
-  const currentList = getList();
-  const progress = Math.round((currentList.filter(i => acquired.includes(i)).length / currentList.length) * 100) || 0;
+  const currentGroups = getList();
+  const allItems = currentGroups.flatMap(g => g.items);
+  const progress = Math.round((allItems.filter(i => acquired.includes(i)).length / allItems.length) * 100) || 0;
 
   return (
     <div className="space-y-4 pb-8 animate-in fade-in duration-300">
@@ -92,33 +93,42 @@ export function Dependencies() {
 
       <div className="flex items-center justify-between px-2">
         <span className="text-xs text-slate-400 uppercase tracking-wider">Packages Loaded</span>
-        <span className="text-xs text-cyan-400 font-mono font-bold">{progress}% [{currentList.filter(i => acquired.includes(i)).length}/{currentList.length}]</span>
+        <span className="text-xs text-cyan-400 font-mono font-bold">{progress}% [{allItems.filter(i => acquired.includes(i)).length}/{allItems.length}]</span>
       </div>
 
-      <div className="cyber-panel divide-y divide-cyan-900/30">
-        {currentList.map(item => {
-          const isAcquired = acquired.includes(item);
-          const Icon = getDepIcon(item);
-          return (
-            <div 
-              key={item} 
-              onClick={() => toggleItem(item)}
-              className={`p-3 sm:p-4 flex items-center justify-between gap-3 cursor-pointer transition-colors hover:bg-slate-800/40 ${isAcquired ? 'opacity-50' : 'opacity-100'}`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 shrink-0 rounded flex items-center justify-center border transition-all duration-200 ${isAcquired ? 'bg-cyan-600 border-cyan-500 text-slate-950' : 'border-slate-600 bg-slate-900'}`}>
-                  {isAcquired && <Check strokeWidth={3} className="w-3.5 h-3.5" />}
-                </div>
-                <div className="flex items-center gap-3">
-                  <Icon className={`w-4 h-4 ${isAcquired ? 'text-slate-500' : 'text-cyan-400'}`} />
-                  <span className={`text-sm md:text-base transition-all duration-200 ${isAcquired ? 'line-through text-slate-500' : 'text-slate-200'}`}>
-                    {item}
-                  </span>
-                </div>
-              </div>
+      <div className="space-y-6">
+        {currentGroups.map(group => (
+          <div key={group.category} className="space-y-2">
+            <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-widest pl-2">
+              {group.category}
+            </h3>
+            <div className="cyber-panel divide-y divide-cyan-900/30">
+              {group.items.map(item => {
+                const isAcquired = acquired.includes(item);
+                const Icon = getDepIcon(item);
+                return (
+                  <div 
+                    key={item} 
+                    onClick={() => toggleItem(item)}
+                    className={`p-3 sm:p-4 flex items-center justify-between gap-3 cursor-pointer transition-colors hover:bg-slate-800/40 ${isAcquired ? 'opacity-50' : 'opacity-100'}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-5 h-5 shrink-0 rounded flex items-center justify-center border transition-all duration-200 ${isAcquired ? 'bg-cyan-600 border-cyan-500 text-slate-950' : 'border-slate-600 bg-slate-900'}`}>
+                        {isAcquired && <Check strokeWidth={3} className="w-3.5 h-3.5" />}
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-4 h-4 ${isAcquired ? 'text-slate-500' : 'text-cyan-400'}`} />
+                        <span className={`text-sm md:text-base transition-all duration-200 ${isAcquired ? 'line-through text-slate-500' : 'text-slate-200'}`}>
+                          {item}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

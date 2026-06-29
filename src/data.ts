@@ -1,58 +1,103 @@
-export const MONTHLY_CORE_DEPENDENCIES = [
-  "Kasza jaglana",
-  "Gryczana niepalona",
-  "Komosa ryżowa (quinoa)",
-  "Siemię lniane (całe)",
-  "Nasiona chia",
-  "Pestki dyni",
-  "Słonecznik (pestki)",
-  "Orzechy włoskie",
-  "Migdały",
-  "Orzechy brazylijskie",
-  "Olej lniany (tłoczony na zimno)",
-  "Oliwa z oliwek extra virgin",
-  "Olej kokosowy",
-  "Pyłek pszczeli",
-  "Kakao ceremonialne",
-  "Miód spadziowy (lub lipowy)",
-  "Szałwia lekarska (susz)",
-  "Melisa (susz)",
-  "Szyszki chmielu (susz)",
-  "Krwawnik pospolity (susz)",
-  "Cynamon cejloński",
-  "Kardamon",
-  "Pieprz cayenne / czarny pieprz",
-  "Sól kłodawska (niejodowana)",
-  "Magnez (jabłczan lub diglicynian)",
-  "Witamina D3+K2",
-  "Omega-3 (suplement)",
-  "Kreatyna",
-  "Adaptogeny (np. Ashwagandha)",
-  "Kurkumina z piperyną",
-  "Ocet jabłkowy mętny (BIO)",
-  "Kawa w ziarnach (jakościowa)",
-  "Zielona Matcha"
+export interface DependencyGroup {
+  category: string;
+  items: string[];
+}
+
+export const MONTHLY_CORE_DEPENDENCIES: DependencyGroup[] = [
+  {
+    category: "BAZA I WĘGLOWODANY",
+    items: [
+      "Kasza jaglana",
+      "Gryczana niepalona",
+      "Komosa ryżowa (quinoa)"
+    ]
+  },
+  {
+    category: "ZDROWE TŁUSZCZE I ORZECHY",
+    items: [
+      "Siemię lniane (całe)",
+      "Nasiona chia",
+      "Pestki dyni",
+      "Słonecznik (pestki)",
+      "Orzechy włoskie",
+      "Migdały",
+      "Orzechy brazylijskie",
+      "Olej lniany (tłoczony na zimno)",
+      "Oliwa z oliwek extra virgin",
+      "Olej kokosowy"
+    ]
+  },
+  {
+    category: "ZIOŁA, PRZYPRAWY I SUPERFOODS",
+    items: [
+      "Pyłek pszczeli",
+      "Kakao ceremonialne",
+      "Miód spadziowy (lub lipowy)",
+      "Szałwia lekarska (susz)",
+      "Melisa (susz)",
+      "Szyszki chmielu (susz)",
+      "Krwawnik pospolity (susz)",
+      "Cynamon cejloński",
+      "Kardamon",
+      "Pieprz cayenne / czarny pieprz",
+      "Sól kłodawska (niejodowana)",
+      "Ocet jabłkowy mętny (BIO)",
+      "Kawa w ziarnach (jakościowa)",
+      "Zielona Matcha"
+    ]
+  },
+  {
+    category: "SUPLEMENTY",
+    items: [
+      "Magnez (jabłczan lub diglicynian)",
+      "Witamina D3+K2",
+      "Omega-3 (suplement)",
+      "Kreatyna",
+      "Kurkumina z piperyną"
+    ]
+  },
+  {
+    category: "ADAPTOGENY",
+    items: [
+      "Soplówka jeżowata (Lion's Mane)",
+      "Różeniec Górski (Rhodiola)",
+      "Cordyceps",
+      "Maca",
+      "Reishi",
+      "Ashwagandha"
+    ]
+  }
 ];
 
-export const WEEKLY_PATCHES_DEPENDENCIES = [
-  "Brokuły",
-  "Kalafior",
-  "Kapusta (biała lub czerwona)",
-  "Buraki",
-  "Marchew",
-  "Pietruszka (korzeń i natka)",
-  "Seler",
-  "Szpinak",
-  "Jarmuż",
-  "Rukola",
-  "Kiszonki (domowa kapusta, ogórki, zakwas z buraka)",
-  "Dzika borówka (może być mrożona)",
-  "Cytryny",
-  "Awokado",
-  "Czosnek",
-  "Cebula",
-  "Świeży imbir",
-  "Świeża kurkuma"
+export const WEEKLY_PATCHES_DEPENDENCIES: DependencyGroup[] = [
+  {
+    category: "WARZYWA",
+    items: [
+      "Brokuły",
+      "Kalafior",
+      "Kapusta (biała lub czerwona)",
+      "Buraki",
+      "Marchew",
+      "Pietruszka (korzeń i natka)",
+      "Seler",
+      "Szpinak",
+      "Jarmuż",
+      "Rukola",
+      "Czosnek",
+      "Cebula"
+    ]
+  },
+  {
+    category: "OWOCE I INNE",
+    items: [
+      "Kiszonki (domowa kapusta, ogórki, zakwas z buraka)",
+      "Dzika borówka (może być mrożona)",
+      "Cytryny",
+      "Awokado",
+      "Świeży imbir",
+      "Świeża kurkuma"
+    ]
+  }
 ];
 
 export interface ElixirRecipe {
@@ -60,6 +105,7 @@ export interface ElixirRecipe {
   name: string;
   timeMin?: number;
   ingredients: string[];
+  adaptogens?: string[];
   instructions: string;
   category: "PORANEK (Aktywacja i Rozruch)" | "W TRAKCIE DNIA (Wydajność i Skupienie)" | "WIECZÓR (Wyciszenie i Sen)" | "DOWOLNA PORA (Wsparcie Całodobowe)";
 }
@@ -73,9 +119,10 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
       "200 ml ciepłej wody",
       "1 łyżka octu jabłkowego",
       "Szczypta soli kłodawskiej",
-      "Pół łyżeczki miodu",
-      "🔥 TWÓJ ADAPTOGEN:",
-      "Pół łyżeczki Różeńca Górskiego (Rhodiola) dla zwiększenia odporności na stres już od pierwszych minut poranka."
+      "1/2 łyżeczki miodu"
+    ],
+    adaptogens: [
+      "1/2 łyżeczki Różeńca Górskiego (Rhodiola) dla zwiększenia odporności na stres już od pierwszych minut poranka."
     ],
     instructions: "Wlej do naczynia 200 ml ciepłej wody. Dodaj ocet jabłkowy, sól kłodawska oraz miód. Całość dokładnie wymieszaj do rozpuszczenia się składników. Pobudza wydzielanie soków żołądkowych i nawadnia komórki.",
     category: "PORANEK (Aktywacja i Rozruch)"
@@ -87,11 +134,25 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     ingredients: [
       "1 łyżeczka Matchy",
       "50 ml wody (temperatura ok. 80°C)",
-      "150 ml napoju roślinnego (mleko A2 bio)",
-      "🔥 TWÓJ ADAPTOGEN (wybierz 1 lub połącz): * Opcja A (Skupienie i usuwanie mgły mózgowej): 1 płaska łyżeczka Soplówki jeżowatej (Lion's Mane).",
-      "Opcja B (Stresujący deadline): Pół łyżeczki Różeńca Górskiego (Rhodiola)."
+      "150 ml napoju roślinnego (mleko A2 bio)"
+    ],
+    adaptogens: [
+      "Opcja A (Skupienie i usuwanie mgły mózgowej): 1 płaska łyżeczka Soplówki jeżowatej (Lion's Mane).",
+      "Opcja B (Stresujący deadline): 1/2 łyżeczki Różeńca Górskiego (Rhodiola)."
     ],
     instructions: "Wsyp łyżeczkę Matchy do naczynia i zalej ją 50 ml wody term. 80°C. Dokładnie wymieszaj (najlepiej miotełką chasen) aż do powstania gęstej pianki. Podgrzej i spień napój roślinny (mleko A2 bio), następnie dolej do bazy.",
+    category: "PORANEK (Aktywacja i Rozruch)"
+  },
+  {
+    id: "e11",
+    name: "Rytuał Kawowy",
+    timeMin: 5,
+    ingredients: [
+      "Filiżanka czarnej kawy (najlepiej z ekspresu/kawiarki)",
+      "1 łyżeczka masła klarowanego (ghee)",
+      "1 łyżeczka oleju MCT (lub kokosowego)"
+    ],
+    instructions: "Zaparz kawę wybraną metodą. Przelej do blendera, dodaj masło klarowane i olej MCT. Blenduj przez kilkanaście sekund na wysokich obrotach do uzyskania gęstej pianki. Pij rano, by zapewnić sobie stabilny i długotrwały zastrzyk energii bez wahań cukru we krwi.",
     category: "PORANEK (Aktywacja i Rozruch)"
   },
   {
@@ -134,10 +195,11 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
     timeMin: 3,
     ingredients: [
       "Surowe kakao",
-      "Napój roślinny (mleko A2 bio)",
-      "🔥 TWÓJ ADAPTOGEN (Synergia relaksu - połącz je):",
-      "Pół łyżeczki Macy (nadaje obłędny, lekko karmelowy smak i stabilizuje nastrój).",
-      "Pół łyżeczki grzybów Reishi (dla opanowania stresu z całego dnia pracy)."
+      "Napój roślinny (mleko A2 bio)"
+    ],
+    adaptogens: [
+      "1/2 łyżeczki Macy (nadaje obłędny, lekko karmelowy smak i stabilizuje nastrój).",
+      "1/2 łyżeczki grzybów Reishi (dla opanowania stresu z całego dnia pracy)."
     ],
     instructions: "Podgrzej napój roślinny (mleko A2 bio). Rozmieszaj dokładnie kakao i adaptogeny. Pij w momentach silnego stresu psychologicznego, aby wyciszyć układ nerwowy bez utraty ostrości umysłu.",
     category: "W TRAKCIE DNIA (Wydajność i Skupienie)"
@@ -151,8 +213,10 @@ export const RUNTIME_ELIXIRS: ElixirRecipe[] = [
       "Kurkuma",
       "Cynamon i Kardamon",
       "5g oleju kokosowego",
-      "Miód",
-      "🔥 TWÓJ ADAPTOGEN: * 1 płaska łyżeczka Ashwagandhy. To potężny reduktor kortyzolu, który w połączeniu z ciepłym mlekiem i kurkumą działa jak biologiczny wyłącznik stresu"
+      "Miód"
+    ],
+    adaptogens: [
+      "1 płaska łyżeczka Ashwagandhy. To potężny reduktor kortyzolu, który w połączeniu z ciepłym mlekiem i kurkumą działa jak biologiczny wyłącznik stresu"
     ],
     instructions: "Podgrzej mleko roślinne tak, aby było ciepłe (nie wrzące). Dodaj kurkumę, cynamon, kardamon oraz olej kokosowy i wymieszaj. Miód dodaj na samym końcu do ostudzonego napoju. Idealny rytuał wyciszający na wieczór.",
     category: "WIECZÓR (Wyciszenie i Sen)"

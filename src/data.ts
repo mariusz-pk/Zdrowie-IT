@@ -43,7 +43,8 @@ export const MONTHLY_CORE_DEPENDENCIES: DependencyGroup[] = [
       "Sól kłodawska (niejodowana)",
       "Ocet jabłkowy mętny (BIO)",
       "Kawa w ziarnach (jakościowa)",
-      "Zielona Matcha"
+      "Zielona Matcha",
+      "Suszony imbir"
     ]
   },
   {
@@ -95,7 +96,21 @@ export const WEEKLY_PATCHES_DEPENDENCIES: DependencyGroup[] = [
       "Cytryny",
       "Awokado",
       "Świeży imbir",
-      "Świeża kurkuma"
+      "Świeża kurkuma",
+      "Rokitnik (wsparcie odporności)"
+    ]
+  },
+  {
+    category: "NABIAŁ I JAJA",
+    items: [
+      "Jajka (klasa 0 lub 1 - fundament białkowy)",
+      "Mleko A2 / Mleko roślinne bez dodatków"
+    ]
+  },
+  {
+    category: "MIĘSO I RYBY",
+    items: [
+      "Dzikie ryby (śledź / dziki łosoś - Omega-3)"
     ]
   }
 ];

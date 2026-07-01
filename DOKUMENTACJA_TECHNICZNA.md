@@ -39,7 +39,7 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.2 Dependencies (`/src/components/Dependencies.tsx`)
 - Posiada zagnieżdżoną logikę SubTabów (Monthly/Weekly).
-- Podział list na wyspecjalizowane grupy tematyczne: na przykład "Miesięczne Core" kategoryzuje produkty na m.in. "ADAPTOGENY" (zawierające Soplówkę jeżowatą, Różeniec Górski, Cordyceps, Macę, Reishi, Ashwagandhę), "ZDROWE TŁUSZCZE I ORZECHY", czy "SUPLEMENTY". "Weekly Patches" podzielono na warzywa oraz owoce/inne.
+- Podział list na wyspecjalizowane grupy tematyczne: na przykład "Miesięczne Core" kategoryzuje produkty na m.in. "ADAPTOGENY" (zawierające Soplówkę jeżowatą, Różeniec Górski, Cordyceps, Macę, Reishi, Ashwagandhę), "ZDROWE TŁUSZCZE I ORZECHY", "SUPLEMENTY", "NABIAŁ I JAJA" (np. jajka klasa 0/1, mleko A2), czy "MIĘSO I RYBY" (dzikie ryby). "Weekly Patches" podzielono na warzywa oraz owoce/inne (zawierające np. rokitnik wspierający odporność).
 - Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami wszystkich grup w `data.ts`.
 - Lista zoptymalizowana i pozbawiona ikon zewnętrznych linków.
 - Automatycznie dopasowuje tematyczne ikony z biblioteki `lucide-react` (oraz niestandardowe ikony SVG, np. dla borówki) na podstawie zawartości tekstu z podziałem na szczegółowe grupy (np. kiszonki, owoce, awokado, kurkuma, imbir).

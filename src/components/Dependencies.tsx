@@ -47,11 +47,14 @@ const getDepIcon = (name: string) => {
   if (n.includes("brokuły") || n.includes("kalafior") || n.includes("kapusta") && !n.includes("kiszonki") || n.includes("szpinak") || n.includes("jarmuż") || n.includes("rukola")) return LeafyGreen;
   if (n.includes("buraki") || n.includes("marchew") || n.includes("pietruszka") || n.includes("seler")) return Carrot;
   if (n.includes("kiszonki") || n.includes("zakwas")) return Container;
-  if (n.includes("borówka")) return BlueberryIcon;
+  if (n.includes("borówka") || n.includes("rokitnik")) return BlueberryIcon;
   if (n.includes("cytryn")) return Citrus;
-  if (n.includes("awokado")) return Egg;
+  if (n.includes("awokado") || n.includes("jajka")) return Egg;
+  if (n.includes("mleko")) return Beaker;
+  if (n.includes("ryby")) return Dna;
   if (n.includes("czosnek") || n.includes("cebula")) return Circle;
   if (n.includes("imbir") || n.includes("kurkuma")) return Zap;
+  if (n.includes("soplówka") || n.includes("różeniec") || n.includes("cordyceps") || n.includes("maca") || n.includes("reishi") || n.includes("ashwagandha")) return Activity;
   
   return Package;
 };

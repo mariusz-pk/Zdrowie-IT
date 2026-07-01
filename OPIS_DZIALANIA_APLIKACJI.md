@@ -15,7 +15,7 @@ Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zazna
 ## 2. DEPS (Spiżarnia Biohackera / Lista Zależności)
 Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich dla mózgu mikroskładników odżywczych (materiały budulcowe m.in. dla hormonów i systemu nerwowego). Czysta lista zredukowana została do czytelnych, prostych nazw, by skupić użytkownika wyłącznie na kompletowaniu produktów.
 - Wyświetla towary niezbędne do kupienia i zaopatrzenia swojej domowej apteczki. Lista podzielona jest na dwie zakładki: stałe produkty ogólne (miesięczne CORE) i produkty do regularnego odświeżania na dany tydzień (Weekly Patches).
-- Asortyment w obrębie zakładek został dodatkowo precyzyjnie pogrupowany na tematyczne sekcje (np. Baza i węglowodany, Zdrowe tłuszcze, Adaptogeny, Suplementy, Warzywa), co ułatwia i usprawnia poruszanie się po sklepie lub aptece.
+- Asortyment w obrębie zakładek został dodatkowo precyzyjnie pogrupowany na tematyczne sekcje (np. Baza i węglowodany, Zdrowe tłuszcze, Adaptogeny, Suplementy, Nabiał i jaja, Mięso i ryby, Warzywa), co ułatwia i usprawnia poruszanie się po sklepie lub aptece. Dodano również wspierający odporność rokitnik.
 - Asortyment zyskuje zindywidualizowane ikony ułatwiające orientację w liście zakupów, kategoryzujące pozycje na precyzyjne typy produktów (w tym m.in. kiszonki, borówki czy wydzielone kąciki przypraw).
 - Udaną "instalację" zależnosci (zakup) odklikuje się symbolem 'ptaszka', co dodaje produkt do zasobów zaliczonych. Lista podlicza zdobyte pozycje ukazując stan wyposażenia "spiżarni".
 

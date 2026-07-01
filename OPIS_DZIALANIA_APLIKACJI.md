@@ -14,14 +14,16 @@ Sekcja zaprojektowana na wzór skryptów systemowych (crontab). Służy do zazna
 
 ## 2. DEPS (Spiżarnia Biohackera / Lista Zależności)
 Interaktywna "lista zakupów" dla organizmu skoncentrowana wokoło odpowiednich dla mózgu mikroskładników odżywczych (materiały budulcowe m.in. dla hormonów i systemu nerwowego). Czysta lista zredukowana została do czytelnych, prostych nazw, by skupić użytkownika wyłącznie na kompletowaniu produktów.
-- Wyświetla towary niezbędne do kupienia i zaopatrzenia swojej domowej apteczki. Lista podzielona jest na dwie kategorie: stałe produkty ogólne (miesięczne CORE) i produkty do regularnego odświeżania na dany tydzień (Weekly Patches).
+- Wyświetla towary niezbędne do kupienia i zaopatrzenia swojej domowej apteczki. Lista podzielona jest na dwie zakładki: stałe produkty ogólne (miesięczne CORE) i produkty do regularnego odświeżania na dany tydzień (Weekly Patches).
+- Asortyment w obrębie zakładek został dodatkowo precyzyjnie pogrupowany na tematyczne sekcje (np. Baza i węglowodany, Zdrowe tłuszcze, Adaptogeny, Suplementy, Warzywa), co ułatwia i usprawnia poruszanie się po sklepie lub aptece.
 - Asortyment zyskuje zindywidualizowane ikony ułatwiające orientację w liście zakupów, kategoryzujące pozycje na precyzyjne typy produktów (w tym m.in. kiszonki, borówki czy wydzielone kąciki przypraw).
 - Udaną "instalację" zależnosci (zakup) odklikuje się symbolem 'ptaszka', co dodaje produkt do zasobów zaliczonych. Lista podlicza zdobyte pozycje ukazując stan wyposażenia "spiżarni".
 
 ## 3. ELIXIRS (Napoje Mocy - Receptury Czasowe)
 Katalog autorskich receptur napojów wspierających odporność i witalność przez całą dobę. 
 - **Monitor Nawodnienia (Hydration Logger):** Interaktywny panel pozwalający na ustawienie indywidualnego dziennego celu nawodnienia. Zawiera przycisk "Zmień cel", po którym uruchamia się w pełni edytowalne okno dialogowe - można wpisać interesującą nas wartość celową limitu w granicach [0 - 9000] ml i trwale potwierdzić dyskietką. Ponadto, logger pozwala na logowanie spożytych płynów "sztywnym" krokiem (w porcjach po 250 ml), wskazując procentowy progres oraz rejestrując historię akcji.
-- **Katalog Napojów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA). Każdy moduł można otworzyć (rozwijany mechanizm "akordeonu"), odsłaniając jego pełny skład oraz sposób przygotowania (instrukcję/flow), której tekst dla estetyki i przejrzystości jest dwustronnie wyjustowany. W recepturach zawierających dany składnik precyzyjnie określono pożądany napój roślinny z rekomendacją "(mleko A2 bio)".
+- **Katalog Napojów i Moduł Adaptogenów:** Przepisy pogrupowane są na 4 pory dnia (PORANEK, W TRAKCIE DNIA, WIECZÓR, DOWOLNA PORA), a obok tradycyjnych przepisów takich jak Matchy, Kakao czy Złotego Mleka dodano specjalistyczny "Rytuał Kawowy". 
+- **Formatowanie Składników:** W interfejsie zastosowano elegancki podział oddzielający standardowe składniki od potężnych ziół. Sekcja "🔥 Twój adaptogen:" elegancko objaśnia dodatek adaptogenny z zachowaniem obustronnego wyjustowania, a także minimalistycznych punktorów w przypadku występowania kilku opcji naraz. Wartości podawane w recepturach zapisane są klarownie jako ułamki "1/2 łyżeczki", a główne sekcje instrukcyjne oddzielone rygorystycznymi nagłówkami drukowanymi.
 - **Automatyzacja przygotowania:** Napoje, które muszą się parzyć określony czas, wyposażone są we wbudowany stoper odliczający dedykowany czas. Po upływie tego czasu na urządzeniach mobilnych dochodzi do krótkiej potrójnej wibracji sygnalizującej skończone parzenie.
 
 ## 4. INCIDENT (Raportowanie Zdarzeń Zdrowotnych / Telemetria)

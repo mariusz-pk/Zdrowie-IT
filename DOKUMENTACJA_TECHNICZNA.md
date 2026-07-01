@@ -39,15 +39,20 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ### 4.2 Dependencies (`/src/components/Dependencies.tsx`)
 - Posiada zagnieżdżoną logikę SubTabów (Monthly/Weekly).
-- Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami w `data.ts`.
+- Podział list na wyspecjalizowane grupy tematyczne: na przykład "Miesięczne Core" kategoryzuje produkty na m.in. "ADAPTOGENY" (zawierające Soplówkę jeżowatą, Różeniec Górski, Cordyceps, Macę, Reishi, Ashwagandhę), "ZDROWE TŁUSZCZE I ORZECHY", czy "SUPLEMENTY". "Weekly Patches" podzielono na warzywa oraz owoce/inne.
+- Implementuje procentowy pasek progresu zebranych zasobów na podstawie przecięcia elementów w tablicy stanu z pełnymi listami wszystkich grup w `data.ts`.
 - Lista zoptymalizowana i pozbawiona ikon zewnętrznych linków.
 - Automatycznie dopasowuje tematyczne ikony z biblioteki `lucide-react` (oraz niestandardowe ikony SVG, np. dla borówki) na podstawie zawartości tekstu z podziałem na szczegółowe grupy (np. kiszonki, owoce, awokado, kurkuma, imbir).
 - Oddzielne rozpoznanie wystąpień dla imbiru i kurkumy w celu nadania osobnych wyróżnień wizualnych.
 
 ### 4.3 RuntimeElixirs (`/src/components/RuntimeElixirs.tsx`)
+- Architektura interfejsu `ElixirRecipe` wyodrębnia dedykowane pole `adaptogens` od zwykłych składników, by lepiej formatować je na interfejsie jako osobny i wyróżniony moduł ("🔥 Twój adaptogen:").
+- Logika formatowania Adaptogenów: jeśli występuje jeden adaptogen, jest renderowany jako pojedynczy obustronnie wyjustowany akapit. Jeżeli występuje ich więcej, renderowane są jako zgrabne punktory (również wyjustowane).
+- Dodano "Rytuał Kawowy" do rozpiski bazy danych z instrukcją przygotowania kawy bulletproof w sekcji PORANEK.
+- W bazie `data.ts` ustandaryzowano gramatury i frazy w składnikach (m.in. ujednolicenie wystąpień "Pół łyżeczki" na "1/2 łyżeczki").
 - Wdraża komponent `HydrationLogger` wyposażony we własny lokalny stan operujący logowaniem wypitej wody, konfigurowalnym celem dziennym (odblokowane wprowadzanie tekstowe w granicach 0 - 9000 ml dostępne po wciśnięciu 'Zmień cel' – proces zatwierdzany przyciskiem) oraz tablicą zapisującą historię dodawania ostatnich wpisów nawodnienia.
 - Grupuje listę receptur (`RUNTIME_ELIXIRS`) na 4 odrębne kategorie czasowe na podstawie pola `category`, z dedykowanymi ikonami i kolorystyką dla każdego bloku oznaczających inną porę dnia. Receptury napojów roślinnych otrzymały uściślenie w postaci dopisku o rekomendowanym użyciu "(mleko A2 bio)" ze źródła bazy (`data.ts`).
-- Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`. Pole instrukcji zostało skonfigurowane z użyciem klasy `text-justify` (Tailwind), zapewniając równe marginesy tekstu z lewej i prawej strony.
+- Renderuje dynamiczny, reagujący na interakcję akordeon na bazie komponentu z `motion`. Pole instrukcji zostało skonfigurowane z użyciem klasy `text-justify` (Tailwind), zapewniając równe marginesy tekstu z lewej i prawej strony. Nagłówki "SKŁADNIKI:" oraz "INSTRUKCJA PRZYGOTOWANIA:" ukształtowano w formie czystego ALL-CAPS (pozbawionego pogrubienia fontu).
 - Zawiera wbudowany moduł zliczania czasu (klasa `BrewTimer`) wywołująca pętlę asynchroniczną przypisaną do instancji lokalnego okna (timer `setInterval(..., 1000)`). Po osiągnięciu 0:00 wywołuje natywne wibracje urządzenia (dzięki API `navigator.vibrate()`).
 
 ### 4.4 IncidentResponse (`/src/components/IncidentResponse.tsx`)

@@ -44,14 +44,20 @@ export function Integrations() {
 
   const handleLogin = async () => {
     setIsLoggingIn(true);
+    setMessage('');
     try {
       const result = await googleSignIn();
       if (result) {
         setUser(result.user);
         setNeedsAuth(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Login failed:', err);
+      if (err?.code === 'auth/unauthorized-domain') {
+        setMessage('Błąd: Ta domena (np. Vercel) nie jest autoryzowana. Dodaj ją w konsoli Firebase -> Authentication -> Settings -> Authorized domains.');
+      } else if (err?.code !== 'auth/popup-closed-by-user') {
+        setMessage('Błąd logowania: ' + (err?.message || 'Nieznany błąd'));
+      }
     } finally {
       setIsLoggingIn(false);
     }
@@ -224,6 +230,11 @@ export function Integrations() {
             <p className="text-sm text-slate-400 text-center px-4">
               Twoja przeglądarka blokuje dostęp do funkcji Google, dopóki nie zostaniesz zalogowany za pomocą konta Google.
             </p>
+            {message && (
+              <div className="p-3 bg-red-950/50 border border-red-900/50 rounded-lg text-xs text-red-400 text-center max-w-sm">
+                {message}
+              </div>
+            )}
             <button 
               onClick={handleLogin}
               disabled={isLoggingIn}

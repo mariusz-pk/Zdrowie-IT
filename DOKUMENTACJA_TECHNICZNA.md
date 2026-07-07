@@ -72,7 +72,8 @@ Za zapis odpowiada niestandardowy hook `useLocalStorage.ts`. Gwarantuje on reakt
 
 ## 5. Integracje z Chmurą (Cloud)
 Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz procesy bazodanowe dystrybuowane poprzez `/src/hooks/useCloudSync.ts`.
-- **Firebase Auth:**  Zaimplementowano bezpieczne uwierzytelnianie użytkowników opierające się na dostawcy Google OAuth (Sign in with Google), likwidujące uciążliwe limity dostępu (np. limit 99 osób w testowym Google Drive API) i prośby o restrykcyjne dostępy dla uprawnień dyskowych.
+- **Firebase Auth:**  Zaimplementowano bezpieczne uwierzytelnianie użytkowników opierające się na dostawcy Google OAuth (Sign in with Google), likwidujące uciążliwe limity dostępu (np. limit 99 osób w testowym Google Drive API) i prośby o restrykcyjne dostępy dla uprawnień dyskowych. Wdrożono wymuszanie wyboru konta Google (`prompt: 'select_account'`), aby zapobiec problemom z pustym ekranem logowania.
+- **Obsługa Błędów Autoryzacji:** Aplikacja inteligentnie wyłapuje błędy niezgodności domen (np. przy wdrożeniu na Vercel) i prezentuje użytkownikowi czytelną instrukcję z prośbą o autoryzację nowej domeny w ustawieniach Firebase.
 - **Firebase / Firestore:** Asynchroniczna i w pełni automatyczna synchronizacja parametrów historii `v2_dailyCronHistory_v2` w tle za pośrednictwem hooka `useCloudSync`. Tworzy połączony most z platformą Cloud ubezpieczając lokalny `localStorage`.
 
 ## 6. Powiadomienia Systemowe (Browser Notifications API)

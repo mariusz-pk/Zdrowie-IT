@@ -44,6 +44,7 @@ Zestawienie analityczne śledzące konsekwencję w wykonywaniu rutyn zaznaczanyc
 ## 6. CLOUD (Synchronizacja i kopie zapasowe)
 Narzędzie do bezpieczeństwa danych oraz integracji chmurowej:
 - **Synchronizacja Firebase (Firestore):** Automatycznie i w czasie rzeczywistym powiązane z Twoim kontem Google, przechowuje Twoje zaznaczenia w CRON w bezpiecznej przestrzeni chmurowej (Baza Danych Firestore). Nie posiada limitów współdzielenia (jak starsze wersje z Google Drive), dzięki czemu logowanie jest proste i postępy są odporne na utratę danych bez konieczności robienia manualnych zrzutów na Dysk.
+- **Usprawnione Logowanie (Google Auth):** Logowanie wymusza teraz jawny wybór konta Google, co całkowicie eliminuje problem zawieszającego się, białego ekranu po wdrożeniu na zewnętrzne serwery (np. Vercel). System podpowie Ci również automatycznie, jeśli zapomnisz dodać nową domenę do autoryzowanych w Firebase.
 
 ## 7. SYSTEM POWIADOMIEŃ (Przypomnienia natywne)
 Aplikacja została wyposażona w pełne wsparcie dla powiadomień na poziomie Systemu Operacyjnego.

@@ -12,18 +12,76 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['app-icon.png'],
+        workbox: {
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gstatic-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            }
+          ]
+        },
         manifest: {
           id: '/',
+          start_url: '/',
+          scope: '/',
           name: 'IT Health v2.0',
           short_name: 'IT Health v2.0',
           description: 'IT Health v2.0 by WszystkokolwiekWFormie',
           theme_color: '#020617',
           background_color: '#020617',
           display: 'standalone',
+          display_override: ['window-controls-overlay', 'standalone'],
           orientation: 'portrait',
           dir: 'ltr',
           lang: 'pl',
           categories: ['health', 'fitness', 'lifestyle'],
+          prefer_related_applications: false,
+          related_applications: [],
+          protocol_handlers: [
+            {
+              protocol: 'web+ithealth',
+              url: '/?action=%s'
+            }
+          ],
+          share_target: {
+            action: '/share',
+            method: 'GET',
+            enctype: 'application/x-www-form-urlencoded',
+            params: {
+              title: 'title',
+              text: 'text',
+              url: 'url'
+            }
+          },
+          edge_side_panel: {
+            preferred_width: 480
+          },
           shortcuts: [
             {
               name: 'Spiżarnia Biohackera',

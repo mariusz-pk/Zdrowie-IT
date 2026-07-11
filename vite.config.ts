@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        injectRegister: 'auto',
+        injectRegister: 'inline',
         includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
@@ -136,7 +136,7 @@ export default defineConfig(() => {
           ]
         },
         devOptions: {
-          enabled: true,
+          enabled: false,
           type: 'module',
         }
       })

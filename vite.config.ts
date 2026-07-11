@@ -11,9 +11,9 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['app-icon.png'],
+        injectRegister: 'auto',
+        includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
-          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
           runtimeCaching: [
             {
@@ -88,20 +88,20 @@ export default defineConfig(() => {
               short_name: 'Zakupy',
               description: 'Otwórz listę zakupów',
               url: '/',
-              icons: [{ src: '/app-icon.png', sizes: '192x192' }]
+              icons: [{ src: '/icon-192.png', sizes: '192x192' }]
             }
           ],
           screenshots: [
             {
-              src: '/app-icon.png',
-              sizes: '512x512',
+              src: '/screenshot-desktop.png',
+              sizes: '1280x720',
               type: 'image/png',
               form_factor: 'wide',
               label: 'Widok ekranu komputera'
             },
             {
-              src: '/app-icon.png',
-              sizes: '512x512',
+              src: '/screenshot-mobile.png',
+              sizes: '720x1280',
               type: 'image/png',
               form_factor: 'narrow',
               label: 'Widok ekranu smartfona'
@@ -109,25 +109,25 @@ export default defineConfig(() => {
           ],
           icons: [
             {
-              src: '/app-icon.png',
+              src: '/icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/app-icon.png',
+              src: '/icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'maskable'
             },
             {
-              src: '/app-icon.png',
+              src: '/icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/app-icon.png',
+              src: '/icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'

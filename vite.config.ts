@@ -61,6 +61,7 @@ export default defineConfig(() => {
           dir: 'ltr',
           lang: 'pl',
           categories: ['health', 'fitness', 'lifestyle'],
+          iarc_rating_id: 'e84b072d-71b3-4d3e-86ae-31a8ce4e53b7',
           prefer_related_applications: false,
           related_applications: [],
           protocol_handlers: [
@@ -109,28 +110,20 @@ export default defineConfig(() => {
           ],
           icons: [
             {
-              src: '/icon-192.png',
+              src: 'icon-192.png',
               sizes: '192x192',
-              type: 'image/png',
-              purpose: 'any'
+              type: 'image/png'
             },
             {
-              src: '/icon-192.png',
-              sizes: '192x192',
-              type: 'image/png',
-              purpose: 'maskable'
+              src: 'icon-512.png',
+              sizes: '512x512',
+              type: 'image/png'
             },
             {
-              src: '/icon-512.png',
+              src: 'icon-512.png',
               sizes: '512x512',
               type: 'image/png',
-              purpose: 'any'
-            },
-            {
-              src: '/icon-512.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'maskable'
+              purpose: 'any maskable'
             }
           ]
         },

@@ -13,6 +13,7 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         includeAssets: ['app-icon.png'],
         manifest: {
+          id: '/',
           name: 'IT Health v2.0',
           short_name: 'IT Health v2.0',
           description: 'IT Health v2.0 by WszystkokolwiekWFormie',
@@ -20,6 +21,34 @@ export default defineConfig(() => {
           background_color: '#020617',
           display: 'standalone',
           orientation: 'portrait',
+          dir: 'ltr',
+          lang: 'pl',
+          categories: ['health', 'fitness', 'lifestyle'],
+          shortcuts: [
+            {
+              name: 'Spiżarnia Biohackera',
+              short_name: 'Zakupy',
+              description: 'Otwórz listę zakupów',
+              url: '/',
+              icons: [{ src: '/app-icon.png', sizes: '192x192' }]
+            }
+          ],
+          screenshots: [
+            {
+              src: '/app-icon.png',
+              sizes: '512x512',
+              type: 'image/png',
+              form_factor: 'wide',
+              label: 'Widok ekranu komputera'
+            },
+            {
+              src: '/app-icon.png',
+              sizes: '512x512',
+              type: 'image/png',
+              form_factor: 'narrow',
+              label: 'Widok ekranu smartfona'
+            }
+          ],
           icons: [
             {
               src: '/app-icon.png',

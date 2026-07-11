@@ -14,6 +14,7 @@ export default defineConfig(() => {
         injectRegister: 'inline',
         includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
+          importScripts: ['sw-custom.js'],
           globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
           runtimeCaching: [
             {
@@ -56,14 +57,56 @@ export default defineConfig(() => {
           theme_color: '#020617',
           background_color: '#020617',
           display: 'standalone',
-          display_override: ['window-controls-overlay', 'standalone'],
+          display_override: ['window-controls-overlay', 'tabbed', 'standalone'],
           orientation: 'portrait',
           dir: 'ltr',
           lang: 'pl',
           categories: ['health', 'fitness', 'lifestyle'],
           iarc_rating_id: 'e84b072d-71b3-4d3e-86ae-31a8ce4e53b7',
           prefer_related_applications: false,
-          related_applications: [],
+          related_applications: [
+            {
+              platform: 'windows',
+              url: 'https://it-health-v20.vercel.app/manifest.webmanifest'
+            }
+          ],
+          file_handlers: [
+            {
+              action: '/',
+              accept: {
+                'text/csv': ['.csv'],
+                'application/json': ['.json']
+              }
+            }
+          ],
+          launch_handler: {
+            client_mode: 'navigate-existing'
+          },
+          note_taking: {
+            new_note_url: '/?action=new-note'
+          },
+          widgets: [
+            {
+              name: 'IT Health Widget',
+              description: 'Widget for IT Health v2.0',
+              tag: 'it-health-widget',
+              template_url: 'widget.json',
+              type: 'application/json',
+              form_factor: 'rectangular',
+              icons: [
+                {
+                  src: 'icon-192.png',
+                  sizes: '192x192',
+                  type: 'image/png'
+                }
+              ]
+            }
+          ],
+          scope_extensions: [
+            {
+              origin: '*.europe-west2.run.app'
+            }
+          ],
           protocol_handlers: [
             {
               protocol: 'web+ithealth',

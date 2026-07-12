@@ -57,7 +57,7 @@ export default defineConfig(() => {
           theme_color: '#020617',
           background_color: '#020617',
           display: 'standalone',
-          display_override: ['window-controls-overlay', 'tabbed', 'standalone'],
+          display_override: ['tabbed', 'window-controls-overlay', 'standalone'],
           orientation: 'portrait',
           dir: 'ltr',
           lang: 'pl',
@@ -85,12 +85,24 @@ export default defineConfig(() => {
           note_taking: {
             new_note_url: '/?action=new-note'
           },
+          tab_strip: {
+            home_tab: {
+              icons: [
+                {
+                  src: 'icon-192.png',
+                  sizes: '192x192',
+                  type: 'image/png'
+                }
+              ],
+              visibility: 'auto'
+            }
+          },
           widgets: [
             {
               name: 'IT Health Widget',
               description: 'Widget for IT Health v2.0',
               tag: 'it-health-widget',
-              template_url: 'widget.json',
+              template_url: '/widget.json',
               type: 'application/json',
               form_factor: 'rectangular',
               icons: [
@@ -104,7 +116,7 @@ export default defineConfig(() => {
           ],
           scope_extensions: [
             {
-              origin: '*.europe-west2.run.app'
+              origin: 'https://*.europe-west2.run.app'
             }
           ],
           protocol_handlers: [

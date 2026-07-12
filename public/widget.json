@@ -1,0 +1,10 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "IT Health v2.0 Widget"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ export default defineConfig(() => {
         injectRegister: 'inline',
         includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
+          maximumFileSizeToCacheInBytes: 10485760,
           importScripts: ['sw-custom.js'],
           globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
           runtimeCaching: [

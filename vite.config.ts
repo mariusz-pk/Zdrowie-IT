@@ -12,7 +12,7 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'inline',
-        includeAssets: ['icon-192.png', 'icon-512.png'],
+        includeAssets: ['/icon-192.png', '/icon-512.png'],
         workbox: {
           maximumFileSizeToCacheInBytes: 10485760,
           importScripts: ['sw-custom.js'],
@@ -118,7 +118,8 @@ export default defineConfig(() => {
           ],
           scope_extensions: [
             {
-              origin: 'https://*.europe-west2.run.app'
+              origin: 'https://*.europe-west2.run.app',
+              type: 'origin'
             }
           ],
           protocol_handlers: [

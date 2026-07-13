@@ -12,7 +12,7 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'inline',
-        includeAssets: ['/icon-192.png', '/icon-512.png'],
+        includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
           maximumFileSizeToCacheInBytes: 10485760,
           importScripts: ['sw-custom.js'],
@@ -91,7 +91,7 @@ export default defineConfig(() => {
             home_tab: {
               icons: [
                 {
-                  src: '/icon-192.png',
+                  src: 'icon-192.png',
                   sizes: '192x192',
                   type: 'image/png'
                 }
@@ -104,12 +104,12 @@ export default defineConfig(() => {
               name: 'IT Health Widget',
               description: 'Widget for IT Health v2.0',
               tag: 'it-health-widget',
-              template_url: '/widget.json',
+              template_url: 'widget.json',
               type: 'application/json',
               form_factor: 'rectangular',
               icons: [
                 {
-                  src: '/icon-192.png',
+                  src: 'icon-192.png',
                   sizes: '192x192',
                   type: 'image/png'
                 }
@@ -118,8 +118,7 @@ export default defineConfig(() => {
           ],
           scope_extensions: [
             {
-              origin: 'https://*.europe-west2.run.app',
-              type: 'origin'
+              origin: '*.europe-west2.run.app'
             }
           ],
           protocol_handlers: [
@@ -147,19 +146,19 @@ export default defineConfig(() => {
               short_name: 'Zakupy',
               description: 'Otwórz listę zakupów',
               url: '/',
-              icons: [{ src: '/icon-192.png', sizes: '192x192' }]
+              icons: [{ src: 'icon-192.png', sizes: '192x192' }]
             }
           ],
           screenshots: [
             {
-              src: '/screenshot-desktop.png',
+              src: 'screenshot-desktop.png',
               sizes: '1280x720',
               type: 'image/png',
               form_factor: 'wide',
               label: 'Widok ekranu komputera'
             },
             {
-              src: '/screenshot-mobile.png',
+              src: 'screenshot-mobile.png',
               sizes: '720x1280',
               type: 'image/png',
               form_factor: 'narrow',
@@ -168,25 +167,25 @@ export default defineConfig(() => {
           ],
           icons: [
             {
-              src: '/icon-192.png',
+              src: 'icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/icon-192.png',
+              src: 'icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'maskable'
             },
             {
-              src: '/icon-512.png',
+              src: 'icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/icon-512.png',
+              src: 'icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'

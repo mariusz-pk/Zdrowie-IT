@@ -58,6 +58,7 @@ export default defineConfig(() => {
           theme_color: '#020617',
           background_color: '#020617',
           display: 'standalone',
+          // @ts-ignore
           display_override: ['tabbed', 'window-controls-overlay', 'standalone'],
           orientation: 'portrait',
           dir: 'ltr',
@@ -90,7 +91,7 @@ export default defineConfig(() => {
             home_tab: {
               icons: [
                 {
-                  src: 'icon-192.png',
+                  src: '/icon-192.png',
                   sizes: '192x192',
                   type: 'image/png'
                 }
@@ -108,7 +109,7 @@ export default defineConfig(() => {
               form_factor: 'rectangular',
               icons: [
                 {
-                  src: 'icon-192.png',
+                  src: '/icon-192.png',
                   sizes: '192x192',
                   type: 'image/png'
                 }
@@ -145,19 +146,19 @@ export default defineConfig(() => {
               short_name: 'Zakupy',
               description: 'Otwórz listę zakupów',
               url: '/',
-              icons: [{ src: 'icon-192.png', sizes: '192x192' }]
+              icons: [{ src: '/icon-192.png', sizes: '192x192' }]
             }
           ],
           screenshots: [
             {
-              src: 'screenshot-desktop.png',
+              src: '/screenshot-desktop.png',
               sizes: '1280x720',
               type: 'image/png',
               form_factor: 'wide',
               label: 'Widok ekranu komputera'
             },
             {
-              src: 'screenshot-mobile.png',
+              src: '/screenshot-mobile.png',
               sizes: '720x1280',
               type: 'image/png',
               form_factor: 'narrow',
@@ -166,25 +167,25 @@ export default defineConfig(() => {
           ],
           icons: [
             {
-              src: 'icon-192.png',
+              src: '/icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: 'icon-192.png',
+              src: '/icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'maskable'
             },
             {
-              src: 'icon-512.png',
+              src: '/icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: 'icon-512.png',
+              src: '/icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'

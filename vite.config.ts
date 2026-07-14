@@ -118,7 +118,12 @@ export default defineConfig(() => {
           ],
           scope_extensions: [
             {
-              origin: '*.europe-west2.run.app'
+              origin: '*.europe-west2.run.app',
+              type: 'origin'
+            },
+            {
+              origin: '*.vercel.app',
+              type: 'origin'
             }
           ],
           protocol_handlers: [

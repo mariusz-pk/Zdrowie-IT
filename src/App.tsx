@@ -85,7 +85,7 @@ export default function App() {
           try {
             new Notification('IT Health: CRON Przypomnienie', {
               body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
-              icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
+              icon: '/Ciemne-Social.jpg'
             });
             localStorage.setItem('v2_last_notified_date', todayDateStr);
           } catch (e) {
@@ -94,7 +94,7 @@ export default function App() {
               navigator.serviceWorker.ready.then(function(registration) {
                 registration.showNotification('IT Health: CRON Przypomnienie', {
                   body: 'Skontroluj swój dzisiejszy CRON i odznacz zakończone zadania.',
-                  icon: '/WszystkokolwiekWFormie__Ciemne_Social.png'
+                  icon: '/Ciemne-Social.jpg'
                 });
                 localStorage.setItem('v2_last_notified_date', todayDateStr);
               }).catch(err => console.error("ServiceWorker notification failed: ", err));
@@ -145,7 +145,7 @@ export default function App() {
           <div className="relative w-48 h-48 mb-8 rounded-[2rem] shadow-[0_0_80px_-15px_rgba(16,185,129,0.3)] bg-slate-800 p-2">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-[2rem] animate-pulse" />
             <img 
-              src="/Icon_App_Health_IT.png" 
+              src="/icon-512.png" 
               alt="Ikona Aplikacji" 
               className="w-full h-full object-cover rounded-[1.5rem] relative z-10"
             />

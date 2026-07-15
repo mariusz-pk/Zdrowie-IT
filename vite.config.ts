@@ -12,7 +12,7 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'inline',
-        includeAssets: ['/icon-192.png', '/icon-512.png'],
+        includeAssets: ['/icon.svg', '/icon.svg'],
         workbox: {
           maximumFileSizeToCacheInBytes: 10485760,
           importScripts: ['sw-custom.js'],
@@ -91,9 +91,9 @@ export default defineConfig(() => {
             home_tab: {
               icons: [
                 {
-                  src: '/icon-192.png',
+                  src: '/icon.svg',
                   sizes: '192x192',
-                  type: 'image/png'
+                  type: 'image/svg+xml'
                 }
               ],
               visibility: 'auto'
@@ -109,9 +109,9 @@ export default defineConfig(() => {
               form_factor: 'rectangular',
               icons: [
                 {
-                  src: '/icon-192.png',
+                  src: '/icon.svg',
                   sizes: '192x192',
-                  type: 'image/png'
+                  type: 'image/svg+xml'
                 }
               ]
             }
@@ -151,36 +151,36 @@ export default defineConfig(() => {
               short_name: 'Zakupy',
               description: 'Otwórz listę zakupów',
               url: '/',
-              icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }]
+              icons: [{ src: '/icon.svg', sizes: '192x192', type: 'image/svg+xml' }]
             }
           ],
           screenshots: [
             {
-              src: '/screenshot-desktop.png',
+              src: '/screenshot-desktop.svg',
               sizes: '1280x720',
-              type: 'image/png',
+              type: 'image/svg+xml',
               form_factor: 'wide',
               label: 'Widok ekranu komputera'
             },
             {
-              src: '/screenshot-mobile.png',
+              src: '/screenshot-mobile.svg',
               sizes: '720x1280',
-              type: 'image/png',
+              type: 'image/svg+xml',
               form_factor: 'narrow',
               label: 'Widok ekranu smartfona'
             }
           ],
           icons: [
             {
-              src: '/icon-192.png',
+              src: '/icon.svg',
               sizes: '192x192',
-              type: 'image/png',
+              type: 'image/svg+xml',
               purpose: 'any maskable'
             },
             {
-              src: '/icon-512.png',
+              src: '/icon.svg',
               sizes: '512x512',
-              type: 'image/png',
+              type: 'image/svg+xml',
               purpose: 'any maskable'
             }
           ]

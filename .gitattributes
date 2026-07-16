@@ -1,0 +1,9 @@
+# Pliki binarne — nigdy nie traktuj jako tekst i nie konwertuj końców linii.
+# Zapisanie ich jako UTF-8 niszczy każdy bajt >= 0x80 (sygnatura PNG \x89PNG -> � PNG).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary

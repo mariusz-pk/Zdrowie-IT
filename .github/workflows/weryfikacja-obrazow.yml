@@ -1,0 +1,35 @@
+name: Weryfikacja plików graficznych
+
+# Pliki binarne zapisane przez edytor traktujący je jako tekst UTF-8 ulegają
+# nieodwracalnemu uszkodzeniu (mojibake): każdy bajt >= 0x80 zamienia się w U+FFFD.
+# Ten workflow wychwytuje to od razu po pushu, zamiast po miesiącach w raporcie PWABuilder.
+
+on: [push, pull_request]
+
+jobs:
+  sygnatury:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sprawdź sygnatury PNG i JPEG
+        run: |
+          status=0
+          for f in $(git ls-files '*.png' '*.jpg' '*.jpeg'); do
+            magic=$(head -c 4 "$f" | xxd -p)
+            case "$f" in
+              *.png)        oczekiwano=89504e47; nazwa=PNG ;;
+              *.jpg|*.jpeg) oczekiwano=ffd8ff;   nazwa=JPEG ;;
+            esac
+            if [ "${magic:0:${#oczekiwano}}" = "$oczekiwano" ]; then
+              echo "OK   $f ($nazwa)"
+              continue
+            fi
+            status=1
+            if [ "${magic:0:6}" = "efbfbd" ]; then
+              echo "::error file=$f::Uszkodzony $nazwa — mojibake UTF-8. Plik zapisano jako tekst (typowo: edytor Google AI Studio), przez co każdy bajt >= 0x80 stał się U+FFFD. Uszkodzenie jest nieodwracalne — plik trzeba odtworzyć, nie naprawić. Ikony: uruchom 'node fix-icons.js'."
+            else
+              echo "::error file=$f::Uszkodzony $nazwa — sygnatura $magic, oczekiwano $oczekiwano."
+            fi
+          done
+          exit $status

@@ -17,8 +17,10 @@ Aplikacja działa w trybie Single Page Application (SPA), a jej głównym konten
 - `/src/App.tsx` - Główny widok integrujący wszystkie moduły.
 - `/src/components/` - Katalog zawierający wszystkie główne ekrany (moduły funkcyjne).
 - `/src/hooks/` - Niestandardowe hooki React (szczególnie warstwa abstrakcji do `localStorage`).
+- `/src/lib/` - Warstwa integracji zewnętrznych i logiki niezwiązanej z widokiem (`auth.ts` — Firebase, `access.ts` — weryfikacja kodów dostępu, `accessCodes.ts` — wygenerowane hashe).
 - `/src/data.ts` - Statyczna baza danych zawierająca definicje produktów, receptur eliksirów oraz wskazówek.
 - `/public/` - Zasoby publiczne aplikacji (Service Worker, Manifest PWA, pliki graficzne).
+- `/scripts/` - Narzędzia uruchamiane ręcznie, poza procesem budowania (generator kodów dostępu).
 
 ## 3. Zarządzanie Stanem danych (Local state engine)
 Aplikacja zachowuje postępy sesyjne oraz długoterminowe całkowicie po stronie klienta, korzystając z interfejsu przeglądarki Web Storage API (`localStorage`). 
@@ -82,7 +84,7 @@ Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz 
 
 ## 7. Standardy PWA i Integracja
 - Aplikacja korzysta z wtyczki `vite-plugin-pwa` z konfiguracją dla Vite. Wtyczka w locie generuje plik Service Workera (z mechanizmem `autoUpdate`) oraz Web Manifest dla PWA. Ustala parametry mobilne (`display: 'standalone'`, `orientation: 'portrait'`) i rejestruje zdefiniowaną nazwę główną "IT Health v2.0".
-- Nowa, zintegrowana ikona główna `Icon_App_Health_IT.png` przyporządkowywana jest dla całego spektrum formatów w PWA oraz na ekranie głównym (Splash Screenie) podczas startu aplikacji. Zaimplementowano kompletny pakiet standardowych ikon PWA (`icon-192.png`, `icon-512.png`) oraz zrzutów ekranu (`screenshot-desktop.png`, `screenshot-mobile.png`) wymaganych do poprawnego pakowania aplikacji dla sklepów (np. w narzędziach typu PWABuilder). W katalogu publicznym udostępniono zintegrowane archiwum `images.zip` wspomagające dystrybucję zasobów. Dodatkowo zoptymalizowano proces budowy manifestu dostosowując limit wagi plików do cache (`maximumFileSizeToCacheInBytes`), aby obsłużyć pliki wysokiej rozdzielczości bez kompresji.
+- Nowa, zintegrowana ikona główna `Icon_App_Health_IT.png` przyporządkowywana jest dla całego spektrum formatów w PWA oraz na ekranie głównym (Splash Screenie) podczas startu aplikacji. Zaimplementowano kompletny pakiet standardowych ikon PWA (`icon-192.png`, `icon-512.png`) oraz zrzutów ekranu (`screenshot-desktop.png`, `screenshot-mobile.png`) wymaganych do poprawnego pakowania aplikacji dla sklepów (np. w narzędziach typu PWABuilder). Dodatkowo zoptymalizowano proces budowy manifestu dostosowując limit wagi plików do cache (`maximumFileSizeToCacheInBytes`), aby obsłużyć pliki wysokiej rozdzielczości bez kompresji.
 - Aby ulepszyć wrażenia z korzystania po instalacji PWA, zaimplementowano natywny Splash Screen (ekran powitalny) osadzony całkowicie jako komponent na poziomie wirtualnego drzewa React (`showSplash`). Ukazuje on dużą animowaną wersję ikony z dynamicznie pulsującą barwą w tle, wielkoformatowy gradientowy napis "IT Health v2.0" na środku oraz podpis "by WszystkokolwiekWFormie" na stopce. Ekran naturalnie odlicza wygaszenie podczas ładowania modułów komponentowych aplikacji po upływie ~2.5 sekundy.
 - Całość konfiguracji generacyjnej oparta jest o elastyczny bundler, nie obciążając bezpośrednio zadeklarowanej ręki struktury plików PWA (odchodzi potrzeba trzymania ręcznego pliku `manifest.json` oraz `sw.js` wewnątrz `./public`).
 
@@ -110,3 +112,28 @@ przeglądarki — nie ma serwera licencji.
 - **Ograniczenie:** bramka działa po stronie klienta, więc osoba techniczna potrafi ją obejść
   (podmiana wpisu w `localStorage`). Przy tej skali dystrybucji jest to świadomy kompromis —
   hashowanie chroni przed realnym ryzykiem, czyli wyciekiem i odsprzedażą całej listy kodów.
+
+## 9. Integralność zasobów graficznych
+Zasoby PWA (`icon-192.png`, `icon-512.png`, `screenshot-desktop.png`, `screenshot-mobile.png`) ulegały
+w przeszłości trzykrotnemu uszkodzeniu typu **mojibake UTF-8**: zapis pliku binarnego przez edytor
+traktujący go jako tekst zamienia każdy bajt o wartości >= 0x80 na znak zastępczy U+FFFD, przez co
+sygnatura PNG `\x89PNG` staje się ciągiem `efbfbd 50 4e 47`. Uszkodzenie jest nieodwracalne —
+pliku nie da się naprawić, można go wyłącznie odtworzyć. Objawem był komunikat PWABuildera
+*"manifest refers to an image that appears to be corrupt or invalid"* oraz nieotwierające się
+podglądy plików w edytorze.
+
+Wdrożono trzy zabezpieczenia:
+
+- **`.gitattributes`** — oznacza rozszerzenia binarne (`*.png`, `*.jpg`, `*.ico`, `*.woff*`) jako
+  `binary`, dzięki czemu git nie stosuje wobec nich konwersji tekstowych ani końców linii.
+- **`.github/workflows/weryfikacja-obrazow.yml`** — przy każdym pushu i pull requeście sprawdza
+  sygnatury wszystkich śledzonych plików PNG i JPEG. Wykrycie prefiksu `efbfbd` przerywa build
+  i wypisuje komunikat wskazujący przyczynę oraz sposób odtworzenia pliku. Kontrola trwa kilka sekund.
+- **Ochrona gałęzi `main`** — wymaga przejścia powyższego checku (`sygnatury`) i obejmuje również
+  właściciela repozytorium (`enforce_admins`), więc zmiany trafiają na `main` wyłącznie przez
+  pull requesta. Bezpośredni push kończy się odrzuceniem (`GH006: Protected branch update failed`).
+
+Ikony odtwarza się skryptem `fix-icons.js`, który skaluje wzorcowy plik `public/Icon_App_Health_IT.png`
+do wymaganych rozmiarów. Zrzuty ekranu wykonuje się z uruchomionej aplikacji w rozdzielczościach
+zadeklarowanych w manifeście (1280x720 oraz 720x1280) — wcześniejsze wersje generowane były
+przez skrypt skalujący logo `Ciemne-Social.jpg`, przez co nie przedstawiały interfejsu programu.

@@ -4,6 +4,8 @@ Aplikacja **IT Health V2.0 by WszystkokolwiekWFormie** to narzędzie wspomagają
 
 Można ją zainstalować na własnym ekranie telefonu jako w pełni natywnie wyglądającą aplikację typu "Progressive Web App" (funkcja: *Dodaj do ekranu głównego* w opcjach przeglądarki) lub łatwo spakować i zgłosić do sklepów z aplikacjami (narzędziami typu PWABuilder). Rozwiązanie to opiera się na wydajnym silniku generującym środowisko progresywne (Vite) zapewniającym automatyczne aktualizacje (auto-update). Zyskujesz nową, spójną ikonę instalacyjną oraz wysokiej jakości zrzuty ekranu wyświetlane podczas instalacji, a dzięki mechanizmom PWA uruchamianie aplikacji stało się bezramkowe. Przy starcie i każdym świeżym uruchomieniu z poziomu pulpitu przywitany zostaniesz profesjonalnego formatu Splash Screen'em (ekranem powitalnym) symulującym natywne uruchomienie aplikacji iOS/Android: pojawia się pulsująca w cieniu grafika z ikoną, wyrazisty tekst "IT Health v2.0" wraz ze stopką autora "by WszystkokolwiekWFormie", wygaszając interfejs po wejściu w sam program.
 
+Dostęp do aplikacji chroniony jest **kodem aktywacyjnym**, który nabywca otrzymuje wraz z linkiem. Kod podaje się jednorazowo, przy pierwszym uruchomieniu — szczegóły w sekcji *Aktywacja* na końcu dokumentu.
+
 Aplikacja podzielona jest funkcjonalnie na 4 główne działy, dostępne poprzez dolne menu nawigacyjne nawiązujące formą do urządzeń mobilnych:
 
 ## 1. CRON (Interaktywny Tracker KPI - Daily Cron)
@@ -53,3 +55,14 @@ Aplikacja została wyposażona w pełne wsparcie dla powiadomień na poziomie Sy
 
 ---
 Zastosowane pojęcia informatyczne (IT) wspierają przyjazny i zrozumiały "gamifikacyjny" układ polecany dla inżynierów i specjalistów poszukujących motywacji we własnym języku specjalistycznym.
+
+## 8. AKTYWACJA (Kod dostępu / Licencja produktu)
+Aplikacja jest produktem płatnym — link do niej otrzymuje wyłącznie nabywca, wraz z indywidualnym kodem aktywacyjnym. Ekran aktywacji pojawia się jako pierwszy przy starcie i pozostaje jedyną widoczną częścią programu do czasu podania prawidłowego kodu.
+
+- **Ekran startowy:** Utrzymany w tej samej, konsolowej stylistyce co reszta aplikacji. Zawiera pole na kod, przycisk *AKTYWUJ* oraz informację, że kod podaje się tylko raz.
+- **Format kodu:** `ITH-XXXX-XXXX-XXXX`. Kod świadomie nie zawiera znaków, które łatwo pomylić przy przepisywaniu (nie występują w nim litery `I` oraz `O` ani cyfry `0` i `1`).
+- **Wyrozumiałość przy wpisywaniu:** Pole samo porządkuje wpisywaną treść. Kod można podać małymi literami, ze spacjami zamiast myślników lub zupełnie bez separatorów — zapis `ith a2b3 c4d5 e6f7` zostanie automatycznie sprowadzony do postaci `ITH-A2B3-C4D5-E6F7`. Ogranicza to liczbę nieudanych prób wynikających ze sposobu przepisania kodu.
+- **Reakcja na błędny kod:** Aplikacja wyświetla czytelny komunikat z prośbą o sprawdzenie poprawności przepisania i pozostawia wpisaną treść do korekty.
+- **Trwałość aktywacji:** Po pomyślnej weryfikacji fakt aktywacji zapisywany jest w pamięci przeglądarki. Aplikacja nie pyta o kod ponownie — ani przy kolejnych uruchomieniach, ani po zamknięciu i ponownym otwarciu z ekranu głównego telefonu.
+- **Zakres aktywacji:** Aktywacja dotyczy konkretnej przeglądarki na danym urządzeniu. Uruchomienie aplikacji na drugim telefonie lub w trybie prywatnym wymaga ponownego podania kodu. Wyczyszczenie danych strony w przeglądarce również usuwa aktywację.
+- **Prywatność kodu:** Sam kod nie jest nigdzie przechowywany — zapisywany jest wyłącznie wynik jego przetworzenia funkcją kryptograficzną. Kody nie znajdują się także w kodzie źródłowym aplikacji, mimo że repozytorium projektu jest publiczne.

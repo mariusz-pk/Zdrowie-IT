@@ -7,6 +7,8 @@ import { RuntimeElixirs } from './components/RuntimeElixirs';
 import { IncidentResponse } from './components/IncidentResponse';
 import { Analytics } from './components/Analytics';
 import { Integrations } from './components/Integrations';
+import { ActivationGate } from './components/ActivationGate';
+import { useAccess } from './hooks/useAccess';
 
 type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats' | 'integrations';
 
@@ -15,6 +17,7 @@ export default function App() {
   const [isMounted, setIsMounted] = useState(false);
   const [monitPendingCount, setMonitPendingCount] = useState<number>(0);
   const [showSplash, setShowSplash] = useState(true);
+  const { wymagaAktywacji, odswiez } = useAccess();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -161,6 +164,10 @@ export default function App() {
         </div>
       </div>
     );
+  }
+
+  if (wymagaAktywacji) {
+    return <ActivationGate onActivated={odswiez} />;
   }
 
   return (

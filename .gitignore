@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Kody dostepu w postaci jawnej — repozytorium jest publiczne.
+# Do repo trafiaja wylacznie hashe (src/lib/accessCodes.ts).
+kody-*.csv
+kody-dostepu/

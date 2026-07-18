@@ -85,3 +85,28 @@ Moduł uwierzytelniania zlokalizowany w `/src/components/Integrations.tsx` oraz 
 - Nowa, zintegrowana ikona główna `Icon_App_Health_IT.png` przyporządkowywana jest dla całego spektrum formatów w PWA oraz na ekranie głównym (Splash Screenie) podczas startu aplikacji. Zaimplementowano kompletny pakiet standardowych ikon PWA (`icon-192.png`, `icon-512.png`) oraz zrzutów ekranu (`screenshot-desktop.png`, `screenshot-mobile.png`) wymaganych do poprawnego pakowania aplikacji dla sklepów (np. w narzędziach typu PWABuilder). W katalogu publicznym udostępniono zintegrowane archiwum `images.zip` wspomagające dystrybucję zasobów. Dodatkowo zoptymalizowano proces budowy manifestu dostosowując limit wagi plików do cache (`maximumFileSizeToCacheInBytes`), aby obsłużyć pliki wysokiej rozdzielczości bez kompresji.
 - Aby ulepszyć wrażenia z korzystania po instalacji PWA, zaimplementowano natywny Splash Screen (ekran powitalny) osadzony całkowicie jako komponent na poziomie wirtualnego drzewa React (`showSplash`). Ukazuje on dużą animowaną wersję ikony z dynamicznie pulsującą barwą w tle, wielkoformatowy gradientowy napis "IT Health v2.0" na środku oraz podpis "by WszystkokolwiekWFormie" na stopce. Ekran naturalnie odlicza wygaszenie podczas ładowania modułów komponentowych aplikacji po upływie ~2.5 sekundy.
 - Całość konfiguracji generacyjnej oparta jest o elastyczny bundler, nie obciążając bezpośrednio zadeklarowanej ręki struktury plików PWA (odchodzi potrzeba trzymania ręcznego pliku `manifest.json` oraz `sw.js` wewnątrz `./public`).
+
+## 8. Bramka dostępu (kody aktywacyjne)
+Dostęp do aplikacji chroni jednorazowa aktywacja kodem. Rozwiązanie jest w całości po stronie
+przeglądarki — nie ma serwera licencji.
+
+- **Ekran aktywacji** (`/src/components/ActivationGate.tsx`) wyświetla się przy pierwszym uruchomieniu.
+  Akceptuje kod w dowolnym zapisie (małe litery, spacje, brak myślników) i normalizuje go do postaci
+  `ITH-XXXX-XXXX-XXXX`. Celowo nie korzysta z animacji sterowanej JS — gdyby ta nie wystartowała,
+  ekran pozostałby przezroczysty i użytkownik nie miałby jak wpisać kodu.
+- **Weryfikacja** (`/src/lib/access.ts`) liczy PBKDF2-SHA256 (150 000 iteracji) i porównuje wynik
+  z listą hashy. Po sukcesie zapisuje aktywację w `localStorage` (`v2_access_activated`), więc
+  aplikacja pyta o kod tylko raz. Kod jawny nie jest nigdzie przechowywany.
+- **W repozytorium są wyłącznie hashe** (`/src/lib/accessCodes.ts`). Repozytorium jest publiczne,
+  więc lista kodów jawnych nie może się w nim znaleźć. PBKDF2 z dużą liczbą iteracji sprawia,
+  że odtworzenie kodów z samych hashy jest niepraktyczne.
+- **Generowanie kolejnych partii:** `node scripts/generate-codes.mjs 200 partia-02`. Skrypt dopisuje
+  nowe hashe do istniejących (kody już sprzedane pozostają ważne), a listę kodów jawnych zapisuje
+  poza repozytorium, do `D:\Claude_Env\docs\kody-dostepu\`.
+- **Flaga `isPro`** (`/src/hooks/useAccess.ts`) jest jednym źródłem prawdy o dostępie. W Fazie 1
+  kod jest bramką wejściową, więc każdy kto wszedł ma pełną wersję. Przejście na model LITE/PRO
+  sprowadza się do ustawienia `WYMAGAJ_KODU_NA_WEJSCIU = false` w `/src/lib/access.ts` — aplikacja
+  wpuści wtedy każdego, a moduły PRO wystarczy owinąć warunkiem `isPro`.
+- **Ograniczenie:** bramka działa po stronie klienta, więc osoba techniczna potrafi ją obejść
+  (podmiana wpisu w `localStorage`). Przy tej skali dystrybucji jest to świadomy kompromis —
+  hashowanie chroni przed realnym ryzykiem, czyli wyciekiem i odsprzedażą całej listy kodów.

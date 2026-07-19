@@ -138,6 +138,30 @@ do wymaganych rozmiarów. Zrzuty ekranu wykonuje się z uruchomionej aplikacji w
 zadeklarowanych w manifeście (1280x720 oraz 720x1280) — wcześniejsze wersje generowane były
 przez skrypt skalujący logo `Ciemne-Social.jpg`, przez co nie przedstawiały interfejsu programu.
 
+## 9.1 Wdrażanie reguł Firestore
+Reguły bezpieczeństwa bazy znajdują się w `firestore.rules` i **nie są wdrażane automatycznie** —
+zmiana pliku w repozytorium nie zmienia niczego w działającej aplikacji, dopóki reguły nie zostaną
+opublikowane w Firebase.
+
+```
+npm run rules:check     # sam sprawdzian zgodności konfiguracji, bez wdrażania
+npm run rules:deploy    # sprawdzian + publikacja reguł
+```
+
+Pierwsze uruchomienie wymaga jednorazowego zalogowania: `npx firebase-tools login`.
+
+- **Aplikacja korzysta z nazwanej bazy Firestore**, nie z `(default)`. Identyfikator bazy
+  (`ai-studio-3849a373-…`) jest jawnie wskazany w `firebase.json`. Bez tego wskazania polecenie
+  wdrożenia opublikowałoby reguły w bazie `(default)` — takiej, której aplikacja nigdy nie używa —
+  i **zakończyłoby się komunikatem o sukcesie**, pozostawiając rzeczywiste reguły bez zmian.
+- Przed każdym wdrożeniem `scripts/check-firebase-config.mjs` porównuje identyfikator projektu
+  i bazy z `firebase-applet-config.json`, czyli z konfiguracją, której realnie używa aplikacja.
+  Rozjechanie się tych wartości przerywa wdrożenie z czytelnym komunikatem.
+- Reguły ograniczają dostęp do dokumentów właściciela, a przy zapisie dodatkowo walidują kształt
+  dokumentu (`isValidCronDay`). **Po każdej zmianie reguł należy sprawdzić zapis w aplikacji**:
+  zalogować się, odznaczyć dowolny nawyk i przeładować stronę. Jeżeli zaznaczenie nie przetrwa
+  przeładowania, reguła blokuje zapis i trzeba ją wycofać.
+
 ## 10. Identyfikatory aplikacji (pakowanie do sklepów)
 Nazwa pakietu występuje w trzech odrębnych miejscach, które łatwo ze sobą pomylić:
 

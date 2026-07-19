@@ -137,3 +137,24 @@ Ikony odtwarza się skryptem `fix-icons.js`, który skaluje wzorcowy plik `publi
 do wymaganych rozmiarów. Zrzuty ekranu wykonuje się z uruchomionej aplikacji w rozdzielczościach
 zadeklarowanych w manifeście (1280x720 oraz 720x1280) — wcześniejsze wersje generowane były
 przez skrypt skalujący logo `Ciemne-Social.jpg`, przez co nie przedstawiały interfejsu programu.
+
+## 10. Identyfikatory aplikacji (pakowanie do sklepów)
+Nazwa pakietu występuje w trzech odrębnych miejscach, które łatwo ze sobą pomylić:
+
+| Identyfikator | Wartość | Gdzie jest ustawiany |
+| --- | --- | --- |
+| **Package ID (Android)** | `pl.wszystkokolwiek.ithealth` | wpisywany ręcznie w PWABuilderze przy generowaniu paczki |
+| **`manifest.id`** | `/?app=ithealth` | `vite.config.ts`, sekcja `manifest` |
+| **`name` w `package.json`** | `it-health-pwa` | wyłącznie nazwa projektu w repozytorium |
+
+- **Package ID** to identyfikator aplikacji w Google Play. Nie jest przechowywany w repozytorium —
+  podaje się go w formularzu PWABuildera w momencie generowania paczki Android. Konwencja marki:
+  `pl.wszystkokolwiek.<nazwa-aplikacji>` (np. `pl.wszystkokolwiek.budzet` dla aplikacji budżetowej).
+  Po pierwszej publikacji w Google Play wartości tej **nie da się już zmienić** — zmiana oznacza
+  osobną, nową pozycję w sklepie.
+- **`manifest.id`** odpowiada za tożsamość PWA po stronie przeglądarki. Celowo ustawiony na wartość
+  niezależną od adresu, aby ewentualna zmiana domeny nie rozdzieliła tożsamości aplikacji.
+  Zmiana tego pola po opublikowaniu powoduje, że zainstalowana u użytkownika aplikacja przestaje
+  otrzymywać aktualizacje, a instalacja tworzy drugą, osobną ikonę.
+- **`name` w `package.json`** nie jest widoczny dla użytkowników. Pakiet jest prywatny
+  (`"private": true`), więc nazwa nie trafia do rejestru npm.

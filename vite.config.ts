@@ -49,7 +49,11 @@ export default defineConfig(() => {
           ]
         },
         manifest: {
-          id: '/',
+          // Stały identyfikator tożsamości PWA. Nie zmieniać po opublikowaniu:
+          // przeglądarki rozpoznają po nim zainstalowaną aplikację, więc zmiana
+          // tworzy u użytkownika drugą, osobną instalację zamiast aktualizacji.
+          // Odpowiednik dla Google Play (Package ID w PWABuilderze): pl.wszystkokolwiek.ithealth
+          id: '/?app=ithealth',
           start_url: '/',
           scope: '/',
           name: 'IT Health v2.0',

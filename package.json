@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "rules:check": "node scripts/check-firebase-config.mjs",
+    "rules:deploy": "node scripts/check-firebase-config.mjs && npx --yes firebase-tools deploy --only firestore:rules"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -255,6 +255,28 @@ export function Integrations() {
         )}
         </div>
       </div>
+
+      {/* Wymagane przy publikacji w sklepach: polityka prywatności oraz osobna
+          ścieżka usunięcia konta i danych. */}
+      <div className="flex items-center justify-center gap-2 pt-2 text-[11px] text-slate-500">
+        <a
+          href="/prywatnosc.html"
+          target="_blank"
+          rel="noopener"
+          className="hover:text-slate-300 underline"
+        >
+          Polityka prywatności
+        </a>
+        <span aria-hidden="true">·</span>
+        <a
+          href="/usuniecie-konta.html"
+          target="_blank"
+          rel="noopener"
+          className="hover:text-slate-300 underline"
+        >
+          Usunięcie konta
+        </a>
+      </div>
     </div>
   );
 }

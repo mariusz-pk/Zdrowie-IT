@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usunięcie konta — IT Health v2.0 | Wszystkokolwiek</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 4rem;
+    background: #020617; color: #e2e8f0;
+    font: 16px/1.65 "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  }
+  .wrap { max-width: 42rem; margin: 0 auto; }
+  .logo { display: flex; align-items: center; gap: .6rem; margin-bottom: 2rem; }
+  .logo .mark {
+    width: 40px; height: 40px; border-radius: 10px;
+    border: 2px solid #164e63; background: #0f172a; color: #22d3ee;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .logo b { font-size: 1.05rem; }
+  .logo span { display: block; font-size: .65rem; letter-spacing: .18em;
+    text-transform: uppercase; color: rgba(34,211,238,.8); font-weight: 400; }
+  h1 { font-size: 1.75rem; margin: 0 0 .35rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .6rem; color: #f1f5f9; }
+  .meta { color: #64748b; font-size: .85rem; margin-bottom: 2rem; }
+  p, li { color: #cbd5e1; }
+  a { color: #22d3ee; }
+  strong { color: #f1f5f9; }
+  ol.steps { padding-left: 0; list-style: none; counter-reset: s; }
+  ol.steps li {
+    counter-increment: s; position: relative;
+    padding: .9rem 1rem .9rem 3.25rem; margin: .6rem 0;
+    background: #0f172a; border: 1px solid #1e293b; border-radius: 14px;
+  }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 1rem; top: .9rem;
+    width: 1.6rem; height: 1.6rem; border-radius: 50%;
+    background: #22d3ee; color: #042f3d;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .85rem;
+  }
+  .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .card.tip { border-color: rgba(34,211,238,.35); background: rgba(34,211,238,.07); }
+  .card.warn { border-color: rgba(244,63,94,.35); background: rgba(244,63,94,.07); }
+  table { width: 100%; border-collapse: collapse; margin: .75rem 0; font-size: .92rem; }
+  th, td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid #1e293b; vertical-align: top; }
+  th { color: #94a3b8; font-weight: 600; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #1e293b;
+    color: #64748b; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="logo">
+    <div class="mark">&gt;_</div>
+    <div><b>IT Health v2.0</b><span>Wszystkokolwiek</span></div>
+  </div>
+
+  <h1>Usunięcie konta i danych</h1>
+  <p class="meta">Aplikacja „IT Health v2.0 by WszystkokolwiekWFormie”</p>
+
+  <p>
+    Możesz w każdej chwili usunąć swoje dane — bez podawania powodu. Twoje dane znajdują się
+    w <strong>dwóch niezależnych miejscach</strong>, więc poniżej opisujemy obie drogi.
+    Jeśli nigdy nie logowałeś się kontem Google, dotyczy Cię wyłącznie pierwsza część.
+  </p>
+
+  <div class="card tip">
+    <strong>Większość Twoich danych nigdy nie opuściła telefonu.</strong> Pomiary z modułu INCIDENT
+    (tętno, saturacja, objawy), lista zakupów, historia nawodnienia i ustawienia zapisane są
+    wyłącznie w pamięci Twojej przeglądarki. Usuwasz je samodzielnie, natychmiast i bez naszego udziału.
+  </div>
+
+  <h2>1. Dane na Twoim urządzeniu — usuwasz sam</h2>
+  <p>
+    Wystarczy wyczyścić dane witryny w przeglądarce. Sposób zależy od urządzenia:
+  </p>
+  <ol class="steps">
+    <li><strong>Aplikacja zainstalowana na ekranie głównym:</strong> przytrzymaj ikonę i wybierz
+        <em>Odinstaluj</em> lub <em>Usuń</em>. Na Androidzie dodatkowo:
+        <em>Ustawienia → Aplikacje → IT Health → Pamięć → Wyczyść dane</em>.</li>
+    <li><strong>Przeglądarka Chrome:</strong> <em>Ustawienia → Prywatność i bezpieczeństwo →
+        Ustawienia witryn → Zapisane dane</em>, odszukaj adres aplikacji i wybierz <em>Usuń</em>.</li>
+    <li><strong>Safari (iPhone):</strong> <em>Ustawienia → Safari → Zaawansowane → Dane witryn</em>,
+        odszukaj adres aplikacji i przesuń, aby usunąć.</li>
+  </ol>
+  <p>
+    Po tej operacji z urządzenia znika wszystko, łącznie z aktywacją — przy kolejnym uruchomieniu
+    aplikacja poprosi o kod dostępu. <strong>Zachowaj swój kod</strong>, jeśli planujesz wrócić.
+  </p>
+
+  <h2>2. Konto i dane w chmurze — napisz do nas</h2>
+  <p>
+    Dotyczy wyłącznie osób, które zalogowały się kontem Google. Aby trwale usunąć konto
+    i zsynchronizowaną historię rutyny, wyślij wiadomość na
+    <a href="mailto:biuro@wszystkokolwiek.pl?subject=Usuni%C4%99cie%20konta%20IT%20Health">biuro@wszystkokolwiek.pl</a>
+    <strong>z adresu e-mail powiązanego z kontem</strong> — to pozwala nam potwierdzić Twoją tożsamość.
+  </p>
+  <p>
+    W treści wystarczy jedno zdanie, np. „Proszę o usunięcie mojego konta i danych w aplikacji IT Health”.
+    Usuwamy dane bezzwłocznie, najpóźniej w ciągu <strong>30 dni</strong> od zgłoszenia
+    (termin wymagany przez RODO), i potwierdzamy wykonanie zwrotnym e-mailem.
+  </p>
+
+  <div class="card tip">
+    <strong>Chcesz tylko zatrzymać wysyłanie danych do chmury?</strong> Nie musisz nic usuwać —
+    wystarczy, że wylogujesz się w zakładce <em>CLOUD &amp; ALERTS</em>. Aplikacja natychmiast
+    przestanie cokolwiek wysyłać i będzie działać wyłącznie lokalnie, z zachowaniem Twojej historii
+    na urządzeniu.
+  </div>
+
+  <h2>Co dokładnie zostaje usunięte</h2>
+  <table>
+    <tr><th>Dane</th><th>Gdzie były</th><th>Co się z nimi dzieje</th></tr>
+    <tr><td>Historia dziennej rutyny (nawyki, sen, energia, kroki)</td>
+        <td>Chmura</td><td>Usuwane trwale</td></tr>
+    <tr><td>Konto (adres e-mail, identyfikator Google)</td>
+        <td>Chmura</td><td>Usuwane trwale</td></tr>
+    <tr><td>Pomiary zdrowotne (tętno, saturacja, objawy)</td>
+        <td>Twoje urządzenie</td><td>Usuwasz samodzielnie, natychmiast</td></tr>
+    <tr><td>Lista zakupów, nawodnienie, ustawienia, aktywacja</td>
+        <td>Twoje urządzenie</td><td>Usuwasz samodzielnie, natychmiast</td></tr>
+  </table>
+  <p>
+    <strong>Nie zachowujemy żadnych kopii archiwalnych.</strong> Po usunięciu konta nie jesteśmy
+    w stanie odtworzyć Twoich danych — nawet na Twoją prośbę.
+  </p>
+  <p>
+    Jedyne, co pozostaje przez krótki, standardowy okres, to techniczne logi serwera hostingu
+    (adresy IP połączeń), generowane automatycznie przy każdym ruchu w internecie i niepowiązane
+    z treścią Twoich wpisów.
+  </p>
+
+  <h2>Cofnięcie dostępu po stronie Google</h2>
+  <p>
+    Niezależnie od powyższego możesz w każdej chwili odebrać aplikacji uprawnienia do swojego konta
+    Google. Wejdź na
+    <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>,
+    odszukaj IT Health i wybierz <em>Usuń dostęp</em>. Samo cofnięcie dostępu nie kasuje danych
+    zapisanych wcześniej w chmurze — o ich usunięcie poproś nas e-mailem, jak w punkcie 2.
+  </p>
+
+  <div class="card warn">
+    <strong>Uwaga:</strong> usunięcie danych jest nieodwracalne i nie ma okresu przejściowego
+    ani „kosza”. Jeśli chcesz zachować swoją historię, zapisz ją wcześniej we własnym zakresie.
+  </div>
+
+  <footer>
+    © Wszystkokolwiek · <a href="/prywatnosc.html">Polityka prywatności</a> ·
+    <a href="/">Wróć do aplikacji</a>
+  </footer>
+
+</div>
+</body>
+</html>

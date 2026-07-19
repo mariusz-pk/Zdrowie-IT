@@ -24,7 +24,8 @@ service cloud.firestore {
     function isValidCronDay(data) {
       return data.keys().hasOnly([
         'initScript', 'threadSleep', 'neatProcess', 'neatSteps',
-        'shutdownSequence', 'vitaminD3K2', 'energia', 'sen', 'userId', 'updatedAt'
+        'shutdownSequence', 'vitaminD3K2', 'energia', 'sen', 'hydration',
+        'userId', 'updatedAt'
       ]) &&
       data.userId == request.auth.uid &&
       (data.get('initScript', false) is bool) &&
@@ -36,11 +37,19 @@ service cloud.firestore {
       (data.get('vitaminD3K2', false) is bool) &&
       (data.get('energia', 0) is number) &&
       (data.get('sen', 0) is number) &&
+      (data.get('hydration', 0) is number) &&
       (data.get('updatedAt', request.time) == request.time);
     }
 
     match /users/{userId}/cron_history/{date} {
-      allow read, write: if isSignedIn() && request.auth.uid == userId;
+      allow read: if isSignedIn() && request.auth.uid == userId;
+
+      // Zapis dodatkowo waliduje kształt dokumentu — bez tego warunku funkcja
+      // isValidCronDay pozostawała martwa i do bazy trafiały dowolne pola.
+      allow write: if isSignedIn()
+        && request.auth.uid == userId
+        && isValidId(date)
+        && isValidCronDay(incoming());
     }
   }
 }

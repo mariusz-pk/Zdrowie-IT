@@ -66,3 +66,16 @@ Aplikacja jest produktem płatnym — link do niej otrzymuje wyłącznie nabywca
 - **Trwałość aktywacji:** Po pomyślnej weryfikacji fakt aktywacji zapisywany jest w pamięci przeglądarki. Aplikacja nie pyta o kod ponownie — ani przy kolejnych uruchomieniach, ani po zamknięciu i ponownym otwarciu z ekranu głównego telefonu.
 - **Zakres aktywacji:** Aktywacja dotyczy konkretnej przeglądarki na danym urządzeniu. Uruchomienie aplikacji na drugim telefonie lub w trybie prywatnym wymaga ponownego podania kodu. Wyczyszczenie danych strony w przeglądarce również usuwa aktywację.
 - **Prywatność kodu:** Sam kod nie jest nigdzie przechowywany — zapisywany jest wyłącznie wynik jego przetworzenia funkcją kryptograficzną. Kody nie znajdują się także w kodzie źródłowym aplikacji, mimo że repozytorium projektu jest publiczne.
+
+## 9. PRYWATNOŚĆ I TWOJE DANE
+Aplikacja jasno rozdziela to, co zostaje na Twoim telefonie, od tego, co trafia do chmury. Rozróżnienie jest celowe: **najwrażliwsze dane nigdy nie opuszczają urządzenia.**
+
+- **Zostaje wyłącznie na telefonie:** wszystkie pomiary z modułu INCIDENT (tętno spoczynkowe, saturacja, zgłaszane objawy), lista zakupów z DEPS, historia nawodnienia, ustawienia powiadomień oraz sama aktywacja kodem. Do tych informacji nie ma dostępu nikt poza Tobą — nie są przesyłane na żaden serwer.
+- **Trafia do chmury, ale dopiero po zalogowaniu:** dane konta Google oraz historia dziennej rutyny z modułu CRON (odznaczone nawyki, ocena snu i energii, kroki, nawodnienie). Bez logowania aplikacja jest w pełni funkcjonalna i nie wysyła niczego.
+- **Zgoda pod Twoją kontrolą:** ocena snu i energii powiązana z kontem to w świetle RODO dane dotyczące zdrowia, czyli kategoria chroniona surowiej niż zwykłe dane. Przetwarzamy je wyłącznie na podstawie Twojej wyraźnej zgody — **zalogowanie oznacza jej udzielenie, a wylogowanie natychmiastowe cofnięcie.** Od momentu wylogowania aplikacja przestaje wysyłać cokolwiek do chmury.
+- **Czego aplikacja nie robi:** nie zawiera reklam, narzędzi analitycznych ani mechanizmów śledzących, nie profiluje użytkownika i nie korzysta z żadnych usług sztucznej inteligencji. Nie łączy się z opaskami, zegarkami ani zewnętrznymi aplikacjami zdrowotnymi — wszystkie wartości wpisujesz ręcznie.
+- **Nie jest wyrobem medycznym:** komunikaty pojawiające się przy wpisanych wartościach tętna czy saturacji mają charakter wyłącznie informacyjny, nie stanowią diagnozy ani porady medycznej.
+
+Pełne dokumenty dostępne są z poziomu aplikacji, w zakładce **CLOUD & ALERTS**, na dole ekranu:
+- **Polityka prywatności** — kto jest administratorem danych, co dokładnie jest przetwarzane, na jakiej podstawie prawnej, gdzie jest przechowywane i jakie masz prawa.
+- **Usunięcie konta** — instrukcja usunięcia danych: lokalnych (robisz to samodzielnie, natychmiast) oraz tych w chmurze (zgłoszenie e-mailem, realizowane najpóźniej w ciągu 30 dni).

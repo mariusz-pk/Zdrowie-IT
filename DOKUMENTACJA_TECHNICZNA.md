@@ -182,3 +182,33 @@ Nazwa pakietu występuje w trzech odrębnych miejscach, które łatwo ze sobą p
   otrzymywać aktualizacje, a instalacja tworzy drugą, osobną ikonę.
 - **`name` w `package.json`** nie jest widoczny dla użytkowników. Pakiet jest prywatny
   (`"private": true`), więc nazwa nie trafia do rejestru npm.
+
+## 11. Strony prawne (wymagane przy publikacji w sklepach)
+W katalogu `public/` znajdują się dwie statyczne strony HTML, serwowane bezpośrednio przez hosting
+i niewymagające udziału Reacta:
+
+| Plik | Adres produkcyjny | Rola |
+| --- | --- | --- |
+| `public/prywatnosc.html` | `/prywatnosc.html` | polityka prywatności (RODO) |
+| `public/usuniecie-konta.html` | `/usuniecie-konta.html` | procedura usunięcia konta i danych |
+
+Odnośniki do obu stron umieszczone są w stopce zakładki **CLOUD & ALERTS**
+(`/src/components/Integrations.tsx`), czyli w miejscu, w którym użytkownik loguje się kontem Google.
+
+- **Oba adresy są wymagane przez Google Play.** Polityka prywatności jest obowiązkowa dla każdej
+  aplikacji, a osobny adres procedury usunięcia konta — dla każdej aplikacji umożliwiającej
+  logowanie. Ich brak skutkuje odrzuceniem zgłoszenia.
+- **Podstawa prawna dla danych o zdrowiu:** ocena snu i poziomu energii powiązana z kontem
+  użytkownika stanowi daną dotyczącą zdrowia w rozumieniu art. 9 RODO. Podstawą przetwarzania jest
+  art. 9 ust. 2 lit. a — wyraźna zgoda, wyrażana przez zalogowanie i cofana przez wylogowanie.
+  Ten mechanizm musi pozostać spójny z zachowaniem aplikacji: wylogowanie ma natychmiast przerywać
+  synchronizację.
+- **Treść stron opisuje rzeczywisty stan kodu**, nie ogólniki. Przed ich napisaniem zweryfikowano:
+  zależność `@google/genai` nie jest nigdzie używana, `measurementId` w konfiguracji Firebase jest
+  pusty (brak Analytics), a w `src/` nie występują żadne wywołania `fetch` poza SDK Firebase.
+  **Przy każdej zmianie zakresu przetwarzanych danych — nowe pole synchronizowane do Firestore,
+  nowa integracja, dodanie analityki — obie strony wymagają aktualizacji.**
+- Strona usuwania konta celowo nie odsyła do przycisku w aplikacji, ponieważ taka funkcja nie jest
+  zaimplementowana. Opisuje samodzielne czyszczenie danych lokalnych, zgłoszenie mailowe dla danych
+  w chmurze (termin do 30 dni) oraz cofnięcie uprawnień w ustawieniach konta Google. Docelowo
+  warto zaimplementować usuwanie konta w samej aplikacji — Google Play coraz częściej tego oczekuje.

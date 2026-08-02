@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pl.wszystkokolwiek.ithealth",
+      "sha256_cert_fingerprints": [
+        "FE:3B:D3:92:EC:8C:A6:AD:C5:92:5E:A5:2C:E1:CB:63:BD:EC:92:8B:27:A2:D8:6D:3F:B1:62:6C:82:27:CD:8A",
+        "30:1C:AF:B1:CC:4F:9F:0C:87:D7:35:D4:B0:8C:4E:D4:B0:E0:CF:C4:F0:71:0D:2D:46:27:51:3C:28:C8:09:AD"
+      ]
+    }
+  }
+]

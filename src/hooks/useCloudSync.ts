@@ -1,7 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { collection, query, onSnapshot, setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../lib/auth';
+
+// Zapamiętane ostatnio zsynchronizowane konto — pozwala wykryć zmianę użytkownika
+// i nie pokazać / nie przejąć danych poprzedniego konta na tym samym urządzeniu.
+const LAST_UID_KEY = 'v2_last_synced_uid';
+
+const readLastUid = (): string | null => {
+  try {
+    return localStorage.getItem(LAST_UID_KEY);
+  } catch {
+    return null;
+  }
+};
+
+const writeLastUid = (uid: string | null) => {
+  try {
+    if (uid) localStorage.setItem(LAST_UID_KEY, uid);
+    else localStorage.removeItem(LAST_UID_KEY);
+  } catch {
+    // tryb prywatny bez dostępu do localStorage — pomijamy
+  }
+};
 
 export type DailyCronState = {
   initScript: boolean;
@@ -30,21 +51,47 @@ export const DEFAULT_STATE: DailyCronState = {
 export function useCloudSync(localHistory: Record<string, DailyCronState>, setLocalHistory: (val: any) => void) {
   const [user, setUser] = useState<User | null>(null);
   const [isSyncing, setIsSyncing] = useState(true);
+  const wasAuthedRef = useRef(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
-      if (!u) {
+      if (u) {
+        wasAuthedRef.current = true;
+      } else {
+        // Rozróżniamy prawdziwe wylogowanie od zimnego startu bez sesji:
+        // czyścimy dane konta tylko jeśli w tej sesji ktoś BYŁ zalogowany.
+        // Dzięki temu użytkownik korzystający wyłącznie lokalnie (sam kod, bez
+        // logowania Google) nigdy nie traci swoich danych przy starcie aplikacji.
+        if (wasAuthedRef.current) {
+          wasAuthedRef.current = false;
+          writeLastUid(null);
+          setLocalHistory({});
+        }
         setIsSyncing(false);
       }
     });
     return () => unsub();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!user) return;
 
     setIsSyncing(true);
+
+    // Wykryj zmianę konta na tym urządzeniu.
+    const previousUid = readLastUid();
+    const isFirstEverLogin = previousUid === null;
+    const isAccountSwitch = previousUid !== null && previousUid !== user.uid;
+
+    // Przy zmianie konta natychmiast czyścimy widok, żeby nowy użytkownik ani
+    // przez chwilę nie zobaczył danych poprzedniego konta.
+    if (isAccountSwitch) {
+      setLocalHistory({});
+    }
+    writeLastUid(user.uid);
+
     const q = query(collection(db, 'users', user.uid, 'cron_history'));
     const unsub = onSnapshot(q, (snapshot) => {
       const cloudData: Record<string, DailyCronState> = {};
@@ -63,24 +110,27 @@ export function useCloudSync(localHistory: Record<string, DailyCronState>, setLo
         };
       });
 
-      // Merge cloud data over local history. Overwrite local if conflict, assuming cloud is master.
-      // One time initially, if local has data that cloud doesn't, we can upload it.
-      let migrated = false;
-      const toUpload = [];
-      
-      for (const date of Object.keys(localHistory)) {
-        if (!cloudData[date]) {
-          migrated = true;
-          cloudData[date] = localHistory[date];
-          toUpload.push({ date, data: localHistory[date] });
+      // Migrujemy dane lokalne do chmury TYLKO przy pierwszym logowaniu na tym
+      // urządzeniu (użytkownik korzystał z appki lokalnie i teraz włącza backup).
+      // Przy zmianie konta świadomie nie migrujemy — te dane należą do poprzedniego
+      // konta i nie mogą trafić do chmury nowego użytkownika.
+      const toUpload: { date: string; data: DailyCronState }[] = [];
+
+      if (isFirstEverLogin) {
+        for (const date of Object.keys(localHistory)) {
+          if (!cloudData[date]) {
+            cloudData[date] = localHistory[date];
+            toUpload.push({ date, data: localHistory[date] });
+          }
         }
       }
 
       setLocalHistory((prev: any) => {
-         // Simple deep equality check could be done, but for now we just overwrite.
-         return { ...prev, ...cloudData };
+         // Po zmianie konta bazujemy wyłącznie na danych z chmury nowego konta.
+         const base = isAccountSwitch ? {} : prev;
+         return { ...base, ...cloudData };
       });
-      
+
       if (toUpload.length > 0) {
         Promise.all(toUpload.map(item => 
           updateCloudDay(user.uid, item.date, item.data)

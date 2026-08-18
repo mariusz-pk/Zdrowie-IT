@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { KeyRound, Loader2, ShieldCheck } from 'lucide-react';
 import { aktywujKodem, normalizujKod } from '../lib/access';
+import { MedicalDisclaimer } from './MedicalDisclaimer';
 
 export function ActivationGate({ onActivated }: { onActivated: () => void }) {
   const [kod, setKod] = useState('');
@@ -89,6 +90,8 @@ export function ActivationGate({ onActivated }: { onActivated: () => void }) {
             Kod podajesz raz — aplikacja zapamięta aktywację.
           </p>
         </form>
+
+        <MedicalDisclaimer />
 
         <p className="text-[10px] text-slate-600 tracking-wider uppercase text-center">
           by WszystkokolwiekWFormie

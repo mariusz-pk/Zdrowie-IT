@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HeartPulse, AlertTriangle, ShieldCheck, History, Activity, AlertCircle } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { MedicalDisclaimer } from './MedicalDisclaimer';
 
 interface TelemetryLog {
   id: string;
@@ -74,6 +75,8 @@ export function IncidentResponse() {
             <p className="text-xs text-slate-400 font-mono">Resting Heart Rate & SpO2 Check</p>
           </div>
         </div>
+
+        <MedicalDisclaimer />
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

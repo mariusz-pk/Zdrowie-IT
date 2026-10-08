@@ -23,7 +23,6 @@ Przed commitem zmian w `src/` uruchom `npm run lint`.
   w `src/lib/accessCodes.ts`, a ten plik zmienia tylko generator:
   `node scripts/generate-codes.mjs <ile> <etykieta>`. Nie edytuj go ręcznie.
 - Kody jawne leżą poza repo, w `D:\Claude_Env\produkty\zdrowie-it\kody-dostepu\`.
-  Uwaga: generator ma jeszcze starą ścieżkę (`docs\kody-dostepu`) — do poprawy.
 - `.env*` (poza `.env.example`), `kody-*.csv`, `kody-dostepu/` — nie czytaj, nie edytuj,
   nie dodawaj do gita (żadnego `git add -f`).
 - Pilnuje tego hook `.claude/hooks/chron-sekrety.mjs` (PreToolUse). Hook przypomina —

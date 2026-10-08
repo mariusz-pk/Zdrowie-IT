@@ -4,7 +4,7 @@
 // Przyklad:      node scripts/generate-codes.mjs 200 partia-01
 //
 // Do repozytorium trafiaja WYLACZNIE hashe (src/lib/accessCodes.ts).
-// Kody jawne laduja poza repo, w D:\Claude_Env\docs\kody-dostepu\ — repo jest
+// Kody jawne laduja poza repo, w D:\Claude_Env\produkty\zdrowie-it\kody-dostepu\ — repo jest
 // publiczne, wiec lista kodow w repo byla by widoczna dla kazdego.
 
 import { webcrypto as crypto } from 'node:crypto';
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const KATALOG_PROJEKTU = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PLIK_HASHY = join(KATALOG_PROJEKTU, 'src', 'lib', 'accessCodes.ts');
-const KATALOG_KODOW = 'D:\\Claude_Env\\docs\\kody-dostepu';
+const KATALOG_KODOW = 'D:\\Claude_Env\\produkty\\zdrowie-it\\kody-dostepu';
 
 // Bez znaków mylących przy przepisywaniu: I, O, 0, 1.
 const ALFABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';

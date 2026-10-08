@@ -15,7 +15,8 @@ npm run rules:check    # zgodność firebase.json z bazą, której używa aplika
 npm run rules:deploy   # sprawdzian + publikacja reguł Firestore — tylko na wyraźną prośbę
 ```
 
-Przed commitem zmian w `src/` uruchom `npm run lint`.
+Przed commitem zmian w `src/` uruchom `npm run lint`. Po każdej edycji `.ts`/`.tsx` i konfiguracji
+Firebase hook `.claude/hooks/po-edycji.mjs` uruchamia `tsc` lub `rules:check` sam (wymaga `npm install`).
 
 ## Sekrety — repozytorium jest PUBLICZNE
 

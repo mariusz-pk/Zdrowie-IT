@@ -104,7 +104,7 @@ przeglądarki — nie ma serwera licencji.
   że odtworzenie kodów z samych hashy jest niepraktyczne.
 - **Generowanie kolejnych partii:** `node scripts/generate-codes.mjs 200 partia-02`. Skrypt dopisuje
   nowe hashe do istniejących (kody już sprzedane pozostają ważne), a listę kodów jawnych zapisuje
-  poza repozytorium, do `D:\Claude_Env\docs\kody-dostepu\`.
+  poza repozytorium, do `D:\Claude_Env\produkty\zdrowie-it\kody-dostepu\`.
 - **Flaga `isPro`** (`/src/hooks/useAccess.ts`) jest jednym źródłem prawdy o dostępie. W Fazie 1
   kod jest bramką wejściową, więc każdy kto wszedł ma pełną wersję. Przejście na model LITE/PRO
   sprowadza się do ustawienia `WYMAGAJ_KODU_NA_WEJSCIU = false` w `/src/lib/access.ts` — aplikacja

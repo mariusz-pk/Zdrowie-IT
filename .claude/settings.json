@@ -11,6 +11,19 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/po-edycji.mjs\"",
+            "timeout": 90,
+            "statusMessage": "Sprawdzam tsc / rules:check..."
+          }
+        ]
+      }
     ]
   }
 }

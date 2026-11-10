@@ -31,6 +31,8 @@ export type DailyCronState = {
   neatSteps: string;
   shutdownSequence: boolean;
   vitaminD3K2: boolean;
+  digitalSunset: boolean;
+  hibernate: boolean;
   energia: number;
   sen: number;
   hydration: number;
@@ -43,10 +45,25 @@ export const DEFAULT_STATE: DailyCronState = {
   neatSteps: '8000',
   shutdownSequence: false,
   vitaminD3K2: false,
+  digitalSunset: false,
+  hibernate: false,
   energia: 5,
   sen: 5,
   hydration: 0,
 };
+
+// Pozycje do odhaczenia w Daily Cron. Score liczy je proporcjonalnie (razem max 50 pkt),
+// więc dodanie pozycji nie wymaga zmiany wag w kilku miejscach.
+export const CHECK_KEYS = [
+  'initScript', 'vitaminD3K2', 'threadSleep', 'neatProcess',
+  'shutdownSequence', 'digitalSunset', 'hibernate',
+] as const;
+
+export const countChecks = (state: Partial<DailyCronState> | undefined) =>
+  state ? CHECK_KEYS.filter(k => state[k]).length : 0;
+
+export const checksPoints = (state: Partial<DailyCronState> | undefined) =>
+  (countChecks(state) / CHECK_KEYS.length) * 50;
 
 export function useCloudSync(localHistory: Record<string, DailyCronState>, setLocalHistory: (val: any) => void) {
   const [user, setUser] = useState<User | null>(null);
@@ -104,6 +121,8 @@ export function useCloudSync(localHistory: Record<string, DailyCronState>, setLo
           neatSteps: data.neatSteps || '8000',
           shutdownSequence: data.shutdownSequence || false,
           vitaminD3K2: data.vitaminD3K2 || false,
+          digitalSunset: data.digitalSunset || false,
+          hibernate: data.hibernate || false,
           energia: data.energia || 5,
           sen: data.sen || 5,
           hydration: data.hydration || 0,

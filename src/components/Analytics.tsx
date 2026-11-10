@@ -1,25 +1,10 @@
 import { useMemo, useRef, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { DailyCronState, checksPoints } from '../hooks/useCloudSync';
 import { TrendingUp, CalendarDays, Zap, Moon, Activity } from 'lucide-react';
-
-type DailyCronState = {
-  initScript: boolean;
-  threadSleep: boolean;
-  neatProcess: boolean;
-  neatSteps: string;
-  shutdownSequence: boolean;
-  energia: number;
-  sen: number;
-  hydration: number;
-};
 
 const calculateScore = (state: DailyCronState | undefined) => {
   if (!state) return 0;
-  let checks = 0;
-  if (state.initScript) checks++;
-  if (state.threadSleep) checks++;
-  if (state.neatProcess) checks++;
-  if (state.shutdownSequence) checks++;
   
   const energiaPoints = (state.energia / 10) * 15;
   const senPoints = (state.sen / 10) * 15;
@@ -32,7 +17,7 @@ const calculateScore = (state: DailyCronState | undefined) => {
   
   const hydrationPoints = Math.min((state.hydration || 0) / currentGoal, 1) * 20;
 
-  return Math.min(100, Math.max(0, Math.round((checks * 10) + energiaPoints + senPoints + hydrationPoints)));
+  return Math.min(100, Math.max(0, Math.round(checksPoints(state) + energiaPoints + senPoints + hydrationPoints)));
 };
 
 const getLastNDays = (n: number) => {

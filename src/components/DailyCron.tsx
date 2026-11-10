@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useCloudSync, DailyCronState, DEFAULT_STATE } from '../hooks/useCloudSync';
-import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, CloudOff, Save, Check } from 'lucide-react';
+import { useCloudSync, DailyCronState, DEFAULT_STATE, checksPoints } from '../hooks/useCloudSync';
+import { Droplets, Pill, Coffee, Activity, Battery, Zap, Moon, Cloud, MonitorOff, BedDouble, CloudOff, Save, Check } from 'lucide-react';
 import { HydrationLogger } from './RuntimeElixirs';
 
 const getLocalDateString = () => {
@@ -19,7 +19,8 @@ export function DailyCron() {
   const today = getLocalDateString();
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
-  const state = history[selectedDate] || DEFAULT_STATE;
+  // Starsze dni nie mają nowych pól — uzupełniamy je wartościami domyślnymi.
+  const state = { ...DEFAULT_STATE, ...history[selectedDate] };
   const isReadOnly = selectedDate !== today;
 
   const [score, setScore] = useState(0);
@@ -60,15 +61,7 @@ export function DailyCron() {
   }, [history, today]);
 
   useEffect(() => {
-    // Score Calculation
-    let checks = 0;
-    if (state.initScript) checks++;
-    if (state.threadSleep) checks++;
-    if (state.neatProcess) checks++;
-    if (state.shutdownSequence) checks++;
-    if (state.vitaminD3K2) checks++;
-    
-    // (5 checks * 10 points = max 50 points) + 15 (energia) + 15 (sen) + 20 (hydration) = 100
+    // Score: pozycje do odhaczenia (razem max 50) + 15 (energia) + 15 (sen) + 20 (nawodnienie) = 100
     const energiaPoints = (state.energia / 10) * 15;
     const senPoints = (state.sen / 10) * 15;
     
@@ -81,7 +74,7 @@ export function DailyCron() {
     
     const hydrationPoints = Math.min((state.hydration || 0) / currentGoal, 1) * 20;
     
-    const calculatedScore = Math.round((checks * 10) + energiaPoints + senPoints + hydrationPoints);
+    const calculatedScore = Math.round(checksPoints(state) + energiaPoints + senPoints + hydrationPoints);
     setScore(Math.min(100, Math.max(0, calculatedScore)));
   }, [state]);
 
@@ -89,7 +82,8 @@ export function DailyCron() {
     if (isReadOnly) return;
     
     const newState = {
-      ...(history[today] || DEFAULT_STATE),
+      ...DEFAULT_STATE,
+      ...history[today],
       ...updates
     };
     
@@ -247,6 +241,20 @@ export function DailyCron() {
             className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
           <Battery className={`w-4 h-4 shrink-0 transition-colors ${state.shutdownSequence ? 'text-cyan-400' : 'text-slate-500'}`} />
           <span className={`text-sm transition-colors ${state.shutdownSequence ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Wieczorny Magnez <span className="text-xs text-slate-500">- shutdown_sequence</span></span>
+        </label>
+
+        <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
+          <input type="checkbox" checked={state.digitalSunset} onChange={() => handleCheck('digitalSunset')} disabled={isReadOnly}
+            className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <MonitorOff className={`w-4 h-4 shrink-0 transition-colors ${state.digitalSunset ? 'text-cyan-400' : 'text-slate-500'}`} />
+          <span className={`text-sm transition-colors ${state.digitalSunset ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>Ekrany off od 21:00 lub okulary blue-blocker <span className="text-xs text-slate-500">- digital_sunset</span></span>
+        </label>
+
+        <label className={`flex items-center gap-3 ${isReadOnly ? 'cursor-default' : 'cursor-pointer group'}`}>
+          <input type="checkbox" checked={state.hibernate} onChange={() => handleCheck('hibernate')} disabled={isReadOnly}
+            className="w-5 h-5 rounded border-cyan-700 bg-slate-900 text-cyan-400 focus:ring-cyan-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50" />
+          <BedDouble className={`w-4 h-4 shrink-0 transition-colors ${state.hibernate ? 'text-cyan-400' : 'text-slate-500'}`} />
+          <span className={`text-sm transition-colors ${state.hibernate ? 'text-slate-200' : 'text-slate-400'} ${!isReadOnly && 'group-hover:text-cyan-300'}`}>W łóżku przed 23:00 <span className="text-xs text-slate-500">- hibernate</span></span>
         </label>
       </div>
 

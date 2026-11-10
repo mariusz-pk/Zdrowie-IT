@@ -20,7 +20,8 @@ service cloud.firestore {
     function isValidCronDay(data) {
       return data.keys().hasOnly([
         'initScript', 'threadSleep', 'neatProcess', 'neatSteps',
-        'shutdownSequence', 'vitaminD3K2', 'energia', 'sen', 'hydration',
+        'shutdownSequence', 'vitaminD3K2', 'digitalSunset', 'hibernate',
+        'energia', 'sen', 'hydration',
         'userId', 'updatedAt'
       ]) &&
       data.userId == request.auth.uid &&
@@ -31,6 +32,8 @@ service cloud.firestore {
       (data.get('neatSteps', '').size() <= 20) &&
       (data.get('shutdownSequence', false) is bool) &&
       (data.get('vitaminD3K2', false) is bool) &&
+      (data.get('digitalSunset', false) is bool) &&
+      (data.get('hibernate', false) is bool) &&
       (data.get('energia', 0) is number) &&
       (data.get('sen', 0) is number) &&
       (data.get('hydration', 0) is number) &&

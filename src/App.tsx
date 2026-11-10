@@ -8,6 +8,7 @@ import { IncidentResponse } from './components/IncidentResponse';
 import { Analytics } from './components/Analytics';
 import { Integrations } from './components/Integrations';
 import { ActivationGate } from './components/ActivationGate';
+import { CHECK_KEYS, countChecks } from './hooks/useCloudSync';
 import { useAccess } from './hooks/useAccess';
 
 type Tab = 'cron' | 'deps' | 'elixirs' | 'incident' | 'stats' | 'integrations';
@@ -58,19 +59,13 @@ export default function App() {
         const snoozedDate = localStorage.getItem('v2_monit_snoozed_date');
         if (snoozedDate !== todayDateStr) {
           const historyRaw = localStorage.getItem('v2_dailyCronHistory_v2');
-          let pendingTasks = 5; // Default if nothing is set
+          let pendingTasks = CHECK_KEYS.length; // Default if nothing is set
           if (historyRaw) {
             try {
                const history = JSON.parse(historyRaw);
                const todayState = history[todayDateStr];
                if (todayState) {
-                 let checked = 0;
-                 if (todayState.initScript) checked++;
-                 if (todayState.threadSleep) checked++;
-                 if (todayState.neatProcess) checked++;
-                 if (todayState.shutdownSequence) checked++;
-                 if (todayState.vitaminD3K2) checked++;
-                 pendingTasks = 5 - checked;
+                 pendingTasks = CHECK_KEYS.length - countChecks(todayState);
                }
             } catch(e) {}
           }
